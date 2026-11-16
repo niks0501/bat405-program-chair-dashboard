@@ -1,53 +1,49 @@
-# Program Chair Analytics and Decision-Support Dashboard
+﻿# Program Chair Analytics and Decision-Support Dashboard
 
-An analytics dashboard that combines data from the Student and Faculty Portal and the Student Evaluation of Teaching Effectiveness (SETE). It helps program chairs monitor academic performance, assess teaching effectiveness, and make evidence-based decisions.
-
-> **Academic project for BAT 405, Batangas State University.**
-> This is an independent prototype. It is not an official university system, and it uses sample data only.
-
-**Live demo:** [add your Vercel URL here]
+A frontend-only React + Vite dashboard for the BAT 405 academic project at Batangas State University. All records are synthetic local samples; there is no backend, database, login or live Portal/SETE integration. The research model and benchmarks remain subject to validation.
 
 ## Features
 
-- Academic performance monitoring
-- Teaching effectiveness (SETE) insights
-- Program-level trends and comparisons
-- Decision-support views for program chairs
+- Overview with KPI trends and review priorities
+- Course Outcomes with search, sorting and course details
+- Retention trends and cohort spotlight
+- Teaching Evaluation with score and participation views
+- Records with filtered CSV downloads
+- Data Notes with definitions, proposed targets and limitations
+- Fixed red sidebar, responsive pages, keyboard controls and reduced-motion support
+- Browser-tab filter persistence
 
-## Tech Stack
+## Run locally
 
-- React + Vite
-- [add charts library, e.g. Recharts]
-- GitHub Actions (CI/CD)
-- Vercel (hosting)
-
-## Getting Started
-
-**Requirements:** Node.js 22 or newer, and npm.
+Requires Node.js 22 or newer and npm. No environment variables or secrets are required.
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/YOUR-USERNAME/bat405-program-chair-dashboard.git
+git clone https://github.com/niks0501/bat405-program-chair-dashboard.git
 cd bat405-program-chair-dashboard
-
-# 2. Install dependencies
-npm install
-
-# 3. Set up environment variables
-cp .env.example .env
-
-# 4. Run the dev server
+npm ci
 npm run dev
 ```
 
-## Scripts
+Open the local URL printed by Vite.
 
-| Command | What it does |
+| Command | Purpose |
 | --- | --- |
-| `npm run dev` | Start the development server |
-| `npm run build` | Build for production |
-| `npm run lint` | Check code style |
-| `npm run preview` | Preview the production build |
+| `npm run dev` | Start the local development server |
+| `npm run build` | Create the static production files in `dist/` |
+| `npm run preview` | Preview the production build locally |
+
+## Source structure
+
+- `src/pages/`: the six dashboard pages
+- `src/components/`: sidebar, dropdowns, charts, tables and tooltips
+- `src/data.js`: synthetic sample records and calculations
+- `src/*.css`: shared theme, motion and page layouts
+
+React renders charts using SVG. There are no external data APIs. An optional Google Fonts stylesheet falls back to system fonts when unavailable.
+
+## Data limitations
+
+Targets are proposed: course pass rate 85%, retention 90%, grade submission 100%, SETE effectiveness 80%, and participation 70%. Current institutional rules and the official SETE formula must be verified before real use. Section scores with fewer than 10 valid responses are suppressed. These sample indicators must not be used for automatic instructor rankings or personnel decisions.
 
 ## Team
 
@@ -56,13 +52,6 @@ npm run dev
 | niks0501 | Dev |
 | PierreEdriz | Dev |
 
-## Contributing
-
-1. Create a branch from `dev`: `git checkout -b feat/your-feature`
-2. Commit your changes: `git commit -m "feat: add your feature"`
-3. Push and open a Pull Request into `dev`
-4. Wait for the CI check to pass, then ask a teammate to review
-
 ## License
 
-Released under the [MIT License](LICENSE).
+[MIT](LICENSE).

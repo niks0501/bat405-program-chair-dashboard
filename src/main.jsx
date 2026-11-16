@@ -1,0 +1,14 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.jsx';
+import './styles.css';
+import './overview.css';
+import './courses.css';
+import './retention.css';
+import './teaching.css';
+import './records.css';
+import './notes.css';
+import './motion.css';
+import './theme.css';
+import './refinements.css';
+createRoot(document.getElementById('root')).render(<React.StrictMode><App /></React.StrictMode>);

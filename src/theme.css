@@ -1,0 +1,71 @@
+/* Shared palette: one brand red, neutral surfaces, semantic status colors. */
+:root{--red:#991b2b;--brand:#991b2b;--brand-hover:#801624;--ink:#374151;--muted:#6b7280;--line:#e5e7eb;--page:#f7f8fa}
+body{color:var(--ink)}
+.workspace>main{background:var(--page)}
+.chart text{fill:#6b7280}
+.overview-refined .metric{--metric-accent:#991b2b}
+.overview-refined .metric-spark,.metric-spark{color:#991b2b}
+.overview-refined .metric .track>span,.overview-refined .metric-bullet .track>span,.continuation-track>span,.course-chart-track>span,.overview-refined .overview-course-card .overview-bar-track>span{background:#991b2b}
+.overview-refined .overview-course-card .overview-bar-track>span.below-target,.course-chart-track>span.below{background:#c7a05e}
+.status.on-track{background:#edf8f0;color:#23723e}
+.status.watch{background:#fff5e5;color:#98600c}
+.status.at-risk{background:#fff0f1;color:#b1263b}
+.status.no-data{background:#f3f4f6;color:#6b7280}
+.positive,.course-gap-positive{color:#23723e}
+.negative{color:#b1263b}
+.neutral{color:#6b7280}
+.overview-refined .metric-tone-ok,.overview-refined .metric-tone-watch,.overview-refined .metric-tone-risk{--metric-accent:#991b2b}
+.course-stat.success strong{color:#23723e}.course-stat.warning strong{color:#98600c}
+.course-stat.accent strong,.definition-target b,.inspector-rate>strong,.retention-spotlight-rate>strong,.teaching-section-score strong{color:#991b2b}
+.legend-mark,.record-dot:not(.good):not(.review){background:#991b2b}
+.sidebar{background:#991b2b}
+
+/* Final palette: semantic colors communicate status, not decoration. */
+:root{--brand:#991b2b;--brand-hover:#801624;--ink:#1f2937;--muted:#6b7280;--border:#e5e7eb;--line:#e5e7eb;--surface:#fff;--surface-soft:#f9fafb;--page:#f7f8fa;--success:#23723e;--warning:#98600c;--danger:#b1263b}
+main h1,main h2,main h3{color:#1f2937}
+main .section-kicker{color:#991b2b}
+main .courses-intro p,main .snapshot-description,main .card-heading p,main .course-panel-note,main .card-footnote,main .definition-note,main .notes-scope-list p,main .benchmark-status-list p,main .notes-accordions details p,main .record-course small,main .bar-course small,main .course-chart-label small,main .review-copy p{color:#6b7280}
+main .course-stat>span,main .course-stat>small,main .definition-index,main .course-chart-key,main .course-scale,main .performance-scale,main .review-column-headings,main .records-meta,main .records-table-footer{color:#6b7280}
+main .course-stat>strong,main .metric-value-row>strong,main .review-gap>strong,main .performance-rate>b{color:#1f2937}
+main .course-stat.accent>strong{color:#991b2b}
+main .course-stat.success>strong{color:#23723e}
+main .course-stat.warning>strong{color:#98600c}
+main .course-gap-negative,main .performance-rate .gap-below{color:#98600c}
+main .course-gap-positive{color:#23723e}
+main .course-chart-summary .below-count{color:#98600c;background:#fff5e5}
+main .retention-guidance,main .notes-disclosure{background:#f9fafb;border-color:#e5e7eb;color:#374151}
+main .retention-guidance p,main .notes-disclosure p{color:#6b7280}
+main .teaching-participation-warning{background:#fff5e5;border-color:#e9d6ad;color:#98600c}
+main .teaching-participation-warning p,main .teaching-participation-warning button{color:#98600c}
+main .inspector-gap{background:#fff5e5;color:#98600c}
+main .inspector-gap.meets{background:#edf8f0;color:#23723e}
+main .notes-navigation button,main .records-categories strong,main .course-search input,main .record-course b,main .retention-table-link{color:#374151}
+main .records-categories .is-active strong,main .retention-table-link.current{color:#991b2b}
+main .review-number{color:#991b2b;background:#fff1f2}
+main .review-item>.status.on-track,main .status.on-track{color:#23723e;background:#edf8f0}
+main .review-item>.status.watch,main .status.watch{color:#98600c;background:#fff5e5}
+main .review-item>.status.at-risk,main .status.at-risk{color:#b1263b;background:#fff0f1}
+main .positive{color:#23723e}main .negative{color:#b1263b}main .neutral{color:#6b7280}
+.chart text{fill:#6b7280}
+.filter-bar .dropdown-label,.dropdown-trigger{color:#374151}
+.dropdown-options li{color:#374151}.dropdown-options li[aria-selected="true"],.dropdown-options li.option-active{color:#991b2b}
+.filter-bar>.filter-reset:disabled{color:#6b7280;background:#f9fafb;border-color:#e5e7eb}
+.sidebar .brand-copy,.sidebar .nav-text,.sidebar .footer-copy{color:inherit}
+.sidebar .brand-copy small,.sidebar .footer-copy small{color:#ffe4e6}
+
+/* Theme-matched scrollbars across the dashboard. */
+*{scrollbar-color:#991b2b #f3f4f6;scrollbar-width:thin}
+*::-webkit-scrollbar{width:9px;height:9px}
+*::-webkit-scrollbar-track{background:#f3f4f6}
+*::-webkit-scrollbar-thumb{background:#991b2b;border:2px solid #f3f4f6;border-radius:10px}
+*::-webkit-scrollbar-thumb:hover{background:#801624}
+*::-webkit-scrollbar-corner{background:#f3f4f6}
+@media(forced-colors:active){*{scrollbar-color:auto}}
+
+/* Filled hover feedback for chart term selectors. */
+main .term-buttons button:hover,main .term-buttons button.selected:hover{background:#991b2b!important;border-color:#991b2b!important;color:#fff!important}
+main .term-buttons button:active{background:#801624!important;border-color:#801624!important;color:#fff!important}
+
+/* Red chart and course detail tooltips. */
+.floating-detail-tooltip{background:#991b2b;color:#fff}
+.floating-detail-tooltip>span,.floating-detail-tooltip>strong,.floating-detail-tooltip b{color:#fff}

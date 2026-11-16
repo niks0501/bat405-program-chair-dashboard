@@ -1,0 +1,170 @@
+/* Shared motion system: restrained feedback with no content displacement. */
+:root{--motion-fast:150ms;--motion-normal:220ms;--motion-slow:280ms;--motion-ease:cubic-bezier(.22,.68,0,1)}
+button,a,input,summary{touch-action:manipulation}
+button,a,input,summary,.dropdown-options li{transition:background-color var(--motion-fast) ease,border-color var(--motion-fast) ease,color var(--motion-fast) ease,box-shadow var(--motion-fast) ease}
+button:disabled{cursor:not-allowed}
+button:not(:disabled):active{filter:brightness(.97)}
+:where(button,a,input,summary,[tabindex]):focus-visible{outline:2px solid #6b7280;outline-offset:3px}
+.sidebar :where(a,button):focus-visible{outline-color:#fbd2dd}
+.dropdown-trigger svg{transition:transform var(--motion-normal) var(--motion-ease)}
+.dropdown-options{transform-origin:top center;animation:menu-appear 150ms var(--motion-ease) both}
+@keyframes menu-appear{from{opacity:0;transform:translateY(-4px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+.filter-dropdown:has(.dropdown-options){z-index:35}
+.dropdown-options li{transition:background-color 100ms ease,color 100ms ease}
+.dropdown-options li:active{background:#f8dfe7}
+.active-filter-chip{animation:chip-appear 150ms ease-out}
+@keyframes chip-appear{from{opacity:0;transform:translateY(2px)}to{opacity:1;transform:translateY(0)}}
+.page-content{animation:page-appear 220ms var(--motion-ease) both}
+@keyframes page-appear{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.card,.course-stat{transition:border-color var(--motion-normal) ease,box-shadow var(--motion-normal) ease}
+.track>span,.overview-bar-track>span,.course-chart-track>span,.continuation-track>span{transition:width var(--motion-slow) var(--motion-ease),background-color var(--motion-normal) ease}
+tbody tr{transition:background-color var(--motion-fast) ease}
+.courses-page tbody tr:hover,.overview-page tbody tr:hover{background:#fdf8fa}
+.inspector-action>span,.text-action>span,.review-item>button>span,.notes-closing button>span{transition:transform var(--motion-fast) ease;display:inline-block}
+.inspector-action:hover>span,.text-action:hover>span,.review-item>button:hover>span,.notes-closing button:hover>span{transform:translate(2px,-2px)}
+.notes-accordions summary>span{transition:transform var(--motion-normal) var(--motion-ease)}
+.notes-accordions details[open]>p{animation:page-appear 180ms ease-out}
+@media(hover:hover) and (pointer:fine){
+.course-stat:hover{border-color:#e5e7eb;box-shadow:0 4px 14px #45121c06}
+.card:hover{box-shadow:0 4px 14px #45121c05}
+}
+/* The expanding sidebar overlays a reserved 80px rail; charts never shift. */
+@media(min-width:761px){
+.workspace{position:relative}
+.workspace>main{margin-left:80px}
+.workspace>.hover-sidebar{position:absolute;inset:0 auto 0 0;z-index:50;width:80px;padding:24px 20px 18px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;box-shadow:none;transition:width var(--motion-slow) var(--motion-ease) 100ms,box-shadow var(--motion-normal) ease 100ms}
+.workspace>.hover-sidebar:is(:hover,:focus-within){width:260px;padding:24px 20px 18px;box-shadow:9px 0 25px #45121c14;transition-delay:0ms}
+.workspace>.hover-sidebar .sidebar-heading{justify-content:flex-start;min-height:40px;padding-bottom:26px}
+.workspace>.hover-sidebar .brand,.workspace>.hover-sidebar:not(:hover):not(:focus-within) .brand{width:220px;flex:0 0 220px;gap:12px}
+.workspace>.hover-sidebar .monogram,.workspace>.hover-sidebar:not(:hover):not(:focus-within) .monogram{height:40px;width:40px;border-radius:10px;flex:none}
+.workspace>.hover-sidebar .brand-copy,.workspace>.hover-sidebar .nav-text,.workspace>.hover-sidebar .footer-copy{display:block!important;opacity:0;visibility:hidden;transform:translateX(-5px);white-space:nowrap;transition:opacity 120ms ease,transform 180ms var(--motion-ease),visibility 0s linear 180ms}
+.workspace>.hover-sidebar:is(:hover,:focus-within) .brand-copy,.workspace>.hover-sidebar:is(:hover,:focus-within) .nav-text,.workspace>.hover-sidebar:is(:hover,:focus-within) .footer-copy{opacity:1;visibility:visible;transform:translateX(0);transition-delay:70ms,70ms,0ms}
+.workspace>.hover-sidebar nav a,.workspace>.hover-sidebar:not(:hover):not(:focus-within) nav a{width:40px;height:40px;min-height:40px;margin:0;padding:10px;gap:12px;justify-content:flex-start;border-radius:10px;flex:none;overflow:hidden;transition:width var(--motion-slow) var(--motion-ease) 100ms,background-color 150ms ease,color 150ms ease,box-shadow 150ms ease}
+.workspace>.hover-sidebar:is(:hover,:focus-within) nav a{width:220px;padding:10px;transition-delay:0ms}
+.workspace>.hover-sidebar nav a svg{width:20px;height:20px;flex:none}
+.workspace>.hover-sidebar .sidebar-footer{width:220px;justify-content:flex-start;padding:18px 0 0;gap:12px}
+.workspace>.hover-sidebar .footer-symbol{width:40px;height:40px;flex:none}
+.workspace>.hover-sidebar .nav-tooltip{display:none!important}
+}
+@media(min-width:761px) and (hover:none){
+.workspace>.hover-sidebar,.workspace>.hover-sidebar:is(:hover,:focus-within){width:260px}
+.workspace>main{margin-left:260px}
+.workspace>.hover-sidebar .brand-copy,.workspace>.hover-sidebar .nav-text,.workspace>.hover-sidebar .footer-copy{opacity:1;visibility:visible;transform:none}
+.workspace>.hover-sidebar nav a,.workspace>.hover-sidebar:not(:hover):not(:focus-within) nav a{width:220px}
+}
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+.overview-page .metric:hover,.overview-refined .metric:hover{transform:none}
+.inspector-action:hover>span,.text-action:hover>span,.review-item>button:hover>span,.notes-closing button:hover>span{transform:none}
+}
+
+/* Always-expanded stationary desktop sidebar. */
+@media(min-width:761px){
+.workspace>.hover-sidebar,.workspace>.hover-sidebar:is(:hover,:focus-within){width:260px;padding:24px 20px 18px;box-shadow:none;transition:none}
+.workspace>main{margin-left:260px}
+.workspace>.hover-sidebar .brand-copy,.workspace>.hover-sidebar .nav-text,.workspace>.hover-sidebar .footer-copy{opacity:1;visibility:visible;transform:none;transition:none}
+.workspace>.hover-sidebar nav a,.workspace>.hover-sidebar:not(:hover):not(:focus-within) nav a,.workspace>.hover-sidebar:is(:hover,:focus-within) nav a{width:220px;padding:10px;transition:background-color 150ms ease,color 150ms ease}
+}
+@media(prefers-reduced-motion:reduce){.workspace>.hover-sidebar nav a{transition:none}}
+
+/* One-time, viewport-triggered animations for Overview analytics. */
+@keyframes analytics-reveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes course-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes retention-draw{from{stroke-dasharray:1000;stroke-dashoffset:1000}to{stroke-dasharray:1000;stroke-dashoffset:0}}
+@keyframes chart-dot-reveal{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:no-preference){
+.overview-refined [data-motion="pending"]{opacity:0}
+.overview-refined [data-motion="visible"]{animation:analytics-reveal 300ms var(--motion-ease) both}
+.overview-course-card[data-motion="visible"] .overview-bar{animation:analytics-reveal 240ms var(--motion-ease) both;animation-delay:var(--row-delay,0ms)}
+.overview-course-card[data-motion="visible"] .overview-bar-track>span{transform-origin:left center;animation:course-fill 600ms var(--motion-ease) both;animation-delay:var(--row-delay,0ms)}
+.overview-retention-card[data-motion="visible"] .chart polyline{animation:retention-draw 900ms var(--motion-ease) 100ms both}
+.overview-retention-card[data-motion="visible"] .chart circle{animation:chart-dot-reveal 250ms ease 650ms both}
+.overview-review-card[data-motion="visible"] .review-item{animation:analytics-reveal 280ms var(--motion-ease) both;animation-delay:var(--row-delay,0ms)}
+}
+@media(hover:hover) and (pointer:fine){
+.overview-course-card .overview-bar:hover .performance-rate b{color:#991b2b}
+.overview-course-card .overview-bar:hover .overview-bar-track>span{filter:brightness(.94)}
+.overview-retention-card .chart circle{transition:r 150ms ease,stroke-width 150ms ease}
+.overview-retention-card .chart circle:hover{r:5;stroke-width:2.5}
+.overview-retention-card .term-buttons button{transition:background-color 150ms ease,border-color 150ms ease,color 150ms ease,box-shadow 150ms ease}
+.overview-retention-card .term-buttons button:hover{border-color:#c3899c;box-shadow:0 2px 6px #991b2b09}
+}
+@media(prefers-reduced-motion:reduce){
+.overview-refined [data-motion]{opacity:1!important;animation:none!important;transform:none!important}
+.overview-refined [data-motion] .overview-bar,.overview-refined [data-motion] .overview-bar-track>span,.overview-refined [data-motion] .chart polyline,.overview-refined [data-motion] .chart circle,.overview-refined [data-motion] .review-item{animation:none!important}
+}
+
+/* Exact values appear on hover or keyboard focus. */
+.overview-refined .overview-course-card .overview-bar{position:relative;overflow:visible}
+.course-hover-tip{position:absolute;left:8px;bottom:calc(100% + 5px);z-index:20;display:flex;flex-direction:column;gap:6px;width:max-content;max-width:min(350px,calc(100% - 16px));padding:12px 14px;background:#374151;color:white;border-radius:8px;box-shadow:0 5px 18px #1f293720;text-align:left;white-space:normal;opacity:0;visibility:hidden;transform:translateY(3px);pointer-events:none;transition:opacity 140ms ease,transform 140ms ease,visibility 140ms}
+.course-hover-tip strong{font-size:10px;line-height:1.6;font-weight:600}.course-hover-tip>span{font-size:9px;line-height:1.6;color:#e5e7eb}
+.overview-bar:hover .course-hover-tip,.overview-bar:focus-visible .course-hover-tip{opacity:1;visibility:visible;transform:none}
+.overview-refined .overview-course-card{overflow:visible}
+.interactive-chart{position:relative;min-width:0;width:100%}
+.chart-hover-tip{position:absolute;top:0;transform:translate(-50%,-20%);z-index:10;min-width:180px;max-width:90%;padding:11px 13px;background:#374151;color:white;border-radius:8px;box-shadow:0 5px 18px #1f293720;pointer-events:none;animation:chart-dot-reveal 120ms ease}
+.chart-hover-tip>strong{display:block;font-size:10px;font-weight:600;margin-bottom:8px}.chart-hover-tip>span{display:flex;align-items:center;gap:7px;font-size:9px;line-height:1.8;color:#e5e7eb}.chart-hover-tip i{display:block;width:6px;height:6px;border-radius:50%;flex:none}.chart-hover-tip b{font-size:10px;margin-left:auto;color:white;white-space:nowrap}
+.chart-hit-area{cursor:pointer}.chart-hit-area:focus-visible{outline:2px solid #bd7b8c;outline-offset:-2px}
+@media(prefers-reduced-motion:reduce){.course-hover-tip{transition:none;transform:none}.chart-hover-tip{animation:none}}
+
+.course-hover-tip,.chart-hover-tip{z-index:100;pointer-events:none}
+
+/* Tooltips render at the document root, outside animated chart containers. */
+.floating-detail-tooltip{position:fixed;z-index:1000;pointer-events:none;box-sizing:border-box;width:max-content;max-width:min(320px,calc(100vw - 16px));display:flex;flex-direction:column;gap:6px;background:#374151;color:white;padding:12px 14px;border-radius:8px;box-shadow:0 5px 18px #1f293720;white-space:normal;text-align:left;transform:none;animation:none}
+.floating-detail-tooltip>strong{font-size:10px;font-weight:600;line-height:1.7}
+.floating-detail-tooltip>span{font-size:9px;line-height:1.7;color:#e5e7eb}
+.floating-detail-tooltip b{color:white;font-weight:600}
+
+/* Review rows lift in place on hover, without a popup or layout shift. */
+.overview-review-card .review-queue{padding:4px 0}
+.overview-review-card .review-item{position:relative;border-radius:7px;transition:translate 180ms var(--motion-ease),box-shadow 180ms ease,background-color 180ms ease;translate:0 0}
+@media(hover:hover) and (pointer:fine){
+.overview-review-card .review-item:hover{translate:0 -3px;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+}
+.overview-review-card .review-item:focus-within{translate:0 -3px;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+@media(prefers-reduced-motion:reduce){.overview-review-card .review-item,.overview-review-card .review-item:hover,.overview-review-card .review-item:focus-within{translate:none;transition:none}}
+
+/* Course bars share the same in-place lift as priority table rows. */
+.overview-refined .overview-course-card .overview-bar{translate:0 0;transition:translate 180ms var(--motion-ease),box-shadow 180ms ease,background-color 180ms ease}
+@media(hover:hover) and (pointer:fine){
+.overview-refined .overview-course-card .overview-bar:hover{translate:0 -3px;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+}
+.overview-refined .overview-course-card .overview-bar:focus-visible{translate:0 -3px;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+@media(prefers-reduced-motion:reduce){.overview-refined .overview-course-card .overview-bar,.overview-refined .overview-course-card .overview-bar:hover,.overview-refined .overview-course-card .overview-bar:focus-visible{translate:none;transition:none}}
+
+/* KPI hover feedback without resizing or tooltips. */
+.overview-refined .metric{transition:transform 180ms var(--motion-ease),border-color 180ms ease,box-shadow 180ms ease}
+.metric-link-arrow{display:inline-block;transition:transform 180ms var(--motion-ease)}
+@media(hover:hover) and (pointer:fine){
+.overview-refined .metric:hover{transform:translateY(-3px);border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
+.overview-refined .metric:hover .metric-link-arrow{transform:translateX(4px)}
+}
+.overview-refined .metric:focus-visible{transform:translateY(-3px);border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
+.overview-refined .metric:focus-visible .metric-link-arrow{transform:translateX(4px)}
+@media(prefers-reduced-motion:reduce){.overview-refined .metric,.metric-link-arrow{transition:none}.overview-refined .metric:hover,.overview-refined .metric:focus-visible,.overview-refined .metric:hover .metric-link-arrow,.overview-refined .metric:focus-visible .metric-link-arrow{transform:none}}
+
+/* Course Outcomes comparison rows match the Overview course hover. */
+.course-outcomes-page .course-chart-row{position:relative;translate:0 0;transition:translate 180ms var(--motion-ease),box-shadow 180ms ease,background-color 180ms ease,border-color 180ms ease}
+@media(hover:hover) and (pointer:fine){
+.course-outcomes-page .course-chart-row:hover{translate:0 -3px;background:#fff;border-color:transparent;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+}
+.course-outcomes-page .course-chart-row:focus-visible{translate:0 -3px;background:#fff;border-color:transparent;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+@media(prefers-reduced-motion:reduce){.course-outcomes-page .course-chart-row,.course-outcomes-page .course-chart-row:hover,.course-outcomes-page .course-chart-row:focus-visible{translate:none;transition:none}}
+
+/* Course records use the same quiet row lift as the comparison chart. */
+.course-outcomes-page .table-wrap{padding:4px 0}
+.course-outcomes-page tbody tr{position:relative;translate:0 0;transition:translate 180ms var(--motion-ease),box-shadow 180ms ease,background-color 180ms ease}
+@media(hover:hover) and (pointer:fine){
+.course-outcomes-page tbody tr:hover{translate:0 -3px;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+}
+@media(prefers-reduced-motion:reduce){.course-outcomes-page tbody tr,.course-outcomes-page tbody tr:hover{translate:none;transition:none}}
+
+/* Record category cards match the approved KPI hover treatment. */
+.records-page .records-categories>button{translate:0 0;transition:translate 180ms var(--motion-ease),border-color 180ms ease,box-shadow 180ms ease,background-color 180ms ease}
+.records-page .records-categories .category-arrow{display:inline-block;transition:transform 180ms var(--motion-ease),color 180ms ease}
+@media(hover:hover) and (pointer:fine){
+.records-page .records-categories>button:hover{translate:0 -3px;background:#fff;border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
+.records-page .records-categories>button.is-active:hover{background:#fff5f7;border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
+.records-page .records-categories>button:hover .category-arrow{transform:translate(2px,-2px);color:#991b2b}
+}
+.records-page .records-categories>button:focus-visible{translate:0 -3px;border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
+@media(prefers-reduced-motion:reduce){.records-page .records-categories>button,.records-page .records-categories .category-arrow{transition:none}.records-page .records-categories>button:hover,.records-page .records-categories>button:focus-visible{translate:none}.records-page .records-categories>button:hover .category-arrow{transform:none}}
