@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment variables (NEVER commit these)
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel/
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
