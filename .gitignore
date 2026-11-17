@@ -21,3 +21,5 @@ Thumbs.db
 # Editors
 .vscode/
 .idea/
+.vercel
+.env*
