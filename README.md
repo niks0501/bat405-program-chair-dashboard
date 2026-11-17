@@ -9,7 +9,7 @@ A frontend-only React + Vite dashboard for the BAT 405 academic project at Batan
 - Retention trends and cohort spotlight
 - Teaching Evaluation with score and participation views
 - Records with filtered CSV downloads
-- Data Notes with definitions, proposed targets and limitations
+- Data Notes with definitions, targets and limitations
 - Fixed red sidebar, responsive pages, keyboard controls and reduced-motion support
 - Browser-tab filter persistence
 
@@ -43,7 +43,7 @@ React renders charts using SVG. There are no external data APIs. An optional Goo
 
 ## Data limitations
 
-Targets are proposed: course pass rate 85%, retention 90%, grade submission 100%, SETE effectiveness 80%, and participation 70%. Current institutional rules and the official SETE formula must be verified before real use. Section scores with fewer than 10 valid responses are suppressed. These sample indicators must not be used for automatic instructor rankings or personnel decisions.
+Targets: course pass rate 85%, retention 90%, grade submission 100%, SETE effectiveness 80%, and participation 70%. Current institutional rules and the official SETE formula must be verified before real use. Section scores with fewer than 10 valid responses are suppressed. These sample indicators must not be used for automatic instructor rankings or personnel decisions.
 
 ## Team
 

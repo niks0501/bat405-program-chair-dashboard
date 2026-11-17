@@ -53,7 +53,7 @@ export default function Overview({ data, onSelect, cohort, onTerm, status, compa
       </Card>
       <Card className="overview-retention-card" title="Student retention" subtitle="Term-to-term continuation" action={<button className="text-action" onClick={() => { document.getElementById('retention')?.scrollIntoView({behavior:'smooth'}); }}>View cohorts <span aria-hidden="true">↗</span></button>}>
         <div className="retention-headline"><div><strong>{percent(data.metrics[1].value)}</strong><span>{data.enrolled} of {data.eligible} eligible students continued</span></div><Status value={data.metrics[1].value} target={90}/></div>
-        <div className="retention-comparison-row"><span>Proposed target <b>90%</b></span><span className={data.metrics[1].value==null?'neutral':data.metrics[1].value>=90?'positive':'negative'}>{data.metrics[1].value==null?'No eligible population':`${Math.abs(data.metrics[1].value-90).toFixed(1)} pts ${data.metrics[1].value>=90?'above':'below'} target`}</span></div>
+        <div className="retention-comparison-row"><span>Target <b>90%</b></span><span className={data.metrics[1].value==null?'neutral':data.metrics[1].value>=90?'positive':'negative'}>{data.metrics[1].value==null?'No eligible population':`${Math.abs(data.metrics[1].value-90).toFixed(1)} pts ${data.metrics[1].value>=90?'above':'below'} target`}</span></div>
         <div className="retention-chart-block">
         <Chart series={[{ label: cohort === 'all' ? 'All eligible cohorts' : `Cohort ${cohort}`, values: snapshots.map(d => d.metrics[1].value) }]} selected={data.term} onSelect={onTerm} min={80} target={90}/>
         </div>
@@ -63,7 +63,7 @@ export default function Overview({ data, onSelect, cohort, onTerm, status, compa
     </div>
     <Card className="overview-review-card" title="Review priorities" subtitle="The largest gaps first. Review the context before taking action." action={<span className="attention-count">{attention.length} to review</span>}>
       <div className="review-scroll-region"><div className="review-column-headings" aria-hidden="true"><span>Priority / indicator</span><span>Status</span><span>Current / target</span><span>Action</span></div><div className="review-queue">{attention.map((item, index) => <div className="review-item" key={item.key}><span className="review-number">{String(index + 1).padStart(2, '0')}</span><div className="review-copy"><h3>{item.title}</h3><p>{item.body}</p></div><Status value={item.value} target={item.target}/><div className="review-gap"><strong>{percent(item.value)}</strong><small>Target {item.target}% <span>&middot; { (item.target - item.value).toFixed(1)} pts below</span></small></div><button onClick={() => onSelect(item.key)} aria-label={item.next}>View records<span aria-hidden="true">↗</span></button></div>)}{!attention.length && <div className="overview-empty">No review items match this selection.</div>}</div></div>
-      <div className="card-footnote">Proposed benchmarks support human review. All records shown are illustrative.</div>
+      <div className="card-footnote">Benchmarks support human review.</div>
     </Card>
   </div>;
 }
