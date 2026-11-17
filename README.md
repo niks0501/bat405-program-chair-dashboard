@@ -12,7 +12,7 @@ A frontend-only React + Vite dashboard for the BAT 405 academic project at Batan
 
 ## Run locally
 
-Requires Node.js 22 or newer and npm. No environment variables or secrets are required.
+Requires Node.js 24.x and npm. No environment variables or secrets are required.
 
 ```bash
 git clone https://github.com/niks0501/bat405-program-chair-dashboard.git

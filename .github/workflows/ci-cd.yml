@@ -1,0 +1,125 @@
+name: CI / CD
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Cancel superseded PR runs. Never interrupt a production deployment.
+concurrency:
+  group: ci-cd-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  ci:
+    name: Quality checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Verify Node.js and Ubuntu versions
+        shell: bash
+        run: |
+          source /etc/os-release
+          test "$VERSION_ID" = "24.04"
+          test "$(node -p 'process.versions.node.split(".")[0]')" = "24"
+          echo "$PRETTY_NAME"
+          node --version
+          npm --version
+
+      - name: Install dependencies from lockfile
+        run: npm ci --no-audit --no-fund
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Build production assets
+        run: npm run build
+
+      - name: Verify static build output
+        shell: bash
+        run: |
+          test -s dist/index.html
+          test -d dist/assets
+          find dist/assets -maxdepth 1 -name '*.js' | grep -q .
+
+  deploy:
+    name: Deploy to Vercel
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: production
+      url: ${{ steps.publish.outputs.url }}
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Check Vercel secrets
+        shell: bash
+        run: |
+          for var in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
+            if [[ -z "${!var}" ]]; then
+              echo "::error::$var is missing. See docs/deployment.md."
+              exit 1
+            fi
+          done
+
+      - name: Check out verified commit
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Verify Node.js and Ubuntu versions
+        shell: bash
+        run: |
+          source /etc/os-release
+          test "$VERSION_ID" = "24.04"
+          test "$(node -p 'process.versions.node.split(".")[0]')" = "24"
+          echo "$PRETTY_NAME"
+          node --version
+          npm --version
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull production configuration
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+
+      - name: Build deployment artifact
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+
+      - name: Publish prebuilt artifact
+        id: publish
+        shell: bash
+        run: |
+          url="$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN")"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Smoke-test public deployment
+        env:
+          DEPLOY_URL: ${{ steps.publish.outputs.url }}
+        shell: bash
+        run: |
+          curl --fail --silent --show-error --location \
+            --retry 4 --retry-delay 3 "$DEPLOY_URL" \
+            --output /tmp/program-chair-deployed.html
+          grep -q 'id="root"' /tmp/program-chair-deployed.html
