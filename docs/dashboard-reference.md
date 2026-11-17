@@ -49,7 +49,7 @@ The alert strip counts KPIs with `V < T` and names the largest gap. Percentage-p
 |---|---|
 | Academic year, Semester | Every section (selects the reporting term) |
 | Batch | Course outcomes and retention. Batch = students who entered the program in the same year (e.g. Batch 2024). A course is included when its year level matches `academic year - batch + 1`. Grade submission and SETE are program-wide |
-| Department | Course outcomes, grade submission and SETE sections. Retention is program-wide. Departments in the sample data: Information Technology (IT 212, 311, 312, 313, 411, 412), Computer Science (IT 111, 112, 211) |
+| Department | Course outcomes, grade submission, SETE sections and the Teaching results. Retention is program-wide (tagged "Program-wide, not affected by Department" in its section). Departments in the sample data: Information Technology (IT 212, 311, 312, 313, 411, 412), Computer Science (IT 111, 112, 211) |
 | Status | Filters displayed indicators and records by their own target. Summary totals and trend charts keep full scope |
 | Focus (click a course bar / batch) | Course outcomes inspector, Retention spotlight and Records follow the focused course or batch. Chips in the filter bar clear it. Reset clears everything |
 
@@ -61,8 +61,10 @@ Grade submission by department: expected sets are split by the department's shar
 |---|---|
 | Course performance (bars) | Pass rate per course = passed / attempts x 100, sorted lowest first. Marker at 85% |
 | Student retention (line) | Per term: sum(enrolled) / sum(eligible) over batches matching the filters. Y axis starts at 80% (a truncated axis, acceptable for a line chart). Target line at 90% |
-| SETE effectiveness (line) | Per term: response-weighted score (KPI 4). Y axis 70-90%. Target line at 80% |
+| SETE effectiveness (line) | Per term: response-weighted score (KPI 4). Y axis 70-90%. Target line at 80%. The Teaching section's score view uses the same 70-90% axis; its participation view uses 50-100% with a 70% target |
 | KPI card sparkline | The KPI's value for each of the six terms; the dot marks the selected term |
+
+The scope chips in the Teaching, Retention and Records sections show what the filters currently cover (for example "Computer Science · SETE", or "Batch 2024 · All departments" on Records).
 
 Clicking a point or term button on a line chart changes the selected academic year and semester for the whole page.
 

@@ -18,7 +18,7 @@ export default function Retention({ data, onTerm, onSelect, cohort, dept, status
   const change=current!=null&&previous!=null?current-previous:null;
   const series=rows.map(row=>({label:`Batch ${row.cohort}`,values:row.trend.map((_,i)=>rateAt(row,i))}));
   return <div className="retention-page courses-page">
-    <div className="courses-intro"><div><span className="section-kicker">STUDENT CONTINUATION</span><h2>Understand who continues.</h2><p>Follow batch trends and identify where student support needs a closer look.</p></div><span className="courses-benchmark">Target <b>90%</b></span></div>
+    <div className="courses-intro"><div><span className="section-kicker">RETENTION</span><h2>Understand who continues.</h2><p>Follow batch trends and identify where student support needs a closer look.</p></div><div className="intro-chips"><span className="courses-benchmark">Target <b>90%</b></span><span className="courses-benchmark">Program-wide, not affected by Department</span></div></div>
     <div className="retention-analysis-grid">
       <Card title="Batch retention trends" subtitle="Continuation across six semesters" action={<span className="course-chart-key"><i/>90% target</span>}>
         {series.length?<><Chart series={series} selected={data.term} onSelect={onTerm} min={80} target={90}/><p className="course-panel-note">Select a term to update all results. Trends show batches matching the current filters; missing terms have no eligible batch data.</p></>:<div className="course-empty">No batches match this term and status. Try another filter selection.</div>}
