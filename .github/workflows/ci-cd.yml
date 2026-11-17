@@ -17,7 +17,7 @@ concurrency:
 jobs:
   ci:
     name: Quality checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Check out source
@@ -26,8 +26,18 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
           cache: npm
+
+      - name: Verify Node.js and Ubuntu versions
+        shell: bash
+        run: |
+          source /etc/os-release
+          test "$VERSION_ID" = "24.04"
+          test "$(node -p 'process.versions.node.split(".")[0]')" = "24"
+          echo "$PRETTY_NAME"
+          node --version
+          npm --version
 
       - name: Install dependencies from lockfile
         run: npm ci --no-audit --no-fund
@@ -49,7 +59,7 @@ jobs:
     name: Deploy to Vercel
     needs: ci
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     environment:
       name: production
@@ -75,8 +85,18 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
           cache: npm
+
+      - name: Verify Node.js and Ubuntu versions
+        shell: bash
+        run: |
+          source /etc/os-release
+          test "$VERSION_ID" = "24.04"
+          test "$(node -p 'process.versions.node.split(".")[0]')" = "24"
+          echo "$PRETTY_NAME"
+          node --version
+          npm --version
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
