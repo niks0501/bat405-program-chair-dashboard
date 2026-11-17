@@ -116,10 +116,26 @@ jobs:
 
       - name: Smoke-test public deployment
         env:
-          DEPLOY_URL: ${{ steps.publish.outputs.url }}
+          # The unique deployment URL is behind Vercel Deployment Protection and
+          # answers with a login page. The production domain is public.
+          PRODUCTION_URL: https://bat405-program-chair-dashboard.vercel.app
         shell: bash
         run: |
-          curl --fail --silent --show-error --location \
-            --retry 4 --retry-delay 3 "$DEPLOY_URL" \
-            --output /tmp/program-chair-deployed.html
-          grep -q 'id="root"' /tmp/program-chair-deployed.html
+          asset="$(grep -o 'assets/index-[^"]*\.js' .vercel/output/static/index.html | head -1)"
+          test -n "$asset"
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            code="$(curl --silent --show-error --location --max-time 20 \
+              --output /tmp/program-chair-deployed.html \
+              --write-out '%{http_code}' "$PRODUCTION_URL" || true)"
+            if [[ "$code" == "200" ]] \
+              && grep -q 'id="root"' /tmp/program-chair-deployed.html \
+              && grep -q "$asset" /tmp/program-chair-deployed.html; then
+              echo "Production serves this build ($asset)."
+              exit 0
+            fi
+            echo "Attempt $attempt: HTTP $code, expected 200 with id=\"root\" and $asset"
+            sleep 6
+          done
+          echo "::error::Production did not serve this build. Last response:"
+          head -c 600 /tmp/program-chair-deployed.html || true
+          exit 1
