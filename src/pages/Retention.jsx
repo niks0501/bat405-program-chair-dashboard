@@ -32,7 +32,7 @@ export default function Retention({ data, onTerm, onSelect, cohort, status }) {
     {key:'below',label:'Cohorts below target',value:rows.length?below.length/rows.length*100:null,displayValue:String(below.length),target:100,showTarget:false,badge:'Review',badgeTone:'watch',targetLabel:'Below 90% retention',note:'Review continuation barriers',changeLabel:changeLabel('below','cohorts'),trend:history.map(d=>d.below)},
   ];
   return <div className="retention-page courses-page">
-    <div className="courses-intro"><div><span className="section-kicker">STUDENT CONTINUATION</span><h2>Understand who continues.</h2><p>Follow cohort trends and identify where student support needs a closer look.</p></div><span className="courses-benchmark">Proposed target <b>90%</b></span></div>
+    <div className="courses-intro"><div><span className="section-kicker">STUDENT CONTINUATION</span><h2>Understand who continues.</h2><p>Follow cohort trends and identify where student support needs a closer look.</p></div><span className="courses-benchmark">Target <b>90%</b></span></div>
     <div className="overview-page overview-refined analytics-kpi-grid"><Metrics metrics={summary} previous={prior?[{key:'retention',value:prior.rate}]:undefined} compare selectedTerm={data.term} onSelect={()=>onSelect('retention')}/></div>
     <div className="retention-analysis-grid">
       <Card title="Cohort retention trends" subtitle="Continuation across six semesters" action={<span className="course-chart-key"><i/>90% target</span>}>
@@ -45,7 +45,7 @@ export default function Retention({ data, onTerm, onSelect, cohort, status }) {
     </div>
     <Card title="Retention by cohort" subtitle="Lowest retention first · select a cohort for its spotlight" action={<span className="course-record-count">{rows.length} cohorts</span>}>
       <Table headers={['Cohort','Eligible prior term','Continued','Did not continue','Retention','Gap to target','Status']} rows={rows.map(row=>{const value=row.enrolled/row.eligible*100;return [<button className={'retention-table-link '+(selected?.cohort===row.cohort?'current':'')} onClick={()=>setSelectedCohort(row.cohort)} aria-pressed={selected?.cohort===row.cohort}>Cohort {row.cohort}<span aria-hidden="true">↗</span></button>,row.eligible,row.enrolled,row.eligible-row.enrolled,<b>{percent(value)}</b>,<span className={value>=90?'course-gap-positive':'course-gap-negative'}>{value>=90?'+':''}{(value-90).toFixed(1)} pts</span>,<Status value={value} target={90}/>]})}/>
-      <p className="course-panel-note">Retention = continued students ÷ eligible previous-term students. Sample aggregates use the same counts throughout this page.</p>
+      <p className="course-panel-note">Retention = continued students ÷ eligible previous-term students. Aggregates use the same counts throughout this page.</p>
     </Card>
     <div className="retention-guidance"><span className="guidance-symbol" aria-hidden="true">i</span><div><strong>Use trends to start a conversation.</strong><p>Review enrollment changes with the Registrar and student support teams. Consider transfers, approved leave, and other context before drawing conclusions.</p></div></div>
   </div>;

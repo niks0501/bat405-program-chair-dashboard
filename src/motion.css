@@ -97,12 +97,12 @@ tbody tr{transition:background-color var(--motion-fast) ease}
 /* Exact values appear on hover or keyboard focus. */
 .overview-refined .overview-course-card .overview-bar{position:relative;overflow:visible}
 .course-hover-tip{position:absolute;left:8px;bottom:calc(100% + 5px);z-index:20;display:flex;flex-direction:column;gap:6px;width:max-content;max-width:min(350px,calc(100% - 16px));padding:12px 14px;background:#374151;color:white;border-radius:8px;box-shadow:0 5px 18px #1f293720;text-align:left;white-space:normal;opacity:0;visibility:hidden;transform:translateY(3px);pointer-events:none;transition:opacity 140ms ease,transform 140ms ease,visibility 140ms}
-.course-hover-tip strong{font-size:10px;line-height:1.6;font-weight:600}.course-hover-tip>span{font-size:9px;line-height:1.6;color:#e5e7eb}
+.course-hover-tip strong{font-size:13px;line-height:1.6;font-weight:600}.course-hover-tip>span{font-size:12px;line-height:1.6;color:#e5e7eb}
 .overview-bar:hover .course-hover-tip,.overview-bar:focus-visible .course-hover-tip{opacity:1;visibility:visible;transform:none}
 .overview-refined .overview-course-card{overflow:visible}
 .interactive-chart{position:relative;min-width:0;width:100%}
 .chart-hover-tip{position:absolute;top:0;transform:translate(-50%,-20%);z-index:10;min-width:180px;max-width:90%;padding:11px 13px;background:#374151;color:white;border-radius:8px;box-shadow:0 5px 18px #1f293720;pointer-events:none;animation:chart-dot-reveal 120ms ease}
-.chart-hover-tip>strong{display:block;font-size:10px;font-weight:600;margin-bottom:8px}.chart-hover-tip>span{display:flex;align-items:center;gap:7px;font-size:9px;line-height:1.8;color:#e5e7eb}.chart-hover-tip i{display:block;width:6px;height:6px;border-radius:50%;flex:none}.chart-hover-tip b{font-size:10px;margin-left:auto;color:white;white-space:nowrap}
+.chart-hover-tip>strong{display:block;font-size:13px;font-weight:600;margin-bottom:8px}.chart-hover-tip>span{display:flex;align-items:center;gap:7px;font-size:12px;line-height:1.8;color:#e5e7eb}.chart-hover-tip i{display:block;width:6px;height:6px;border-radius:50%;flex:none}.chart-hover-tip b{font-size:13px;margin-left:auto;color:white;white-space:nowrap}
 .chart-hit-area{cursor:pointer}.chart-hit-area:focus-visible{outline:2px solid #bd7b8c;outline-offset:-2px}
 @media(prefers-reduced-motion:reduce){.course-hover-tip{transition:none;transform:none}.chart-hover-tip{animation:none}}
 
@@ -110,8 +110,8 @@ tbody tr{transition:background-color var(--motion-fast) ease}
 
 /* Tooltips render at the document root, outside animated chart containers. */
 .floating-detail-tooltip{position:fixed;z-index:1000;pointer-events:none;box-sizing:border-box;width:max-content;max-width:min(320px,calc(100vw - 16px));display:flex;flex-direction:column;gap:6px;background:#374151;color:white;padding:12px 14px;border-radius:8px;box-shadow:0 5px 18px #1f293720;white-space:normal;text-align:left;transform:none;animation:none}
-.floating-detail-tooltip>strong{font-size:10px;font-weight:600;line-height:1.7}
-.floating-detail-tooltip>span{font-size:9px;line-height:1.7;color:#e5e7eb}
+.floating-detail-tooltip>strong{font-size:13px;font-weight:600;line-height:1.7}
+.floating-detail-tooltip>span{font-size:12px;line-height:1.7;color:#e5e7eb}
 .floating-detail-tooltip b{color:white;font-weight:600}
 
 /* Review rows lift in place on hover, without a popup or layout shift. */

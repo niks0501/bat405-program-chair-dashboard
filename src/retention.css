@@ -3,32 +3,32 @@ main:has(.retention-page){background:#f7f8fa}
 .retention-analysis-grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:20px;align-items:stretch}
 .retention-analysis-grid>.card{display:flex;flex-direction:column;min-width:0}
 .retention-page .chart{margin-block:auto;padding:12px 0;max-height:310px}
-.retention-page .chart-legend{font-size:10px;gap:15px;margin-top:8px;color:#6b7280}
+.retention-page .chart-legend{font-size:13px;gap:15px;margin-top:8px;color:#6b7280}
 .retention-page .term-buttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:20px}
-.retention-page .term-buttons button{font-size:10px;font-weight:500;padding:8px;border-color:#e5e7eb;border-radius:6px}
+.retention-page .term-buttons button{font-size:13px;font-weight:500;padding:8px;border-color:#e5e7eb;border-radius:6px}
 .retention-page .term-buttons button.selected{background:#fff3f6!important;color:#991b2b;border-color:#e5e7eb!important}
 .retention-inspector{padding:24px;background:white;border:1px solid #e5e7eb;border-top:3px solid #991b2b;border-radius:12px;display:flex;flex-direction:column;align-items:stretch;min-width:0}
 .retention-selection{display:flex;gap:5px;flex-wrap:wrap;margin:18px 0 24px}
-.retention-selection button{flex:1;min-width:42px;font-size:10px;font-weight:500;padding:7px;border-radius:5px;border-color:#e5e7eb;color:#6b7280}
+.retention-selection button{flex:1;min-width:42px;font-size:13px;font-weight:500;padding:7px;border-radius:5px;border-color:#e5e7eb;color:#6b7280}
 .retention-cohort-title{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.retention-cohort-title h3{font-size:15px;font-weight:650;color:#374151;margin:0}
-.retention-cohort-title .status{font-size:9px}
-.retention-term{font-size:10px;color:#6b7280;margin-top:7px}
+.retention-cohort-title h3{font-size:18px;font-weight:650;color:#374151;margin:0}
+.retention-cohort-title .status{font-size:12px}
+.retention-term{font-size:13px;color:#6b7280;margin-top:7px}
 .retention-spotlight-rate{margin-top:23px}
-.retention-spotlight-rate>strong{font-size:37px;font-weight:650;letter-spacing:-1.3px;color:#374151;display:block;font-variant-numeric:tabular-nums}
-.retention-spotlight-rate>span{font-size:10px;color:#6b7280;display:block;margin-top:5px}
-.retention-change{font-size:10px;padding:12px 0 20px}
+.retention-spotlight-rate>strong{font-size:40px;font-weight:650;letter-spacing:-1.3px;color:#374151;display:block;font-variant-numeric:tabular-nums}
+.retention-spotlight-rate>span{font-size:13px;color:#6b7280;display:block;margin-top:5px}
+.retention-change{font-size:13px;padding:12px 0 20px}
 .retention-counts{display:grid;grid-template-columns:1fr 1fr;gap:15px;border-top:1px solid #e5e7eb;padding-top:18px}
-.retention-counts strong{display:block;font-size:20px;font-weight:600;color:#6b7280;font-variant-numeric:tabular-nums}
-.retention-counts span{font-size:9px;color:#6b7280;display:block;margin-top:6px}
+.retention-counts strong{display:block;font-size:23px;font-weight:600;color:#6b7280;font-variant-numeric:tabular-nums}
+.retention-counts span{font-size:12px;color:#6b7280;display:block;margin-top:6px}
 .continuation-track{background:#f9fafb;height:7px;border-radius:20px;overflow:hidden;margin-top:15px}
 .continuation-track>span{height:100%;background:#991b2b;display:block;border-radius:20px}
-.retention-context{font-size:10px;color:#6b7280;line-height:1.9;margin:18px 0 22px}
-.retention-table-link{display:inline-flex;align-items:center;gap:13px;font-size:11px;font-weight:500;color:#6b7280;border:0;background:transparent;padding:6px 0}
-.retention-table-link.current{color:#991b2b;font-weight:650}.retention-table-link:hover{background:transparent;text-decoration:underline}.retention-table-link>span{font-size:11px}
+.retention-context{font-size:13px;color:#6b7280;line-height:1.9;margin:18px 0 22px}
+.retention-table-link{display:inline-flex;align-items:center;gap:13px;font-size:14px;font-weight:500;color:#6b7280;border:0;background:transparent;padding:6px 0}
+.retention-table-link.current{color:#991b2b;font-weight:650}.retention-table-link:hover{background:transparent;text-decoration:underline}.retention-table-link>span{font-size:14px}
 .retention-guidance{padding:17px 20px;display:flex;gap:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:9px;color:#6b7280}
-.guidance-symbol{width:19px;height:19px;display:grid;place-items:center;border:1px solid #9ca3af;border-radius:50%;font-family:Georgia,serif;font-size:12px;flex:none}
-.retention-guidance strong{font-size:11px;font-weight:600}.retention-guidance p{font-size:10px;line-height:1.9;margin:5px 0 0;color:#6b7280}
-@media(max-width:1150px){.retention-analysis-grid{grid-template-columns:minmax(0,1fr) 260px}.retention-inspector{padding:20px}.retention-page .chart-legend{gap:10px;font-size:9px}}
+.guidance-symbol{width:19px;height:19px;display:grid;place-items:center;border:1px solid #9ca3af;border-radius:50%;font-family:Georgia,serif;font-size:15px;flex:none}
+.retention-guidance strong{font-size:14px;font-weight:600}.retention-guidance p{font-size:13px;line-height:1.9;margin:5px 0 0;color:#6b7280}
+@media(max-width:1150px){.retention-analysis-grid{grid-template-columns:minmax(0,1fr) 260px}.retention-inspector{padding:20px}.retention-page .chart-legend{gap:10px;font-size:12px}}
 @media(max-width:950px){.retention-analysis-grid{grid-template-columns:1fr}.retention-inspector{display:grid;grid-template-columns:1fr 1fr;gap:12px 25px}.retention-inspector>.section-kicker,.retention-selection,.retention-inspector>.inspector-action{grid-column:1/-1}.retention-selection{margin:4px 0 7px}.retention-selection button{flex:0 0 60px}.retention-cohort-title{grid-column:1}.retention-term{grid-column:1;margin:0}.retention-spotlight-rate{grid-column:1;margin:0}.retention-change{grid-column:1;padding:0}.retention-counts{grid-column:2;grid-row:3/5;padding-top:10px}.continuation-track{grid-column:2;grid-row:5;margin:0;align-self:center}.retention-context{grid-column:1/-1;margin:0}.retention-page .term-buttons{grid-template-columns:repeat(6,minmax(0,1fr))}}
-@media(max-width:560px){.retention-page .term-buttons{grid-template-columns:repeat(3,minmax(0,1fr))}.retention-inspector{padding:19px;gap:12px}.retention-cohort-title{flex-wrap:wrap}.retention-cohort-title h3{font-size:14px}.retention-spotlight-rate>strong{font-size:31px}.retention-counts{gap:8px}.retention-counts strong{font-size:18px}.retention-counts span{font-size:8px}.retention-guidance{padding:15px}.retention-selection button{flex:1}}
+@media(max-width:560px){.retention-page .term-buttons{grid-template-columns:repeat(3,minmax(0,1fr))}.retention-inspector{padding:19px;gap:12px}.retention-cohort-title{flex-wrap:wrap}.retention-cohort-title h3{font-size:17px}.retention-spotlight-rate>strong{font-size:33px}.retention-counts{gap:8px}.retention-counts strong{font-size:21px}.retention-counts span{font-size:11px}.retention-guidance{padding:15px}.retention-selection button{flex:1}}
