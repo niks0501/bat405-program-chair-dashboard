@@ -94,3 +94,91 @@ main>.topnav{top:-34px}
 
 /* Larger type: keep the page header from overflowing on phones. */
 @media(max-width:560px){main>.page-header-inline>div{flex-wrap:wrap;gap:4px 10px}main>.page-header-inline h1{white-space:normal}main>.page-header-inline .subtitle{white-space:normal;border-left:0;padding-left:0;margin-left:0;font-size:13px}}
+
+/* Level 1 alerts, KPI decisions, focus (cross-filter) and decision brief */
+.metric-decision{margin:10px 0 0!important;padding-top:10px;border-top:1px dashed #e5e7eb;font-size:13px!important;line-height:1.5;color:#374151!important;text-align:left}
+.metric-decision b{color:#991b2b;font-weight:600}
+.metric-decision span{display:block;margin-top:4px;color:#6b7280;font-size:12px}
+.overview-bar.is-focused{background:#fff1f2;box-shadow:inset 3px 0 0 #991b2b}
+.overview-bar.is-dimmed{opacity:.5}
+.overview-bar.is-dimmed:hover,.overview-bar.is-dimmed:focus-visible{opacity:1}
+.focus-note{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:0 0 10px;padding:9px 12px;border-radius:8px;background:#fff1f2;color:#801624;font-size:13px}
+.focus-note span{flex:1 1 220px}
+.active-filter-chip.focus-chip{background:#fff1f2;border-color:#f3c4cc;color:#801624}
+.records-focus{color:#801624}
+.brief-btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:0;border-radius:8px;background:#991b2b;color:#fff;font-size:13px;font-weight:600}
+.brief-btn:hover{background:#801624}
+.brief-btn svg{width:16px;height:16px}
+.filter-results-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brief-overlay{position:fixed;inset:0;z-index:100;display:grid;place-items:start center;overflow-y:auto;padding:32px 16px;background:#1f1216b3}
+.brief-panel{width:min(820px,100%);background:#fff;border-radius:12px;padding:28px 36px 36px;box-shadow:0 20px 60px #0006;outline:0;color:#1f2937}
+.brief-actions{display:flex;gap:10px;justify-content:flex-end;margin-bottom:8px}
+.brief-actions button{height:36px;padding:0 14px;font-size:13px;border-radius:8px}
+.brief-actions .brief-close{width:36px;padding:0;font-size:22px;line-height:1}
+.brief-head{border-bottom:2px solid #991b2b;padding-bottom:14px;margin-bottom:6px}
+.brief-head h2{margin:4px 0 8px;font-size:28px}
+.brief-scope{margin:0;font-size:14px;color:#374151}
+.brief-section{margin-top:20px}
+.brief-section h3{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-size:17px}
+.brief-section h3 span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#991b2b;color:#fff;font-size:12px}
+.brief-section p,.brief-section li{font-size:14.5px;line-height:1.65;color:#374151;margin:0}
+.brief-section ul,.brief-section ol{margin:0;padding-left:22px;display:grid;gap:5px}
+.brief-table-wrap{overflow-x:auto}
+.brief-table{width:100%;border-collapse:collapse;font-size:14px}
+.brief-table th,.brief-table td{padding:8px 10px;text-align:left;border-bottom:1px solid #e5e7eb;white-space:nowrap}
+.brief-table th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#6b7280}
+@media(max-width:560px){.brief-panel{padding:18px 16px 24px}.brief-head h2{font-size:23px}}
+@media print{
+  html,body,#root{height:auto!important;overflow:visible!important}
+  .app>.skip,.scroll-top,.brief-actions{display:none!important}
+  .app:has(.brief-overlay) .workspace{display:none!important}
+  .brief-overlay{position:static;display:block;padding:0;background:none;overflow:visible}
+  .brief-panel{width:auto;box-shadow:none;padding:0;border-radius:0}
+  .brief-section{break-inside:avoid}
+}
+.overview-refined .metric p.metric-decision{flex:none;min-height:0;margin:8px 0 12px!important}
+
+/* One-page dashboard: alert strip, three charts, details divider */
+.alert-strip{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;margin:0 0 16px;padding:12px 16px;border:1px solid #f3c4cc;border-left:4px solid #991b2b;border-radius:10px;background:#fff7f8}
+.alert-strip-main{display:flex;align-items:center;gap:10px;font-size:14.5px;color:#374151}
+.alert-strip-main b{color:#801624}
+.alert-strip-main.all-clear{color:#23723e}.alert-strip-main.all-clear b{color:#23723e}
+.alert-dot{width:10px;height:10px;border-radius:50%;background:#b1263b;flex:none}
+.all-clear .alert-dot{background:#23723e}
+.alert-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:#6b7280}
+.alert-legend span{display:inline-flex;align-items:center;gap:6px}
+.alert-legend i{font-style:normal}
+.overview-refined .overview-charts{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1fr)}
+@media(max-width:1250px){.overview-refined .overview-charts{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.overview-sete-card{grid-column:1/-1}}
+@media(max-width:900px){.overview-refined .overview-charts{grid-template-columns:1fr}}
+.overview-sete-card{min-width:0}
+.details-divider{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:40px 0 4px;padding-top:18px;border-top:2px dashed #d9dde3;color:#6b7280;font-size:14px}
+.details-divider b{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#991b2b}
+
+.brief-btn-secondary{background:#fff;color:#991b2b;border:1px solid #991b2b}
+.brief-btn-secondary:hover{background:#fff1f2}
+.print-scope{display:none}
+.overview-charts .chart text{font-size:18px}
+
+/* Print: the Overview block is the one-page dashboard on long bond paper (13 x 8.5 in, landscape) */
+@page{size:8.5in 13in;margin:.5in}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body,#root,.app,.workspace,main{height:auto!important;overflow:visible!important;margin:0!important}
+  main{padding:0!important;background:#fff!important}
+  main>.topnav,.filter-bar,.scroll-top,.details-divider,.dash-section:not(#overview),.skip,.snapshot-heading,.alert-strip .alert-legend{display:none!important}
+  .print-scope{display:inline}
+  #overview{zoom:.62}
+  #overview .metrics{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+  #overview .overview-charts{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1fr)!important}
+  #overview .overview-sete-card{grid-column:auto!important}
+  #overview .card,#overview .metric{break-inside:avoid}
+  #overview .overview-bars{max-height:none!important}
+  .scroll-top{display:none!important}
+  main>.page-header-inline{margin:0 0 6px!important;padding-bottom:6px!important}
+  .overview-review-card,.metric-link,#overview .term-buttons,#overview .retention-term-detail,#overview .card-footnote,#overview .course-chart-summary,#overview .performance-scale,#overview .text-action,#overview .focus-note{display:none!important}
+  #overview [data-motion],#overview [data-motion] *{opacity:1!important;transform:none!important;animation:none!important;transition:none!important}
+  #overview .overview-bar{padding:4px 3px!important}
+  #overview .metric-decision span{display:none}
+}
+@media print{html,body,#root,.app,.page-content{background:#fff!important}}

@@ -1,0 +1,24 @@
+order: snapshot-heading > alert-strip > metrics > overview-charts > card
+"cohort" text visible: false
+chips: [ 'Course IT 112×' ]
+courses inspector: IT 112Year 1
+records rows: 1 | [ 'IT 112' ]
+chips: [ 'Course IT 112×', 'Batch 2023×' ]
+brief closed: true
+chips after reset: 0
+mobile overflow: 0
+errors: []
+nav: [
+  'Overview',
+  'Course outcomes',
+  'Retention',
+  'Teaching evaluation',
+  'Records'
+]
+sections: [ 'overview', 'courses', 'retention', 'teaching', 'records' ]
+metric cards: 5 | overview cards: 5
+dept cards: [ '80.7%', '90.0%', '87.5%', '79.5%', '63.6%' ] courses: 3 chips: [ 'Computer Science×' ]
+brief scope: Scope: AY 2025–2026, 2nd semester, all batches, Computer Science
+1100 overflow 0
+390 overflow 0
+errors: []

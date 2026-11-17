@@ -3,7 +3,7 @@ import React from 'react';
 export const navigation = [
   ['overview', 'Overview'], ['courses', 'Course outcomes'],
   ['retention', 'Retention'], ['teaching', 'Teaching evaluation'],
-  ['records', 'Records'], ['notes', 'Data notes'],
+  ['records', 'Records'],
 ];
 
 function Icon({ name }) {
@@ -13,7 +13,6 @@ function Icon({ name }) {
     retention: <><path d="M4 19h16M4 19V5M7 15l5-5 4 3 5-7M16 6h5v5"/></>,
     teaching: <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9Z"/>,
     records: <><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M10 9v11M14 13h3M14 16h3"/></>,
-    notes: <><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></>,
     collapse: <><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16m7-11-3 3 3 3"/></>,
   };
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;

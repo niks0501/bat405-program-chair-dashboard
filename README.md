@@ -4,13 +4,10 @@ A frontend-only React + Vite dashboard for the BAT 405 academic project at Batan
 
 ## Features
 
-- Overview with KPI trends and review priorities
-- Course Outcomes with search, sorting and course details
-- Retention trends and cohort spotlight
-- Teaching Evaluation with score and participation views
-- Records with filtered CSV downloads
-- Data Notes with definitions, targets and limitations
-- Fixed red sidebar, responsive pages, keyboard controls and reduced-motion support
+- One-page Overview: alert strip, five KPI cards, three charts and a review list, printable on long bond paper
+- Detail sections below it: Course Outcomes, Retention, Teaching Evaluation and Records, reached from the top navigation
+- Department, batch, term and status filters, click-to-focus cross-filtering and a one-page Decision brief
+- Sticky top navigation with a back-to-top button, responsive pages, keyboard controls and reduced-motion support
 - Browser-tab filter persistence
 
 ## Run locally
@@ -34,10 +31,11 @@ Open the local URL printed by Vite.
 
 ## Source structure
 
-- `src/pages/`: the six dashboard pages
-- `src/components/`: sidebar, dropdowns, charts, tables and tooltips
+- `src/pages/`: the Overview dashboard and four detail sections
+- `src/components/`: top navigation, decision brief, dropdowns, charts, tables and tooltips
 - `src/data.js`: synthetic sample records and calculations
 - `src/*.css`: shared theme, motion and page layouts
+- `docs/dashboard-reference.md`: formulas, targets, thresholds, filters, charts and privacy notes (kept in sync with the code, see `AGENTS.md`)
 
 React renders charts using SVG. There are no external data APIs. An optional Google Fonts stylesheet falls back to system fonts when unavailable.
 
