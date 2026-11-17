@@ -1,0 +1,11 @@
+order: snapshot-heading > card > metrics > overview-charts
+"cohort" text visible: false
+chips: [ 'Course IT 112×' ]
+courses inspector: IT 112Year 1
+records rows: 1 | [ 'IT 112' ]
+chips: [ 'Course IT 112×', 'Batch 2023×' ]
+brief text: Print or save as PDFCopy as text×BSIT INSIGHTS · DECISION BRIEFProgram decision briefScope: AY 2025–2026, 2nd semester, all batches1PurposeShow which BSIT outcomes are off target for the selected term and what the Program Chair should follow up.2Key findings2 of 5 indicators meet their targets.The largest gap is SETE response at 63.6%, 6.4 pts below its 70% target.3 of 9 courses are below the 85% pass-rate target, lowest: IT 112 (74.6%), IT 211 (78.8%), IT 313 (83.0%).2 of 4 batches are below the 90% retention target, lowest: Batch 2024 (87.6%), Batch 2023 (89.3%).3EvidenceIndicatorActualTargetGapvs prior termStatusCourse pass rate86.0%85%+1.0 pts+0.0 ptsOn trackStudent retention90.0%90%+0.0
+brief closed: true
+chips after reset: 0
+mobile overflow: 0
+errors: []

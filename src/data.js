@@ -27,8 +27,16 @@ export function dataset(ay,sem,cohort){
   const sections=courses.slice(0,8).map(([code],i)=>{const eligible=30+i*3;const valid=Math.round(eligible*([.74,.71,.76,.69,.72,.64][term]+(i%3-1)*.04));return {code:code+' · '+String.fromCharCode(65+i%3),eligible,valid,score:scoreTrend[term]+(i%3-1)*1.4}});
   const valid=sum(sections,'valid'),evaluations=sum(sections,'eligible');
   const teaching=sections.reduce((n,r)=>n+r.valid*r.score,0)/valid;
-  return {term,rows,cohorts,attempts,passed,eligible,enrolled,submitted,expected,sections,valid,evaluations,teaching,metrics:[{key:'pass',label:'Course pass rate',value:attempts?passed/attempts*100:null,target:85,note:`${passed} of ${attempts} finalized attempts passed`},{key:'retention',label:'Student retention',value:eligible?enrolled/eligible*100:null,target:90,note:`${enrolled} of ${eligible} eligible students continued`},{key:'grades',label:'Grade submission',value:submitted/expected*100,target:100,note:`${submitted} of ${expected} grade sets on time`},{key:'teaching',label:'SETE effectiveness',value:teaching,target:80,note:`Weighted by ${valid} valid responses`},{key:'response',label:'SETE response',value:valid/evaluations*100,target:70,note:`${valid} of ${evaluations} eligible evaluations`}]};
+  const withGuide=m=>({...m,decision:kpiGuide[m.key].decision,period:kpiGuide[m.key].period});
+  return {term,rows,cohorts,attempts,passed,eligible,enrolled,submitted,expected,sections,valid,evaluations,teaching,metrics:[{key:'pass',label:'Course pass rate',value:attempts?passed/attempts*100:null,target:85,note:`${passed} of ${attempts} finalized attempts passed`},{key:'retention',label:'Student retention',value:eligible?enrolled/eligible*100:null,target:90,note:`${enrolled} of ${eligible} eligible students continued`},{key:'grades',label:'Grade submission',value:submitted/expected*100,target:100,note:`${submitted} of ${expected} grade sets on time`},{key:'teaching',label:'SETE effectiveness',value:teaching,target:80,note:`Weighted by ${valid} valid responses`},{key:'response',label:'SETE response',value:valid/evaluations*100,target:70,note:`${valid} of ${evaluations} eligible evaluations`}].map(withGuide)};
 }
+export const kpiGuide={
+  pass:{objective:'Students pass the courses they attempt',target:85,data:'Finalized grades per course',decision:'Review below-target courses with their course teams and plan academic support.',period:'Every semester'},
+  retention:{objective:'Students continue into the next term',target:90,data:'Eligible prior-term students and re-enrollment',decision:'Ask advisers to look into batches below target and find what keeps students from continuing.',period:'Every semester'},
+  grades:{objective:'Grades are submitted on time',target:100,data:'Expected and on-time grade sets',decision:'Follow up late grade submissions with the instructors concerned.',period:'Each grading period'},
+  teaching:{objective:'Teaching is evaluated as effective',target:80,data:'SETE section scores and valid responses',decision:'Discuss low-scoring sections with their instructors. Do not use scores to rank instructors.',period:'Every semester'},
+  response:{objective:'Enough students complete the evaluation',target:70,data:'Valid responses and eligible evaluations',decision:'Raise participation before relying on SETE scores.',period:'Each evaluation period'},
+};
 export const percent=v=>v==null?'No data':v.toFixed(1)+'%';
 
 export function matchesStatus(value, target, status = 'all') {

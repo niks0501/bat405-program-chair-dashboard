@@ -3,10 +3,10 @@ import { Card, Status, Table, Metrics } from '../components/UI.jsx';
 import Dropdown from '../components/Dropdown.jsx';
 import { percent, dataset, matchesStatus } from '../data.js';
 
-export default function Courses({ data, onSelect, cohort, status }) {
+export default function Courses({ data, onSelect, cohort, status, focus, setFocus }) {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('lowest');
-  const [selectedCode, setSelectedCode] = useState(null);
+  const selectedCode = focus.course, setSelectedCode = code => setFocus(f => ({ ...f, course: f.course === code ? null : code }));
   const rows = useMemo(() => data.rows.filter(r => `${r.code} ${r.name}`.toLowerCase().includes(search.trim().toLowerCase())).sort((a,b) => sort === 'code' ? a.code.localeCompare(b.code) : (sort === 'highest' ? -1 : 1) * (a.passed/a.attempts-b.passed/b.attempts)), [data.rows, search, sort]);
   const selected = rows.find(r => r.code === selectedCode) || rows[0];
   const attempts = rows.reduce((n,r)=>n+r.attempts,0), passed=rows.reduce((n,r)=>n+r.passed,0);

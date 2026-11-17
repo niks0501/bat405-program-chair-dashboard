@@ -21,7 +21,7 @@ export function Metrics({metrics,previous,onSelect,compare=false,selectedTerm=5}
       <div className="metric-value-row"><strong>{m.displayValue??percent(m.value)}</strong><svg className="metric-spark" viewBox="0 0 114 40" aria-hidden="true"><path d={path} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>{current!=null&&<><circle cx={x(selectedTerm)} cy={y(current)} r="6" fill="currentColor" opacity=".12"/><circle cx={x(selectedTerm)} cy={y(current)} r="3" fill="currentColor" stroke="white" strokeWidth="1.5"/></>}</svg></div>
       {compare&&<span className={'metric-trend '+(m.changeLabel?'neutral':delta==null||unchanged?'neutral':delta>0?'positive':'negative')}>{m.changeLabel??(delta==null?'No prior-term data':unchanged?'No change vs prior term':`${delta>0?'+':''}${delta.toFixed(1)} pts vs prior term`)}</span>}
       <div className="metric-bullet" aria-hidden="true"><div className="track"><span style={{width:`${Math.max(0,Math.min(100,m.value||0))}%`}}/></div>{m.showTarget!==false&&<i className="metric-target-marker" style={{left:`${m.target}%`}}/>}</div>
-      <small>{m.targetLabel??`Target ${m.target}%`}</small><p>{m.note}</p><span className="metric-link">View records <span className="metric-link-arrow" aria-hidden="true">&rarr;</span></span>
+      <small>{m.targetLabel??`Target ${m.target}%`}</small><p>{m.note}</p>{m.decision&&<p className="metric-decision"><b>If off target:</b> {m.decision}<span>Reviewed {m.period.toLowerCase()}</span></p>}<span className="metric-link">View records <span className="metric-link-arrow" aria-hidden="true">&rarr;</span></span>
     </button>;
   })}</div>;
 }

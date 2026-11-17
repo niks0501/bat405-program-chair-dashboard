@@ -94,3 +94,45 @@ main>.topnav{top:-34px}
 
 /* Larger type: keep the page header from overflowing on phones. */
 @media(max-width:560px){main>.page-header-inline>div{flex-wrap:wrap;gap:4px 10px}main>.page-header-inline h1{white-space:normal}main>.page-header-inline .subtitle{white-space:normal;border-left:0;padding-left:0;margin-left:0;font-size:13px}}
+
+/* Level 1 alerts, KPI decisions, focus (cross-filter) and decision brief */
+.metric-decision{margin:10px 0 0!important;padding-top:10px;border-top:1px dashed #e5e7eb;font-size:13px!important;line-height:1.5;color:#374151!important;text-align:left}
+.metric-decision b{color:#991b2b;font-weight:600}
+.metric-decision span{display:block;margin-top:4px;color:#6b7280;font-size:12px}
+.overview-bar.is-focused{background:#fff1f2;box-shadow:inset 3px 0 0 #991b2b}
+.overview-bar.is-dimmed{opacity:.5}
+.overview-bar.is-dimmed:hover,.overview-bar.is-dimmed:focus-visible{opacity:1}
+.focus-note{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:0 0 10px;padding:9px 12px;border-radius:8px;background:#fff1f2;color:#801624;font-size:13px}
+.focus-note span{flex:1 1 220px}
+.active-filter-chip.focus-chip{background:#fff1f2;border-color:#f3c4cc;color:#801624}
+.records-focus{color:#801624}
+.brief-btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:0;border-radius:8px;background:#991b2b;color:#fff;font-size:13px;font-weight:600}
+.brief-btn:hover{background:#801624}
+.brief-btn svg{width:16px;height:16px}
+.filter-results-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brief-overlay{position:fixed;inset:0;z-index:100;display:grid;place-items:start center;overflow-y:auto;padding:32px 16px;background:#1f1216b3}
+.brief-panel{width:min(820px,100%);background:#fff;border-radius:12px;padding:28px 36px 36px;box-shadow:0 20px 60px #0006;outline:0;color:#1f2937}
+.brief-actions{display:flex;gap:10px;justify-content:flex-end;margin-bottom:8px}
+.brief-actions button{height:36px;padding:0 14px;font-size:13px;border-radius:8px}
+.brief-actions .brief-close{width:36px;padding:0;font-size:22px;line-height:1}
+.brief-head{border-bottom:2px solid #991b2b;padding-bottom:14px;margin-bottom:6px}
+.brief-head h2{margin:4px 0 8px;font-size:28px}
+.brief-scope{margin:0;font-size:14px;color:#374151}
+.brief-section{margin-top:20px}
+.brief-section h3{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-size:17px}
+.brief-section h3 span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#991b2b;color:#fff;font-size:12px}
+.brief-section p,.brief-section li{font-size:14.5px;line-height:1.65;color:#374151;margin:0}
+.brief-section ul,.brief-section ol{margin:0;padding-left:22px;display:grid;gap:5px}
+.brief-table-wrap{overflow-x:auto}
+.brief-table{width:100%;border-collapse:collapse;font-size:14px}
+.brief-table th,.brief-table td{padding:8px 10px;text-align:left;border-bottom:1px solid #e5e7eb;white-space:nowrap}
+.brief-table th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#6b7280}
+@media(max-width:560px){.brief-panel{padding:18px 16px 24px}.brief-head h2{font-size:23px}}
+@media print{
+  html,body,#root{height:auto!important;overflow:visible!important}
+  .app>.skip,.workspace,.scroll-top,.brief-actions{display:none!important}
+  .brief-overlay{position:static;display:block;padding:0;background:none;overflow:visible}
+  .brief-panel{width:auto;box-shadow:none;padding:0;border-radius:0}
+  .brief-section{break-inside:avoid}
+}
+.overview-refined .metric p.metric-decision{flex:none;min-height:0;margin:8px 0 12px!important}

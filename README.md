@@ -6,7 +6,7 @@ A frontend-only React + Vite dashboard for the BAT 405 academic project at Batan
 
 - Overview with KPI trends and review priorities
 - Course Outcomes with search, sorting and course details
-- Retention trends and cohort spotlight
+- Retention trends and batch spotlight
 - Teaching Evaluation with score and participation views
 - Records with filtered CSV downloads
 - Data Notes with definitions, targets and limitations
