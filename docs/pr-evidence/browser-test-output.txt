@@ -1,0 +1,10 @@
+sidebar elements: 0 | sections: 6 | hash-route pages: 0
+topScrollBtnVisibleAtTop: hidden
+Course outcomes -> {"url":"/#courses","active":"Course outcomes"}
+Retention -> {"url":"/#retention","active":"Retention"}
+Teaching evaluation -> {"url":"/#teaching","active":"Teaching evaluation"}
+Records -> {"url":"/#records","active":"Records"}
+Data notes -> {"url":"/#notes","active":"Data notes"}
+topbtn visible after scroll: visible
+scrollTop after Top click: 0
+console/page errors: []
