@@ -57,3 +57,26 @@
 .records-page .records-categories>button.is-active{border-color:#e5e7eb;background:#fff;box-shadow:none}
 @media(hover:hover) and (pointer:fine){.records-page .records-categories>button.is-active:hover{border-color:#991b2b;background:#fff;box-shadow:0 8px 20px #991b2b12}}
 .records-page .records-categories>button.is-active:focus-visible{border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
+
+/* Full-width one-page layout: no sidebar; top navigation + floating back-to-top. */
+.workspace>main{margin-left:0!important}
+main>.topnav{display:flex;align-items:center;gap:24px;margin:-34px -36px 22px;padding:12px 36px;background:#991b2b;color:#fff;border-bottom:0;flex-wrap:wrap}
+main>.topnav .brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;flex:none;padding:0}
+main>.topnav .monogram{height:34px;width:34px;border-radius:9px;font-size:10px;display:grid;place-items:center;background:#ffffff22;color:#fff;font-weight:700}
+main>.topnav .brand-copy{display:block;color:#fff;font-weight:600;font-size:14px;line-height:1.2}
+main>.topnav .brand-copy small{display:block;font-size:9px;font-weight:400;color:#ffe4e6}
+main>.topnav nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+main>.topnav nav a{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;color:#ffe4e6;text-decoration:none;font-size:12px;white-space:nowrap;transition:background-color 150ms ease}
+main>.topnav nav a svg{width:16px;height:16px;flex:none}
+main>.topnav nav a:hover{background:#ffffff1f;color:#fff}
+main>.topnav nav a.active{background:#fff;color:#991b2b;font-weight:600}
+main>.topnav :where(a):focus-visible{outline:2px solid #fbd2dd;outline-offset:2px}
+@media(min-width:1700px){main>.topnav{margin:-34px -50px 22px;padding:12px 50px}}
+@media(max-width:1100px){main>.topnav{margin:-26px -22px 18px;padding:10px 22px}}
+@media(max-width:760px){.workspace{flex-direction:row}main{height:100%!important}main>.topnav{margin:-24px -14px 16px;padding:10px 14px;gap:10px}main>.topnav nav{margin-left:0;width:100%}}
+.scroll-top{position:fixed;right:24px;bottom:24px;z-index:60;display:flex;align-items:center;gap:6px;height:44px;padding:0 16px 0 12px;border:0;border-radius:22px;background:#991b2b;color:#fff;font-size:12px;font-weight:600;box-shadow:0 6px 18px #45121c40;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity 180ms ease,transform 180ms ease,visibility 0s linear 180ms,background-color 150ms ease}
+.scroll-top.is-visible{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.scroll-top:hover{background:#801624}
+.scroll-top svg{width:18px;height:18px}
+.scroll-top:focus-visible{outline:3px solid #fbd2dd;outline-offset:2px}
+@media(max-width:560px){.scroll-top{right:14px;bottom:14px;width:44px;padding:0;justify-content:center}.scroll-top span{display:none}}

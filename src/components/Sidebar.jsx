@@ -20,21 +20,32 @@ function Icon({ name }) {
 }
 
 export default function Sidebar({ page }) {
-  return <aside className="sidebar hover-sidebar">
-    <div className="sidebar-heading">
-      <a className="brand" href="#overview" aria-label="BSIT Insights overview">
-        <span className="monogram">BSIT</span>
-        <span className="brand-copy">BSIT Insights<small>Batangas State University</small></span>
-      </a>
-
-    </div>
+  return <header className="topnav">
+    <a className="brand" href="#overview" aria-label="BSIT Insights overview">
+      <span className="monogram">BSIT</span>
+      <span className="brand-copy">BSIT Insights<small>Batangas State University</small></span>
+    </a>
     <nav id="sidebar-navigation" aria-label="Main navigation">
-      <div className="nav-group nav-group-single">
-        {navigation.map(([id, label]) => <a key={id} href={'#' + id} className={page === id ? 'active' : ''} aria-label={label} aria-current={page === id ? 'page' : undefined}>
-          <Icon name={id}/><span className="nav-text">{label}</span><span className="nav-tooltip" aria-hidden="true">{label}</span>
-        </a>)}
-      </div>
+      {navigation.map(([id, label]) => <a key={id} href={'#' + id} className={page === id ? 'active' : ''} aria-current={page === id ? 'page' : undefined}>
+        <Icon name={id}/><span className="nav-text">{label}</span>
+      </a>)}
     </nav>
-    <div className="sidebar-footer"><span className="footer-symbol"><Icon name="overview"/></span><div className="footer-copy"><strong>BSIT Program Dashboard</strong><small>Illustrative aggregates only</small></div></div>
-  </aside>;
+  </header>;
+}
+
+export function ScrollTop({ page }) {
+  const [state, setState] = React.useState({ show: false, canBack: false });
+  React.useEffect(() => {
+    const el = document.querySelector('main');
+    if (!el) return;
+    const fn = () => setState(s => { const show = el.scrollTop > 240; return s.show === show ? s : { ...s, show }; });
+    fn();
+    el.addEventListener('scroll', fn, { passive: true });
+    return () => el.removeEventListener('scroll', fn);
+  }, [page]);
+  const up = () => document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' });
+  return <button type="button" className={'scroll-top' + (state.show ? ' is-visible' : '')} onClick={up} aria-label="Back to top and navigation" title="Back to top" tabIndex={state.show ? 0 : -1}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <span>Top</span>
+  </button>;
 }
