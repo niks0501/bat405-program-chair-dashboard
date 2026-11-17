@@ -2,6 +2,8 @@
 
 This repository is a static React/Vite site. GitHub Actions validates pull requests
 and deploys the `main` branch to Vercel **only after the checks pass**.
+Both GitHub Actions jobs use **Ubuntu 24.04** and **Node.js 24**.
+The `package.json` `engines.node` field pins Vercel builds to **24.x**.
 
 ## Behavior
 
@@ -21,7 +23,9 @@ restricted by project-owner requirements.
 
 1. Create/import a Vercel project from `niks0501/bat405-program-chair-dashboard`.
 2. Use framework **Vite**, build command `npm run build`, output directory
-   `dist`, root `./`, and Node.js **22.x**.
+   `dist`, root `./`, and Node.js **24.x**.
+   Check **Project Settings > Build and Deployment > Node.js Version** and select **24.x**.
+   The project-level `package.json` engine also requests 24.x for deployments.
 3. In Vercel **Account Settings > Tokens**, create a token scoped to the account
    or team that owns the project. Copy it securely; never commit it.
 4. In a local shell from the cloned repository, run:
@@ -68,6 +72,7 @@ The required check becomes selectable after GitHub first receives a run.
 ## Local verification
 
 ```bash
+node --version  # Must be v24.x
 npm ci
 npm test
 npm run build
@@ -81,6 +86,8 @@ React/Vite can compile production assets.
 
 The single workflow is `.github/workflows/ci-cd.yml`:
 
+- Both jobs pin the runner to `ubuntu-24.04` and select Node.js 24.
+  A version check fails early if either major version differs.
 - `ci` runs without secrets and has read-only repository access. It is
   safe to run for pull requests.
 - `deploy` runs only on a `push` to `main` after `ci` passes.
