@@ -41,6 +41,6 @@ export default function Notes(){
         ['Before using real institutional data','Confirm data ownership, authorized access, current metric definitions, approved benchmarks, evaluation suppression rules and the official SETE calculation with the responsible university offices. A production system would require appropriate permissions and data controls.'],
       ].map(([title,body])=><details key={title}><summary>{title}<span aria-hidden="true">+</span></summary><p>{body}</p></details>)}</div>
     </Card></section>
-    <div className="notes-closing"><span>BSIT Insights</span><p>Use the indicators to ask better questions, then review the underlying context.</p><button onClick={()=>{location.hash='records';}}>Browse records <span aria-hidden="true">↗</span></button></div>
+    <div className="notes-closing"><span>BSIT Insights</span><p>Use the indicators to ask better questions, then review the underlying context.</p><button onClick={()=>{document.getElementById('records')?.scrollIntoView({behavior:'smooth'});}}>Browse records <span aria-hidden="true">↗</span></button></div>
   </div>;
 }
