@@ -15,7 +15,7 @@ export default function Courses({ data, onSelect, cohort, dept, status, focus, s
 
 
   return <div className="courses-page course-outcomes-page">
-    <div className="courses-intro"><div><span className="section-kicker">COURSE PERFORMANCE</span><h2>Find the gaps. Focus the support.</h2><p>Explore finalized course outcomes and identify where a closer review may help.</p></div><span className="courses-benchmark">Target <b>85%</b></span></div>
+    <div className="courses-intro"><div><span className="section-kicker">COURSE OUTCOMES</span><h2>Find the gaps. Focus the support.</h2><p>Explore finalized course outcomes and identify where a closer review may help.</p></div><span className="courses-benchmark">Target <b>85%</b></span></div>
     <div className="course-controls"><label className="course-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" aria-label="Search courses by code or name" placeholder="Search course code or name…" value={search} onChange={e=>setSearch(e.target.value)}/></label><Dropdown label="Sort courses" value={sort} onChange={setSort} options={[{value:'lowest',label:'Lowest pass rate'},{value:'highest',label:'Highest pass rate'},{value:'code',label:'Course code'}]}/></div>
     <div className="course-analysis-grid">
       <Card title="Pass rate comparison" subtitle="Select a course to inspect its outcome" action={<span className="course-chart-key"><i/>85% target</span>}>

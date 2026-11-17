@@ -83,7 +83,7 @@ main>.topnav :where(a):focus-visible{outline:2px solid #fbd2dd;outline-offset:2p
 
 /* Single-page sections */
 main>.topnav{position:sticky;top:0;z-index:40}
-.dash-section{scroll-margin-top:64px}
+.dash-section{scroll-margin-top:84px}
 .dash-section+.dash-section{margin-top:36px;padding-top:8px}
 .section-head{display:flex;align-items:center;gap:14px;margin:0 0 16px;padding-bottom:12px;border-bottom:2px solid #991b2b}
 .section-head h2{margin:0;font-size:23px;letter-spacing:-.3px}
@@ -182,3 +182,11 @@ main>.topnav{top:-34px}
   #overview .metric-decision span{display:none}
 }
 @media print{html,body,#root,.app,.page-content{background:#fff!important}}
+
+/* Detail sections: scope chips, inspector height, room for the floating Top button */
+.intro-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.courses-intro .intro-chips .courses-benchmark{white-space:normal}
+.course-outcomes-page .course-inspector{align-self:start!important;align-content:start!important}
+.course-outcomes-page .inspector-gap{align-self:start!important;margin:16px 0 0!important}
+.course-outcomes-page .course-inspector>.inspector-action{align-self:start!important;margin-top:14px!important}
+.page-content{padding-bottom:72px}
