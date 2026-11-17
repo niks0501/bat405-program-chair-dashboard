@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { Card, Status, Table, Metrics } from '../components/UI.jsx';
+import { Card, Status, Table } from '../components/UI.jsx';
 import Dropdown from '../components/Dropdown.jsx';
-import { percent, dataset, matchesStatus } from '../data.js';
+import { percent } from '../data.js';
 
-export default function Courses({ data, onSelect, cohort, status, focus, setFocus }) {
+export default function Courses({ data, onSelect, cohort, dept, status, focus, setFocus }) {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('lowest');
   const selectedCode = focus.course, setSelectedCode = code => setFocus(f => ({ ...f, course: f.course === code ? null : code }));
@@ -13,26 +13,10 @@ export default function Courses({ data, onSelect, cohort, status, focus, setFocu
   const below = rows.filter(r=>r.passed/r.attempts*100<85);
   const rate = attempts ? passed/attempts*100 : null;
 
-  const snapshots=Array.from({length:6},(_,i)=>{
-    const d=dataset(String(2023+Math.floor(i/2)),String(i%2+1),cohort);
-    const list=d.rows.filter(r=>matchesStatus(r.passed/r.attempts*100,85,status)&&`${r.code} ${r.name}`.toLowerCase().includes(search.trim().toLowerCase()));
-    const n=list.length,total=list.reduce((v,r)=>v+r.attempts,0),p=list.reduce((v,r)=>v+r.passed,0),met=list.filter(r=>r.passed/r.attempts*100>=85).length;
-    return {count:n,rate:total?p/total*100:null,met,below:n-met};
-  });
-  const previousSummary=snapshots[data.term-1];
-  const countChange=key=>!previousSummary?'No prior-term data':snapshots[data.term][key]===previousSummary[key]?'No change vs prior term':`${snapshots[data.term][key]-previousSummary[key]>0?'+':''}${snapshots[data.term][key]-previousSummary[key]} courses vs prior term`;
-  const summaryMetrics=[
-    {key:'courses',label:'Courses shown',value:rows.length?100:null,displayValue:String(rows.length),target:100,badge:'Current view',badgeTone:'no-data',note:'Matching filters and search',targetLabel:'Selected course records',showTarget:false,changeLabel:countChange('count'),trend:snapshots.map(d=>d.count)},
-    {key:'pass',label:'Weighted pass rate',value:rate,target:85,note:`${passed} of ${attempts} attempts passed`,trend:snapshots.map(d=>d.rate)},
-    {key:'meeting',label:'Meeting target',value:rows.length?(rows.length-below.length)/rows.length*100:null,displayValue:String(rows.length-below.length),target:100,badge:'On track',badgeTone:'on-track',note:'Courses at or above the 85% target',targetLabel:rows.length?`${((rows.length-below.length)/rows.length*100).toFixed(1)}% of shown courses`:'No matching courses',showTarget:false,changeLabel:countChange('met'),trend:snapshots.map(d=>d.met)},
-    {key:'below',label:'Below target',value:rows.length?below.length/rows.length*100:null,displayValue:String(below.length),target:100,badge:'Review',badgeTone:'watch',note:'Courses for contextual review',targetLabel:rows.length?`${(below.length/rows.length*100).toFixed(1)}% of shown courses`:'No matching courses',showTarget:false,changeLabel:countChange('below'),trend:snapshots.map(d=>d.below)},
-  ];
-  const previousMetrics=previousSummary?[{key:'pass',value:previousSummary.rate}]:undefined;
 
   return <div className="courses-page course-outcomes-page">
     <div className="courses-intro"><div><span className="section-kicker">COURSE PERFORMANCE</span><h2>Find the gaps. Focus the support.</h2><p>Explore finalized course outcomes and identify where a closer review may help.</p></div><span className="courses-benchmark">Target <b>85%</b></span></div>
     <div className="course-controls"><label className="course-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" aria-label="Search courses by code or name" placeholder="Search course code or name…" value={search} onChange={e=>setSearch(e.target.value)}/></label><Dropdown label="Sort courses" value={sort} onChange={setSort} options={[{value:'lowest',label:'Lowest pass rate'},{value:'highest',label:'Highest pass rate'},{value:'code',label:'Course code'}]}/></div>
-    <div className="overview-page overview-refined course-summary-overview"><Metrics metrics={summaryMetrics} previous={previousMetrics} compare selectedTerm={data.term} onSelect={()=>onSelect('pass')}/></div>
     <div className="course-analysis-grid">
       <Card title="Pass rate comparison" subtitle="Select a course to inspect its outcome" action={<span className="course-chart-key"><i/>85% target</span>}>
         <div className="course-scale" aria-hidden="true"><span>0%</span><span>50%</span><span>100%</span></div>

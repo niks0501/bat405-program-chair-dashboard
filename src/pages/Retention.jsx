@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Card, Chart, Table, Status, Metrics } from '../components/UI.jsx';
-import { percent, terms, dataset, matchesStatus } from '../data.js';
+import { Card, Chart, Table, Status } from '../components/UI.jsx';
+import { percent, terms } from '../data.js';
 
 function rateAt(row, term) {
   const value = row.trend[term];
   return value == null ? null : Math.round(row.eligible * value / 100) / row.eligible * 100;
 }
-export default function Retention({ data, onTerm, onSelect, cohort, status, focus, setFocus }) {
+export default function Retention({ data, onTerm, onSelect, cohort, dept, status, focus, setFocus }) {
   const selectedCohort = focus.batch, setSelectedCohort = b => setFocus(f => ({ ...f, batch: f.batch === b ? null : b }));
   const rows = [...data.cohorts].sort((a,b)=>a.enrolled/a.eligible-b.enrolled/b.eligible);
   const selected = rows.find(row=>row.cohort===selectedCohort) || rows[0];
@@ -17,23 +17,8 @@ export default function Retention({ data, onTerm, onSelect, cohort, status, focu
   const previous=selected&&data.term>0?rateAt(selected,data.term-1):null;
   const change=current!=null&&previous!=null?current-previous:null;
   const series=rows.map(row=>({label:`Batch ${row.cohort}`,values:row.trend.map((_,i)=>rateAt(row,i))}));
-  const history=Array.from({length:6},(_,i)=>{
-    const d=dataset(String(2023+Math.floor(i/2)),String(i%2+1),cohort);
-    const list=d.cohorts.filter(r=>matchesStatus(r.enrolled/r.eligible*100,90,status));
-    const e=list.reduce((v,r)=>v+r.eligible,0),n=list.reduce((v,r)=>v+r.enrolled,0),met=list.filter(r=>r.enrolled/r.eligible*100>=90).length;
-    return {rate:e?n/e*100:null,enrolled:n,eligible:e,met,below:list.length-met,count:list.length};
-  });
-  const prior=history[data.term-1];
-  const changeLabel=(key,unit)=>!prior?'No prior-term data':history[data.term][key]===prior[key]?'No change vs prior term':`${history[data.term][key]-prior[key]>0?'+':''}${history[data.term][key]-prior[key]} ${unit} vs prior term`;
-  const summary=[
-    {key:'retention',label:'Weighted retention',value:totalRate,target:90,note:`${enrolled} of ${eligible} eligible students continued`,trend:history.map(d=>d.rate)},
-    {key:'continued',label:'Students continued',value:totalRate,target:90,displayValue:String(enrolled),badge:'Current view',badgeTone:'no-data',targetLabel:`${eligible} eligible prior-term students`,showTarget:false,note:'Across matching batches',changeLabel:changeLabel('enrolled','students'),trend:history.map(d=>d.enrolled)},
-    {key:'meeting',label:'Batches meeting target',value:rows.length?(rows.length-below.length)/rows.length*100:null,displayValue:String(rows.length-below.length),target:100,showTarget:false,badge:'On track',badgeTone:'on-track',targetLabel:'At or above 90% retention',note:`${rows.length} batches currently shown`,changeLabel:changeLabel('met','batches'),trend:history.map(d=>d.met)},
-    {key:'below',label:'Batches below target',value:rows.length?below.length/rows.length*100:null,displayValue:String(below.length),target:100,showTarget:false,badge:'Review',badgeTone:'watch',targetLabel:'Below 90% retention',note:'Review continuation barriers',changeLabel:changeLabel('below','batches'),trend:history.map(d=>d.below)},
-  ];
   return <div className="retention-page courses-page">
     <div className="courses-intro"><div><span className="section-kicker">STUDENT CONTINUATION</span><h2>Understand who continues.</h2><p>Follow batch trends and identify where student support needs a closer look.</p></div><span className="courses-benchmark">Target <b>90%</b></span></div>
-    <div className="overview-page overview-refined analytics-kpi-grid"><Metrics metrics={summary} previous={prior?[{key:'retention',value:prior.rate}]:undefined} compare selectedTerm={data.term} onSelect={()=>onSelect('retention')}/></div>
     <div className="retention-analysis-grid">
       <Card title="Batch retention trends" subtitle="Continuation across six semesters" action={<span className="course-chart-key"><i/>90% target</span>}>
         {series.length?<><Chart series={series} selected={data.term} onSelect={onTerm} min={80} target={90}/><p className="course-panel-note">Select a term to update all results. Trends show batches matching the current filters; missing terms have no eligible batch data.</p></>:<div className="course-empty">No batches match this term and status. Try another filter selection.</div>}

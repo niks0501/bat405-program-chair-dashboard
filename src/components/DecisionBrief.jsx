@@ -6,10 +6,10 @@ const gapText = (v, t) => (v == null ? 'No data' : `${Math.abs(v - t).toFixed(1)
 const statusOf = (v, t) => (v == null ? 'No data' : v >= t ? 'On track' : v >= t - 5 ? 'Watch' : 'At risk');
 
 export function buildBrief(filters) {
-  const { ay, sem, cohort } = filters;
-  const d = dataset(ay, sem, cohort);
-  const prev = d.term > 0 ? dataset(String(2023 + Math.floor((d.term - 1) / 2)), String((d.term - 1) % 2 + 1), cohort) : null;
-  const scope = `AY ${ay}–${Number(ay) + 1}, ${ordinal(sem)} semester, ${cohort === 'all' ? 'all batches' : 'Batch ' + cohort}`;
+  const { ay, sem, cohort, dept = 'all' } = filters;
+  const d = dataset(ay, sem, cohort, dept);
+  const prev = d.term > 0 ? dataset(String(2023 + Math.floor((d.term - 1) / 2)), String((d.term - 1) % 2 + 1), cohort, dept) : null;
+  const scope = `AY ${ay}–${Number(ay) + 1}, ${ordinal(sem)} semester, ${cohort === 'all' ? 'all batches' : 'Batch ' + cohort}, ${dept === 'all' ? 'all departments' : dept}`;
   const rows = d.metrics.map(m => {
     const before = prev?.metrics.find(p => p.key === m.key)?.value;
     return { ...m, status: statusOf(m.value, m.target), change: m.value != null && before != null ? m.value - before : null };

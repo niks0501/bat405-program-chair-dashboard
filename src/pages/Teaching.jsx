@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Card, Chart, Table, Status, Metrics } from '../components/UI.jsx';
+import { Card, Chart, Table, Status } from '../components/UI.jsx';
 import { dataset, percent, terms } from '../data.js';
 
-export default function Teaching({ data, onTerm, onSelect }) {
+export default function Teaching({ data, onTerm, onSelect, dept }) {
   const [mode, setMode] = useState('score');
   const [selectedCode, setSelectedCode] = useState(null);
-  const snapshots=Array.from({length:6},(_,i)=>dataset(String(2023+Math.floor(i/2)),String(i%2+1),'all'));
+  const snapshots=Array.from({length:6},(_,i)=>dataset(String(2023+Math.floor(i/2)),String(i%2+1),'all',dept));
   const full=snapshots[data.term];
   const participation=full.valid/full.evaluations*100;
   const rows=[...data.sections].sort((a,b)=>a.valid/a.eligible-b.valid/b.eligible);
@@ -14,18 +14,8 @@ export default function Teaching({ data, onTerm, onSelect }) {
   const published=full.sections.filter(r=>r.valid>=10);
   const scoreMode=mode==='score';
   const prior=snapshots[data.term-1];
-  const historyLow=snapshots.map(d=>d.sections.filter(r=>r.valid/r.eligible*100<70).length);
-  const historyPublished=snapshots.map(d=>d.sections.filter(r=>r.valid>=10).length);
-  const countChange=(arr)=>!prior?'No prior-term data':arr[data.term]===arr[data.term-1]?'No change vs prior term':`${arr[data.term]-arr[data.term-1]>0?'+':''}${arr[data.term]-arr[data.term-1]} sections vs prior term`;
-  const summary=[
-    {key:'teaching',label:'Weighted SETE score',value:full.teaching,target:80,note:`Weighted by ${full.valid} valid responses`,trend:snapshots.map(d=>d.teaching)},
-    {key:'response',label:'Evaluation participation',value:participation,target:70,note:`${full.valid} of ${full.evaluations} eligible evaluations`,trend:snapshots.map(d=>d.valid/d.evaluations*100)},
-    {key:'below',label:'Low-participation sections',value:low.length/full.sections.length*100,target:100,displayValue:String(low.length),badge:'Review',badgeTone:'watch',showTarget:false,targetLabel:'Below the 70% response target',note:`${full.sections.length} sections in the program`,trend:historyLow,changeLabel:countChange(historyLow)},
-    {key:'published',label:'Publishable section scores',value:published.length/full.sections.length*100,target:100,displayValue:`${published.length} / ${full.sections.length}`,badge:'Score availability',badgeTone:'no-data',showTarget:false,targetLabel:'At least 10 valid responses',note:'Score availability, not a quality rating',trend:historyPublished,changeLabel:countChange(historyPublished)},
-  ];
   return <div className="teaching-page courses-page">
     <div className="courses-intro"><div><span className="section-kicker">TEACHING & STUDENT EXPERIENCE</span><h2>Read the feedback. Understand the context.</h2><p>Explore SETE results alongside participation, with section-level context.</p></div><span className="courses-benchmark">Program-wide <b>SETE</b></span></div>
-    <div className="overview-page overview-refined analytics-kpi-grid"><Metrics metrics={summary} previous={prior?[{key:'teaching',value:prior.teaching},{key:'response',value:prior.valid/prior.evaluations*100}]:undefined} compare selectedTerm={data.term} onSelect={key=>onSelect(key==='response'?'response':'teaching')}/></div>
     {participation<70&&<div className="teaching-participation-warning"><span aria-hidden="true">!</span><div><strong>Participation is below the 70% target.</strong><p>Read the score with caution. The responses may not represent every eligible student's experience.</p></div><button onClick={()=>setMode('response')}>View participation <span aria-hidden="true">↗</span></button></div>}
     <div className="teaching-analysis-grid">
       <Card title={scoreMode?'Teaching score over time':'Participation over time'} subtitle="Six-term view · full program scope" action={<div className="teaching-mode" aria-label="Evaluation chart view">{[['score','Score'],['response','Participation']].map(([key,label])=><button key={key} className={mode===key?'selected':''} aria-pressed={mode===key} onClick={()=>setMode(key)}>{label}</button>)}</div>}>
@@ -39,6 +29,6 @@ export default function Teaching({ data, onTerm, onSelect }) {
       <Table headers={['Course / section','Eligible','Valid responses','Participation','Response status','SETE score','Score status']} rows={rows.map(r=>[<button className={'retention-table-link '+(selected?.code===r.code?'current':'')} aria-pressed={selected?.code===r.code} onClick={()=>setSelectedCode(r.code)}>{r.code}<span aria-hidden="true">↗</span></button>,r.eligible,r.valid,<b>{percent(r.valid/r.eligible*100)}</b>,<Status value={r.valid/r.eligible*100} target={70}/>,<b>{r.valid<10?'Suppressed':percent(r.score)}</b>,<Status value={r.valid<10?null:r.score} target={80}/>])}/>
       <p className="course-panel-note">Status filters section scores against the 80% target. Program summaries include all sections. Under 10 valid responses: score suppressed.</p>
     </Card>
-    <div className="retention-guidance"><span className="guidance-symbol" aria-hidden="true">i</span><div><strong>Feedback is one part of the picture.</strong><p>These results support discussion, not automatic instructor rankings or personnel decisions.</p></div></div>
+    <div className="retention-guidance"><span className="guidance-symbol" aria-hidden="true">i</span><div><strong>Feedback is one part of the picture.</strong><p>These results support discussion, not automatic instructor rankings or personnel decisions. Results are aggregated by course section with no student identities, and scores from sections with fewer than 10 valid responses are suppressed.</p></div></div>
   </div>;
 }

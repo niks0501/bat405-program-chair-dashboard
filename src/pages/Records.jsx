@@ -38,6 +38,6 @@ export default function Records({ data, recordType, setRecordType, status, focus
       <p className="course-panel-note">{current.note}</p><p className="records-download-message" role="status" aria-live="polite">{exportMessage}</p>
     </Card>
 
-    <div className="retention-guidance"><span className="guidance-symbol" aria-hidden="true">i</span><div><strong>Your export follows the current view.</strong><p>CSV includes the active category, status filter, search and sort order. All records are aggregates; no student or instructor identities are included.</p></div></div>
+    <div className="retention-guidance"><span className="guidance-symbol" aria-hidden="true">i</span><div><strong>Your export follows the current view.</strong><p>CSV includes the active category, status filter, search and sort order. All records are aggregates; no student or instructor identities are included, and scores from sections with fewer than 10 valid responses are suppressed.</p></div></div>
   </div>;
 }
