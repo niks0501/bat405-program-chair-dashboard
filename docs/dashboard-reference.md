@@ -99,7 +99,7 @@ Opened from the filter bar. Built from the current Academic year, Semester, Batc
 
 ## 7. Printing
 
-Overview text is kept minimal. On KPI cards, the management action is shown only for Watch and At risk indicators (it is always listed in section 2 and in the Decision brief). Chart legends, formula footnotes and instructional captions are intentionally not shown in the UI.
+Overview text is kept minimal. KPI cards do not show the management action (it is listed in section 2 and in the Decision brief). Chart legends, formula footnotes and instructional captions are intentionally not shown in the UI.
 
 Branding: the product is named DeciSETE (logo `public/decisete-logo.png`; favicon and apple-touch icon are resized copies of it). The page heading "BSIT Program Dashboard" names the program reported on. The browser title is "DeciSETE | Program Dashboard" and the Decision brief eyebrow reads "DECISETE · DECISION BRIEF".
 
