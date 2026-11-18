@@ -4,7 +4,7 @@ A frontend-only React + Vite dashboard for the BAT 405 academic project at Batan
 
 ## Features
 
-- One-page Overview: alert strip, five KPI cards, three charts and a review list, printable on long bond paper
+- One-page Overview: alert strip, five KPI cards and a review list; one chart each in Course outcomes, Retention and Teaching, printable on long bond paper
 - Detail sections below it: Course Outcomes, Retention, Teaching Evaluation and Records, reached from the top navigation
 - Department, batch, term and status filters, click-to-focus cross-filtering and a one-page Decision brief
 - Sticky top navigation with a back-to-top button, responsive pages, keyboard controls and reduced-motion support

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Card, Chart, Table, Status } from '../components/UI.jsx';
-import { percent, terms } from '../data.js';
+import { dataset, percent, terms } from '../data.js';
 
 function rateAt(row, term) {
   const value = row.trend[term];
   return value == null ? null : Math.round(row.eligible * value / 100) / row.eligible * 100;
 }
 export default function Retention({ data, onTerm, onSelect, cohort, dept, status, focus, setFocus }) {
+  const [compare, setCompare] = useState(false);
   const selectedCohort = focus.batch, setSelectedCohort = b => setFocus(f => ({ ...f, batch: f.batch === b ? null : b }));
   const rows = [...data.cohorts].sort((a,b)=>a.enrolled/a.eligible-b.enrolled/b.eligible);
   const selected = rows.find(row=>row.cohort===selectedCohort) || rows[0];
@@ -16,12 +17,14 @@ export default function Retention({ data, onTerm, onSelect, cohort, dept, status
   const current=selected?selected.enrolled/selected.eligible*100:null;
   const previous=selected&&data.term>0?rateAt(selected,data.term-1):null;
   const change=current!=null&&previous!=null?current-previous:null;
-  const series=rows.map(row=>({label:`Batch ${row.cohort}`,values:row.trend.map((_,i)=>rateAt(row,i))}));
+  const snapshots=Array.from({length:6},(_,i)=>dataset(String(2023+Math.floor(i/2)),String(i%2+1),cohort,dept));
+  const program={label:cohort==='all'?'All eligible batches':`Batch ${cohort}`,values:snapshots.map(d=>d.metrics[1].value)};
+  const batches=rows.map(row=>({label:`Batch ${row.cohort}`,values:row.trend.map((_,i)=>rateAt(row,i))}));
   return <div className="retention-page courses-page">
     <div className="courses-intro"><div><span className="section-kicker">RETENTION</span><h2>Understand who continues.</h2><p>Follow batch trends and identify where student support needs a closer look.</p></div><div className="intro-chips"><span className="courses-benchmark">Target <b>90%</b></span><span className="courses-benchmark">Program-wide, not affected by Department</span></div></div>
     <div className="retention-analysis-grid">
-      <Card title="Batch retention trends" subtitle="Continuation across six semesters" action={<span className="course-chart-key"><i/>90% target</span>}>
-        {series.length?<><Chart series={series} selected={data.term} onSelect={onTerm} min={80} target={90}/><p className="course-panel-note">Select a term to update all results. Trends show batches matching the current filters; missing terms have no eligible batch data.</p></>:<div className="course-empty">No batches match this term and status. Try another filter selection.</div>}
+      <Card title="Term-to-term continuation" subtitle={compare?'Batches across six semesters':'All matching batches, six semesters'} action={<label className="compare-toggle"><input type="checkbox" checked={compare} onChange={e=>setCompare(e.target.checked)}/>Compare batches</label>}>
+        <Chart series={compare&&batches.length?batches:[program]} selected={data.term} onSelect={onTerm} min={80} target={90}/><p className="course-panel-note">{compare?'One line per batch matching the current filters; missing terms have no eligible batch data. ':'Program-wide line by default. '}Select a term to update all results. Target 90%.</p>
       </Card>
       <aside className="retention-inspector" aria-label="Selected batch details" aria-live="polite">
         <span className="section-kicker">BATCH SPOTLIGHT</span>

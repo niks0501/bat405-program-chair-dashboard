@@ -3,24 +3,16 @@ import FloatingTooltip from './FloatingTooltip.jsx';
 import {percent,terms} from '../data.js';
 export function Status({value,target=85}){const status=value==null?'No data':value>=target?'On track':value>=target-5?'Watch':'At risk';return <span className={'status '+status.toLowerCase().replaceAll(' ','-')}>{status}</span>}
 export function Card({title,subtitle,children,action,className=''}){return <section className={'card '+className}><div className="card-heading"><div><h2>{title}</h2>{subtitle&&<p>{subtitle}</p>}</div>{action}</div>{children}</section>}
-export function Metrics({metrics,previous,onSelect,compare=false,selectedTerm=5}) {
+export function Metrics({metrics,previous,onSelect,compare=false}) {
   return <div className="metrics">{metrics.map(m=>{
     const prior=previous?.find(p=>p.key===m.key)?.value;
     const delta=m.value!=null&&prior!=null?m.value-prior:null;
     const unchanged=delta!=null&&Math.abs(delta)<0.05;
     const tone=m.value==null?'none':m.value>=m.target?'ok':m.value>=m.target-5?'watch':'risk';
-    const samples=m.trend||[];
-    const valid=samples.filter(v=>v!=null);
-    const low=valid.length?Math.min(...valid)-1:0,high=valid.length?Math.max(...valid)+1:100;
-    const x=i=>6+i*20,y=v=>32-(v-low)/(high-low)*24;
-    let path='',connected=false;
-    samples.forEach((v,i)=>{if(v==null){connected=false;return;}path+=`${connected?' L':' M'} ${x(i)} ${y(v)}`;connected=true;});
-    const current=samples[selectedTerm];
     return <button className={'metric metric-'+m.key+' metric-tone-'+tone} key={m.key} onClick={()=>onSelect(m.key)}>
       <div className="metric-top"><span>{m.label}</span>{m.badge?<span className={'status '+m.badgeTone}>{m.badge}</span>:<Status value={m.value} target={m.target}/>}</div>
-      <div className="metric-value-row"><strong>{m.displayValue??percent(m.value)}</strong><svg className="metric-spark" viewBox="0 0 114 40" aria-hidden="true"><path d={path} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>{current!=null&&<><circle cx={x(selectedTerm)} cy={y(current)} r="6" fill="currentColor" opacity=".12"/><circle cx={x(selectedTerm)} cy={y(current)} r="3" fill="currentColor" stroke="white" strokeWidth="1.5"/></>}</svg></div>
+      <div className="metric-value-row"><strong>{m.displayValue??percent(m.value)}</strong></div>
       {compare&&<span className={'metric-trend '+(m.changeLabel?'neutral':delta==null||unchanged?'neutral':delta>0?'positive':'negative')}>{m.changeLabel??(delta==null?'No prior-term data':unchanged?'No change vs prior term':`${delta>0?'+':''}${delta.toFixed(1)} pts vs prior term`)}</span>}
-      <div className="metric-bullet" aria-hidden="true"><div className="track"><span style={{width:`${Math.max(0,Math.min(100,m.value||0))}%`}}/></div>{m.showTarget!==false&&<i className="metric-target-marker" style={{left:`${m.target}%`}}/>}</div>
       <small>{m.targetLabel??`Target ${m.target}%`}</small><p>{m.note}</p>{m.decision&&tone!=='ok'&&tone!=='none'&&<p className="metric-decision">{m.decision}</p>}<span className="metric-link">View records <span className="metric-link-arrow" aria-hidden="true">&rarr;</span></span>
     </button>;
   })}</div>;

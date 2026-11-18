@@ -148,17 +148,12 @@ main>.topnav{top:-34px}
 .alert-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:#6b7280}
 .alert-legend span{display:inline-flex;align-items:center;gap:6px}
 .alert-legend i{font-style:normal}
-.overview-refined .overview-charts{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1fr)}
-@media(max-width:1250px){.overview-refined .overview-charts{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.overview-sete-card{grid-column:1/-1}}
-@media(max-width:900px){.overview-refined .overview-charts{grid-template-columns:1fr}}
-.overview-sete-card{min-width:0}
 .details-divider{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:40px 0 4px;padding-top:18px;border-top:2px dashed #d9dde3;color:#6b7280;font-size:14px}
 .details-divider b{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#991b2b}
 
 .brief-btn-secondary{background:#fff;color:#991b2b;border:1px solid #991b2b}
 .brief-btn-secondary:hover{background:#fff1f2}
 .print-scope{display:none}
-.overview-charts .chart text{font-size:18px}
 
 /* Print: the Overview block is the one-page dashboard on long bond paper (13 x 8.5 in, landscape) */
 @page{size:8.5in 13in;margin:.5in}
@@ -168,17 +163,13 @@ main>.topnav{top:-34px}
   main{padding:0!important;background:#fff!important}
   main>.topnav,.filter-bar,.scroll-top,.details-divider,.dash-section:not(#overview),.skip,.snapshot-heading,.alert-strip .alert-legend{display:none!important}
   .print-scope{display:inline}
-  #overview{zoom:.62}
+  #overview{zoom:.75}
   #overview .metrics{grid-template-columns:repeat(5,minmax(0,1fr))!important}
-  #overview .overview-charts{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1fr)!important}
-  #overview .overview-sete-card{grid-column:auto!important}
   #overview .card,#overview .metric{break-inside:avoid}
-  #overview .overview-bars{max-height:none!important}
   .scroll-top{display:none!important}
   main>.page-header-inline{margin:0 0 6px!important;padding-bottom:6px!important}
-  .overview-review-card,.metric-link,#overview .term-buttons,#overview .retention-term-detail,#overview .card-footnote,#overview .course-chart-summary,#overview .performance-scale,#overview .text-action,#overview .focus-note{display:none!important}
+  .metric-link,#overview .text-action{display:none!important}
   #overview [data-motion],#overview [data-motion] *{opacity:1!important;transform:none!important;animation:none!important;transition:none!important}
-  #overview .overview-bar{padding:4px 3px!important}
   #overview .metric-decision span{display:none}
 }
 @media print{html,body,#root,.app,.page-content{background:#fff!important}}
@@ -191,26 +182,6 @@ main>.topnav{top:-34px}
 .course-outcomes-page .course-inspector>.inspector-action{align-self:start!important;margin-top:14px!important}
 .page-content{padding-bottom:72px}
 .card-actions{display:inline-flex;align-items:center;gap:10px}
-.expand-btn{display:inline-grid;place-items:center;width:32px;height:32px;padding:0;border-radius:8px;color:#6b7280;border:1px solid #e5e7eb;background:#fff}
-.expand-btn svg{width:16px;height:16px}
-.expand-btn:hover{color:#991b2b;background:#fff1f2;border-color:#e797a4}
-.chart-modal-overlay{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:24px 16px;background:#1f1216b3;overflow-y:auto}
-.chart-modal{width:min(1040px,100%);max-height:calc(100dvh - 48px);overflow-y:auto;background:#fff;border-radius:12px;padding:24px 32px 28px;box-shadow:0 20px 60px #0006;color:#1f2937;--course-label:240px;--course-value:84px;--course-gap:18px}
-.chart-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
-.chart-modal-head h2{font-size:22px;margin:0}
-.chart-modal-head p{margin:6px 0 0;color:#6b7280;font-size:14px}
-.chart-modal-close{width:36px;height:36px;padding:0;font-size:22px;line-height:1;border-radius:8px;flex:none}
-.chart-modal .chart{max-height:none;width:100%;height:auto;aspect-ratio:auto}
-.chart-modal .chart text{font-size:14px}
-.chart-modal .chart-legend,.chart-modal .term-buttons{justify-content:flex-start}
-.chart-modal .overview-bar{padding:12px 6px}
-.chart-modal .overview-bar-track{height:10px!important}
-.chart-modal .bar-course strong{font-size:15px!important}
-.chart-modal .bar-course small{font-size:13px!important}
-.chart-modal .performance-rate b{font-size:16px}
-.chart-modal .term-buttons button{font-size:13px}
-@media(max-width:760px){.chart-modal{padding:18px 14px 22px;--course-label:120px;--course-value:56px;--course-gap:10px}.chart-modal .chart text{font-size:16px}}
-@media print{.chart-modal-overlay{display:none!important}}
 
 /* Chart palette: blue = data, green/amber/red = status vs target, gray = reference. Brand crimson stays in the chrome only. */
 :root{--chart-1:#2b6cb0;--chart-2:#7fa8d4;--chart-3:#a9c4e2;--chart-4:#5b7392;--chart-grid:#e5e7eb;--chart-target:#9ca3af;--chart-band:#eef4fb;--chart-ref:#6b7280;--chart-ok:#2f855a;--chart-watch:#d69e2e;--chart-risk:#b1263b}
@@ -229,3 +200,7 @@ main>.topnav{top:-34px}
 .overview-course-card .overview-bar:hover .performance-rate b{color:inherit}
 .overview-refined .overview-course-card .overview-bar:hover,.overview-refined .overview-course-card .overview-bar:focus-visible,.course-outcomes-page .course-chart-row:hover,.course-outcomes-page .course-chart-row:focus-visible{box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px var(--chart-grid)}
 .chart-hit-area:focus-visible{outline-color:var(--chart-1)}
+
+.compare-toggle{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px;border:1px solid #d1d5db;border-radius:999px;background:#fff;font-size:13px;font-weight:600;color:#374151;cursor:pointer}
+.compare-toggle input{accent-color:#991b2b;width:16px;height:16px;margin:0}
+.compare-toggle:has(input:focus-visible){outline:2px solid #991b2b;outline-offset:2px}

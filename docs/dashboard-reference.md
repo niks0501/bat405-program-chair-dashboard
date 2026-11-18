@@ -2,13 +2,13 @@
 
 How the DeciSETE dashboard (BSIT Program Chair analytics) computes what it shows. The dashboard itself does not explain its numbers, so this file is the single place to look. **Keep it in sync with the code** (see `AGENTS.md`).
 
-Source of truth in code: `src/data.js` (records, formulas, `kpiGuide`), `src/pages/Overview.jsx` (KPI cards, charts, alerts), `src/components/DecisionBrief.jsx` (brief text).
+Source of truth in code: `src/data.js` (records, formulas, `kpiGuide`), `src/pages/Overview.jsx` (KPI cards, alerts), `src/components/DecisionBrief.jsx` (brief text).
 
 ## 1. Audience and purpose
 
 - **Primary user:** Program Chair (tactical dashboard: department/program performance over medium-term periods).
 - **Purpose:** monitor program outcomes against targets, spot what is off target, and decide what to follow up. Every KPI is tied to an objective, a target, a data source and a management action.
-- **Layout:** the Overview block is the one-page dashboard (alert strip, five KPI cards, three charts, "Needs your attention" list). Courses, Retention, Teaching and Records are detail sections below it, reached from the top navigation or by clicking a card/bar.
+- **Layout:** the Overview block is the one-page dashboard (alert strip, five KPI cards, "Needs your attention" list; it has no charts). Courses, Retention, Teaching and Records are detail sections below it, reached from the top navigation or by clicking a card/bar.
 
 ## 2. KPIs
 
@@ -57,12 +57,15 @@ Grade submission by department: expected sets are split by the department's shar
 
 ## 5. Charts
 
+The dashboard has three charts, one each in Course outcomes, Retention and Teaching evaluation. The Overview has none.
+
 | Chart | Computation |
 |---|---|
-| Course performance (bars) | Pass rate per course = passed / attempts x 100, sorted lowest first. Marker at 85% |
-| Student retention (line) | Per term: sum(enrolled) / sum(eligible) over batches matching the filters. Y axis starts at 80% (a truncated axis, acceptable for a line chart). Target line at 90% |
-| SETE effectiveness (line) | Per term: response-weighted score (KPI 4). Y axis 70-90%. Target line at 80%. The Teaching section's score view uses the same 70-90% axis; its participation view uses 50-100% with a 70% target |
-| KPI card sparkline | The KPI's value for each of the six terms; the dot marks the selected term |
+| Course outcomes (bars, Course outcomes section) | Pass rate per course = passed / attempts x 100, sorted lowest first. Marker at 85% |
+| Retention (line, Retention section) | Default: one program-wide line. Per term: sum(enrolled) / sum(eligible) over batches matching the Batch and Department filters. The "Compare batches" toggle replaces it with one line per batch. Y axis starts at 80% (a truncated axis, acceptable for a line chart). Target line at 90% |
+| SETE score (line, Teaching evaluation section) | Per term: response-weighted score (KPI 4). Y axis 70-90%. Target line at 80%. Participation is shown beside the score and in the sections table, not as a second chart |
+
+KPI cards show the value, change vs the prior term, target and supporting counts only; they have no sparkline or progress bar.
 
 ### Chart colors
 
@@ -70,7 +73,7 @@ Blue is data, green/amber/red is status against target, gray is reference. The b
 
 | Token | Hex | Use |
 |---|---|---|
-| `--chart-1` Blue | `#2b6cb0` | Main series, KPI sparklines, legend dots, focus accent |
+| `--chart-1` Blue | `#2b6cb0` | Main series, legend dots, focus accent |
 | `--chart-2` Light blue | `#7fa8d4` | Second series |
 | `--chart-3` Pale blue | `#a9c4e2` | Third series |
 | `--chart-4` Slate blue | `#5b7392` | Fourth series |
@@ -80,7 +83,7 @@ Blue is data, green/amber/red is status against target, gray is reference. The b
 | `--chart-grid` / `--chart-target` | `#e5e7eb` / `#9ca3af` | Gridlines / dashed target line |
 | `--chart-band` | `#eef4fb` | Selected term band, focused or selected bar row |
 
-Status colors use the same thresholds as the Status badges (on track >= target, watch within 5 points, at risk beyond). They apply to: course pass-rate bars (target 85%), the retention continuation bar (90%) and the KPI card progress bars (each KPI's own target). On line charts the line stays blue, and points below target change shape as well as color (circle on target, diamond for watch, triangle for at risk), so status never depends on color alone. Several series are also separated by dash style.
+Status colors use the same thresholds as the Status badges (on track >= target, watch within 5 points, at risk beyond). They apply to: course pass-rate bars (target 85%), the retention continuation bar (90%) in the batch spotlight. On line charts the line stays blue, and points below target change shape as well as color (circle on target, diamond for watch, triangle for at risk), so status never depends on color alone. Several series are also separated by dash style.
 
 The scope chips in the Teaching, Retention and Records sections show what the filters currently cover (for example "Computer Science · SETE", or "Batch 2024 · All departments" on Records).
 
@@ -96,13 +99,11 @@ Opened from the filter bar. Built from the current Academic year, Semester, Batc
 
 ## 7. Printing
 
-Enlarge: each of the three Overview charts (Course performance, Student retention, SETE effectiveness) has an enlarge button that opens the same content in a larger modal (Escape, the close button or a click outside closes it). It shows the same data, filters and term selection; nothing is recomputed. The modal is not printed.
-
 Overview text is kept minimal. On KPI cards, the management action is shown only for Watch and At risk indicators (it is always listed in section 2 and in the Decision brief). Chart legends, formula footnotes and instructional captions are intentionally not shown in the UI.
 
 Branding: the product is named DeciSETE (logo `public/decisete-logo.png`; favicon and apple-touch icon are resized copies of it). The page heading "BSIT Program Dashboard" names the program reported on. The browser title is "DeciSETE | Program Dashboard" and the Decision brief eyebrow reads "DECISETE · DECISION BRIEF".
 
-"Print dashboard" prints the Overview block on one colored long bond page (13 x 8.5 in, landscape): header with scope, alert strip, five KPI cards, three charts. Detail sections, the filter bar and the attention list are hidden in print. The Decision brief prints separately as a portrait 8.5 x 13 in document.
+"Print dashboard" prints the Overview block on one colored long bond page (13 x 8.5 in, landscape): header with scope, alert strip, five KPI cards and the attention list. Detail sections and the filter bar are hidden in print. The Decision brief prints separately as a portrait 8.5 x 13 in document.
 
 ## 8. Privacy and access
 
