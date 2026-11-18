@@ -190,3 +190,24 @@ main>.topnav{top:-34px}
 .course-outcomes-page .inspector-gap{align-self:start!important;margin:16px 0 0!important}
 .course-outcomes-page .course-inspector>.inspector-action{align-self:start!important;margin-top:14px!important}
 .page-content{padding-bottom:72px}
+.card-actions{display:inline-flex;align-items:center;gap:10px}
+.expand-btn{display:inline-grid;place-items:center;width:32px;height:32px;padding:0;border-radius:8px;color:#6b7280;border:1px solid #e5e7eb;background:#fff}
+.expand-btn svg{width:16px;height:16px}
+.expand-btn:hover{color:#991b2b;background:#fff1f2;border-color:#e797a4}
+.chart-modal-overlay{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:24px 16px;background:#1f1216b3;overflow-y:auto}
+.chart-modal{width:min(1040px,100%);max-height:calc(100dvh - 48px);overflow-y:auto;background:#fff;border-radius:12px;padding:24px 32px 28px;box-shadow:0 20px 60px #0006;color:#1f2937;--course-label:240px;--course-value:84px;--course-gap:18px}
+.chart-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
+.chart-modal-head h2{font-size:22px;margin:0}
+.chart-modal-head p{margin:6px 0 0;color:#6b7280;font-size:14px}
+.chart-modal-close{width:36px;height:36px;padding:0;font-size:22px;line-height:1;border-radius:8px;flex:none}
+.chart-modal .chart{max-height:none;width:100%;height:auto;aspect-ratio:auto}
+.chart-modal .chart text{font-size:14px}
+.chart-modal .chart-legend,.chart-modal .term-buttons{justify-content:flex-start}
+.chart-modal .overview-bar{padding:12px 6px}
+.chart-modal .overview-bar-track{height:10px!important}
+.chart-modal .bar-course strong{font-size:15px!important}
+.chart-modal .bar-course small{font-size:13px!important}
+.chart-modal .performance-rate b{font-size:16px}
+.chart-modal .term-buttons button{font-size:13px}
+@media(max-width:760px){.chart-modal{padding:18px 14px 22px;--course-label:120px;--course-value:56px;--course-gap:10px}.chart-modal .chart text{font-size:16px}}
+@media print{.chart-modal-overlay{display:none!important}}
