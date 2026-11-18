@@ -211,3 +211,21 @@ main>.topnav{top:-34px}
 .chart-modal .term-buttons button{font-size:13px}
 @media(max-width:760px){.chart-modal{padding:18px 14px 22px;--course-label:120px;--course-value:56px;--course-gap:10px}.chart-modal .chart text{font-size:16px}}
 @media print{.chart-modal-overlay{display:none!important}}
+
+/* Chart palette: blue = data, green/amber/red = status vs target, gray = reference. Brand crimson stays in the chrome only. */
+:root{--chart-1:#2b6cb0;--chart-2:#7fa8d4;--chart-3:#a9c4e2;--chart-4:#5b7392;--chart-grid:#e5e7eb;--chart-target:#9ca3af;--chart-band:#eef4fb;--chart-ref:#6b7280;--chart-ok:#2f855a;--chart-watch:#d69e2e;--chart-risk:#b1263b}
+.metric-spark,.overview-refined .metric-spark,.metric-grades .metric-spark{color:var(--chart-1)}
+.overview-refined .metric .track>span,.overview-refined .metric-bullet .track>span{background:var(--chart-1)}
+.overview-refined .metric-tone-ok .track>span{background:var(--chart-ok)}
+.overview-refined .metric-tone-watch .track>span{background:var(--chart-watch)}
+.overview-refined .metric-tone-risk .track>span{background:var(--chart-risk)}
+.overview-bar-track>span,.overview-refined .overview-bar-track>span,.overview-refined .overview-course-card .overview-bar-track>span,.course-chart-track>span,.continuation-track>span{background:var(--chart-1)}
+.overview-bar-track>span.is-met,.overview-refined .overview-course-card .overview-bar-track>span.is-met,.course-chart-track>span.is-met,.continuation-track>span.is-met{background:var(--chart-ok)}
+.overview-bar-track>span.is-watch,.overview-refined .overview-course-card .overview-bar-track>span.is-watch,.course-chart-track>span.is-watch,.continuation-track>span.is-watch{background:var(--chart-watch)}
+.overview-bar-track>span.is-risk,.overview-refined .overview-course-card .overview-bar-track>span.is-risk,.course-chart-track>span.is-risk,.continuation-track>span.is-risk{background:var(--chart-risk)}
+.legend-mark,.retention-term-detail i{background:var(--chart-1)}
+.overview-bar.is-focused{background:var(--chart-band);box-shadow:inset 3px 0 0 var(--chart-1)}
+.course-chart-row.is-selected,.courses-page .course-chart-row.is-selected{background:var(--chart-band)}
+.overview-course-card .overview-bar:hover .performance-rate b{color:inherit}
+.overview-refined .overview-course-card .overview-bar:hover,.overview-refined .overview-course-card .overview-bar:focus-visible,.course-outcomes-page .course-chart-row:hover,.course-outcomes-page .course-chart-row:focus-visible{box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px var(--chart-grid)}
+.chart-hit-area:focus-visible{outline-color:var(--chart-1)}

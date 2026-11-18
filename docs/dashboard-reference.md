@@ -64,6 +64,24 @@ Grade submission by department: expected sets are split by the department's shar
 | SETE effectiveness (line) | Per term: response-weighted score (KPI 4). Y axis 70-90%. Target line at 80%. The Teaching section's score view uses the same 70-90% axis; its participation view uses 50-100% with a 70% target |
 | KPI card sparkline | The KPI's value for each of the six terms; the dot marks the selected term |
 
+### Chart colors
+
+Blue is data, green/amber/red is status against target, gray is reference. The brand crimson stays in the navigation, buttons and badges and is not used for chart data. Tokens live in `src/refinements.css` (`--chart-*`); line series colors are in `Chart` in `src/components/UI.jsx`.
+
+| Token | Hex | Use |
+|---|---|---|
+| `--chart-1` Blue | `#2b6cb0` | Main series, KPI sparklines, legend dots, focus accent |
+| `--chart-2` Light blue | `#7fa8d4` | Second series |
+| `--chart-3` Pale blue | `#a9c4e2` | Third series |
+| `--chart-4` Slate blue | `#5b7392` | Fourth series |
+| `--chart-ok` Green | `#2f855a` | At or above target |
+| `--chart-watch` Amber | `#d69e2e` | Below target by up to 5 points |
+| `--chart-risk` Red | `#b1263b` | More than 5 points below target |
+| `--chart-grid` / `--chart-target` | `#e5e7eb` / `#9ca3af` | Gridlines / dashed target line |
+| `--chart-band` | `#eef4fb` | Selected term band, focused or selected bar row |
+
+Status colors use the same thresholds as the Status badges (on track >= target, watch within 5 points, at risk beyond). They apply to: course pass-rate bars (target 85%), the retention continuation bar (90%) and the KPI card progress bars (each KPI's own target). On line charts the line stays blue, and points below target change shape as well as color (circle on target, diamond for watch, triangle for at risk), so status never depends on color alone. Several series are also separated by dash style.
+
 The scope chips in the Teaching, Retention and Records sections show what the filters currently cover (for example "Computer Science · SETE", or "Batch 2024 · All departments" on Records).
 
 Clicking a point or term button on a line chart changes the selected academic year and semester for the whole page.
