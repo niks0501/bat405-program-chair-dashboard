@@ -4,7 +4,7 @@ Guidance for AI coding agents working in this repository. `CLAUDE.md` is a symli
 
 ## Project
 
-BSIT Insights: a frontend-only React 19 + Vite dashboard for the BAT 405 project (Program Chair analytics and decision support, Batangas State University). No backend, no tests framework, no environment variables.
+DeciSETE (formerly BSIT Insights): a frontend-only React 19 + Vite dashboard for the BAT 405 project (Program Chair analytics and decision support, Batangas State University). No backend, no tests framework, no environment variables.
 
 ```bash
 npm ci            # install

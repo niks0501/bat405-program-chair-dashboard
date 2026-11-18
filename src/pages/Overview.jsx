@@ -41,15 +41,14 @@ export default function Overview({ data, onSelect, cohort, dept, onTerm, status,
     <section className="snapshot-heading" aria-labelledby="snapshot-title">
       <span className="section-kicker">PERFORMANCE SNAPSHOT</span>
       <div className="snapshot-title-row"><h2 id="snapshot-title">Your program, at a glance</h2><div className="snapshot-state"><span className="state-dot"/>{onTrack} of 5 indicators on track</div></div>
-      <p className="snapshot-description">Key outcomes for the selected term. Start here, then explore the details.</p>
-      {compare && <p className="snapshot-comparison"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 8h16m-4-4 4 4-4 4M20 16H4m4-4-4 4 4 4"/></svg><span>{previous ? `Compared with ${terms[data.term - 1]}. Changes are in percentage points, using the same batch selection.` : 'No previous semester is available for this selection.'}</span></p>}
+      {compare && <p className="snapshot-comparison"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 8h16m-4-4 4 4-4 4M20 16H4m4-4-4 4 4 4"/></svg><span>{previous ? `vs ${terms[data.term - 1]}, in percentage points` : 'No previous semester is available for this selection.'}</span></p>}
     </section>
     <div className="alert-strip" role="status" aria-live="polite">
       <div className={'alert-strip-main' + (attention.length ? ' has-alerts' : ' all-clear')}>
         <span className="alert-dot" aria-hidden="true"/>
         {attention.length ? <span><b>{attention.length} indicator{attention.length === 1 ? '' : 's'} off target.</b> Largest gap: {attention[0].title} at {percent(attention[0].value)}, {(attention[0].target - attention[0].value).toFixed(1)} pts below its {attention[0].target}% target.</span> : <span><b>No indicator is off target</b> in this selection.</span>}
       </div>
-      <div className="alert-legend" aria-label="Warning thresholds"><span><i className="status watch">Watch</i> 0.1–5.0 pts below target</span><span><i className="status at-risk">At risk</i> more than 5.0 pts below: Program Chair follows up</span><span><i className="status watch">Low response</i> SETE response under 70%: treat scores as indicative</span></div>
+      <div className="alert-legend" aria-label="Warning thresholds"><span><i className="status watch">Watch</i> up to 5 pts below target</span><span><i className="status at-risk">At risk</i> over 5 pts below</span><span><i className="status watch">Low response</i> SETE response under 70%</span></div>
     </div>
     {metrics.length ? <Metrics selectedTerm={data.term} metrics={metrics} compare={compare} previous={previous?.metrics} onSelect={onSelect}/> : <div className="overview-empty">No indicators match this status. Try All statuses.</div>}
     <div className="overview-charts">
@@ -57,7 +56,6 @@ export default function Overview({ data, onSelect, cohort, dept, onTerm, status,
         <div className="course-chart-summary"><strong>{courses.length}<span>courses shown</span></strong><span className="course-target-note"><i/>85% target</span><span className="below-count">{below.length} below target</span></div>
         {focus.course && <div className="focus-note" role="status"><span>Focused on <b>{focus.course}</b>. Course outcomes, Records and filters now follow it.</span><button className="text-action" onClick={() => { onSelect('pass'); }}>Open records <span aria-hidden="true">↗</span></button><button className="text-action" onClick={() => setFocus(f => ({ ...f, course: null }))}>Clear</button></div>}
         <div className="performance-scale" aria-hidden="true"><span>0%</span><span>50%</span><span>100%</span></div><div className="overview-bars">{courses.map(r => { const rate = r.passed / r.attempts * 100; return <button className={'overview-bar' + (focus.course === r.code ? ' is-focused' : focus.course ? ' is-dimmed' : '')} key={r.code} onClick={() => setFocus(f => ({ ...f, course: f.course === r.code ? null : r.code }))} aria-pressed={focus.course === r.code} aria-label={`${r.code}, ${r.name}: ${percent(rate)}. Select to focus this course across the dashboard.`}><span className="bar-course"><strong>{r.code}</strong><small title={r.name}>{r.name}</small></span><span className="overview-bar-track"><span className={rate < 85 ? 'below-target' : ''} style={{ width: `${rate}%` }}/><i/></span><span className="performance-rate"><b>{percent(rate)}</b><small className={rate<85?'gap-below':'gap-above'}>{rate>=85?'+':''}{(rate-85).toFixed(1)} pts</small></span></button>; })}{!courses.length && <div className="overview-empty">No courses match these filters.</div>}</div>
-        <div className="card-footnote"><span className="legend-mark"/>Meets target <span className="performance-legend-below"><i/>Below target</span><span className="performance-definition">Passed / finalized attempts</span></div>
       </Card>
       <Card className="overview-retention-card" title="Student retention" subtitle="Term-to-term continuation" action={<button className="text-action" onClick={() => { document.getElementById('retention')?.scrollIntoView({behavior:'smooth'}); }}>View batches <span aria-hidden="true">↗</span></button>}>
         <div className="retention-headline"><div><strong>{percent(data.metrics[1].value)}</strong><span>{data.enrolled} of {data.eligible} eligible students continued</span></div><Status value={data.metrics[1].value} target={90}/></div>
@@ -65,18 +63,15 @@ export default function Overview({ data, onSelect, cohort, dept, onTerm, status,
         <div className="retention-chart-block">
         <Chart series={[{ label: cohort === 'all' ? 'All eligible batches' : `Batch ${cohort}`, values: snapshots.map(d => d.metrics[1].value) }]} selected={data.term} onSelect={onTerm} min={80} target={90}/>
         </div>
-        <div className="retention-term-detail"><span><i/>Selected term <strong>{terms[data.term]}</strong></span><span className={previous&&data.metrics[1].value!=null&&previous.metrics[1].value!=null?(data.metrics[1].value>=previous.metrics[1].value?'positive':'negative'):'neutral'}>{previous&&data.metrics[1].value!=null&&previous.metrics[1].value!=null?`${data.metrics[1].value-previous.metrics[1].value>=0?'+':''}${(data.metrics[1].value-previous.metrics[1].value).toFixed(1)} pts vs prior term`:'No prior-term comparison'}</span></div>
-        <div className="card-footnote">Full batch trend · select a term to update the dashboard</div>
       </Card>
       <Card className="overview-sete-card" title="SETE effectiveness" subtitle="Response-weighted score across semesters" action={<button className="text-action" onClick={() => { document.getElementById('teaching')?.scrollIntoView({behavior:'smooth'}); }}>View teaching <span aria-hidden="true">↗</span></button>}>
         <div className="retention-headline"><div><strong>{percent(data.metrics[3].value)}</strong><span>{data.valid} valid responses · {percent(data.metrics[4].value)} response rate</span></div><Status value={data.metrics[3].value} target={80}/></div>
         <div className="retention-chart-block"><Chart series={[{ label: 'SETE effectiveness', values: snapshots.map(d => d.metrics[3].value) }]} selected={data.term} onSelect={onTerm} min={70} max={90} target={80}/></div>
-        <div className="card-footnote">Read with response rate and other evidence. Not a sole measure of teaching effectiveness.</div>
+        <div className="card-footnote">Not a sole measure of teaching effectiveness.</div>
       </Card>
     </div>
-    <Card className="overview-review-card" title="Needs your attention" subtitle="Indicators off target, largest gap first. Review the context before acting." action={<span className="attention-count">{attention.length} to review</span>}>
+    <Card className="overview-review-card" title="Needs your attention" subtitle="Largest gap first" action={<span className="attention-count">{attention.length} to review</span>}>
       <div className="review-scroll-region"><div className="review-column-headings" aria-hidden="true"><span>Priority / indicator</span><span>Status</span><span>Current / target</span><span>Action</span></div><div className="review-queue">{attention.map((item, index) => <div className="review-item" key={item.key}><span className="review-number">{String(index + 1).padStart(2, '0')}</span><div className="review-copy"><h3>{item.title}</h3><p>{item.body}</p></div><Status value={item.value} target={item.target}/><div className="review-gap"><strong>{percent(item.value)}</strong><small>Target {item.target}% <span>&middot; { (item.target - item.value).toFixed(1)} pts below</span></small></div><button onClick={() => onSelect(item.key)} aria-label={item.next}>View records<span aria-hidden="true">↗</span></button></div>)}{!attention.length && <div className="overview-empty">No review items match this selection.</div>}</div></div>
-      <div className="card-footnote">Benchmarks support human review.</div>
     </Card>
   </div>;
 }

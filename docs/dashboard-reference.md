@@ -1,6 +1,6 @@
 # Dashboard reference
 
-How the BSIT Program Chair dashboard computes what it shows. The dashboard itself does not explain its numbers, so this file is the single place to look. **Keep it in sync with the code** (see `AGENTS.md`).
+How the DeciSETE dashboard (BSIT Program Chair analytics) computes what it shows. The dashboard itself does not explain its numbers, so this file is the single place to look. **Keep it in sync with the code** (see `AGENTS.md`).
 
 Source of truth in code: `src/data.js` (records, formulas, `kpiGuide`), `src/pages/Overview.jsx` (KPI cards, charts, alerts), `src/components/DecisionBrief.jsx` (brief text).
 
@@ -77,6 +77,10 @@ Opened from the filter bar. Built from the current Academic year, Semester, Batc
 - Print or save as PDF, or copy as text.
 
 ## 7. Printing
+
+Overview text is kept minimal. On KPI cards, the management action is shown only for Watch and At risk indicators (it is always listed in section 2 and in the Decision brief). Chart legends, formula footnotes and instructional captions are intentionally not shown in the UI.
+
+Branding: the product is named DeciSETE (logo `public/decisete-logo.png`; favicon and apple-touch icon are resized copies of it). The page heading "BSIT Program Dashboard" names the program reported on. The browser title is "DeciSETE | Program Dashboard" and the Decision brief eyebrow reads "DECISETE · DECISION BRIEF".
 
 "Print dashboard" prints the Overview block on one colored long bond page (13 x 8.5 in, landscape): header with scope, alert strip, five KPI cards, three charts. Detail sections, the filter bar and the attention list are hidden in print. The Decision brief prints separately as a portrait 8.5 x 13 in document.
 
