@@ -87,7 +87,7 @@ export default function DecisionBrief({ filters, onClose }) {
         <button type="button" className="brief-close" onClick={onClose} aria-label="Close decision brief">&times;</button>
       </div>
       <div className="brief-head">
-        <p className="eyebrow">BSIT INSIGHTS · DECISION BRIEF</p>
+        <p className="eyebrow">DECISETE · DECISION BRIEF</p>
         <h2 id="brief-title">{brief.title}</h2>
         <p className="brief-scope"><b>Scope:</b> {brief.scope}</p>
       </div>

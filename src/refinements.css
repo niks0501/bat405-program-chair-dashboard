@@ -62,7 +62,7 @@
 .workspace>main{margin-left:0!important}
 main>.topnav{display:flex;align-items:center;gap:24px;margin:-34px -36px 22px;padding:12px 36px;background:#991b2b;color:#fff;border-bottom:0;flex-wrap:wrap}
 main>.topnav .brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;flex:none;padding:0}
-main>.topnav .monogram{height:34px;width:34px;border-radius:9px;font-size:13px;display:grid;place-items:center;background:#ffffff22;color:#fff;font-weight:700}
+main>.topnav .brand-logo{height:40px;width:40px;object-fit:contain;display:block;flex:none}
 main>.topnav .brand-copy{display:block;color:#fff;font-weight:600;font-size:17px;line-height:1.2}
 main>.topnav .brand-copy small{display:block;font-size:12px;font-weight:400;color:#ffe4e6}
 main>.topnav nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
