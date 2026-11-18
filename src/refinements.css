@@ -211,3 +211,16 @@ main>.topnav{top:-34px}
 .chart-modal .term-buttons button{font-size:13px}
 @media(max-width:760px){.chart-modal{padding:18px 14px 22px;--course-label:120px;--course-value:56px;--course-gap:10px}.chart-modal .chart text{font-size:16px}}
 @media print{.chart-modal-overlay{display:none!important}}
+
+/* Chart palette: neutral graphite/slate series; red (#991b2b) is reserved for below-target or alert marks. */
+:root{--chart-1:#374151;--chart-2:#64748b;--chart-3:#94a3b8;--chart-4:#cbd5e1;--chart-grid:#e5e7eb;--chart-target:#9ca3af;--chart-band:#f3f4f6;--chart-ref:#6b7280;--chart-alert:#991b2b;--chart-alert-tint:#fbe9ec}
+.metric-spark,.overview-refined .metric-spark{color:var(--chart-1)}
+.metric-grades .metric-spark{color:var(--chart-1)}
+.overview-refined .metric .track>span,.overview-refined .metric-bullet .track>span,.continuation-track>span,.course-chart-track>span,.overview-refined .overview-course-card .overview-bar-track>span,.overview-bar-track>span{background:var(--chart-1)}
+.overview-refined .overview-course-card .overview-bar-track>span.below-target,.overview-refined .overview-bar-track>span.below-target,.overview-bar-track>span.below-target,.course-chart-track>span.below{background:var(--chart-alert)}
+.legend-mark,.retention-term-detail i{background:var(--chart-1)}
+.overview-bar.is-focused{background:var(--chart-band);box-shadow:inset 3px 0 0 var(--chart-1)}
+.course-chart-row.is-selected,.courses-page .course-chart-row.is-selected{background:var(--chart-band)}
+.overview-course-card .overview-bar:hover .performance-rate b{color:var(--chart-1)}
+.overview-refined .overview-course-card .overview-bar:hover,.overview-refined .overview-course-card .overview-bar:focus-visible,.course-outcomes-page .course-chart-row:hover,.course-outcomes-page .course-chart-row:focus-visible{box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px var(--chart-grid)}
+.chart-hit-area:focus-visible{outline-color:var(--chart-ref)}

@@ -64,6 +64,24 @@ Grade submission by department: expected sets are split by the department's shar
 | SETE effectiveness (line) | Per term: response-weighted score (KPI 4). Y axis 70-90%. Target line at 80%. The Teaching section's score view uses the same 70-90% axis; its participation view uses 50-100% with a 70% target |
 | KPI card sparkline | The KPI's value for each of the six terms; the dot marks the selected term |
 
+### Chart colors
+
+Charts use a neutral palette so red keeps its meaning as a warning. Tokens live in `src/refinements.css` (`--chart-*`); the line series colors are in `Chart` in `src/components/UI.jsx`.
+
+| Token | Hex | Use |
+|---|---|---|
+| `--chart-1` Graphite | `#374151` | Primary series, bar fills that meet target, KPI sparklines, legend dots, focus accent |
+| `--chart-2` Slate | `#64748b` | Second series |
+| `--chart-3` Steel mist | `#94a3b8` | Third series |
+| `--chart-4` Stone | `#cbd5e1` | Fourth series. Use for fills only, not text |
+| `--chart-grid` | `#e5e7eb` | Gridlines |
+| `--chart-target` | `#9ca3af` | Dashed target line |
+| `--chart-band` | `#f3f4f6` | Selected term band and focused or selected bar row |
+| `--chart-ref` | `#6b7280` | Hover reference line and chart focus outline |
+| `--chart-alert` Crimson | `#991b2b` | Only bars below target (course pass rate under 85%). Never a normal series color |
+
+Multiple series are also told apart by dash style, not by color alone. The brand red remains in the navigation, buttons and status badges.
+
 The scope chips in the Teaching, Retention and Records sections show what the filters currently cover (for example "Computer Science · SETE", or "Batch 2024 · All departments" on Records).
 
 Clicking a point or term button on a line chart changes the selected academic year and semester for the whole page.
