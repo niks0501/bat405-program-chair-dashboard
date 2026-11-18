@@ -13,7 +13,7 @@ export function Metrics({metrics,previous,onSelect,compare=false}) {
       <div className="metric-top"><span>{m.label}</span>{m.badge?<span className={'status '+m.badgeTone}>{m.badge}</span>:<Status value={m.value} target={m.target}/>}</div>
       <div className="metric-value-row"><strong>{m.displayValue??percent(m.value)}</strong></div>
       {compare&&<span className={'metric-trend '+(m.changeLabel?'neutral':delta==null||unchanged?'neutral':delta>0?'positive':'negative')}>{m.changeLabel??(delta==null?'No prior-term data':unchanged?'No change vs prior term':`${delta>0?'+':''}${delta.toFixed(1)} pts vs prior term`)}</span>}
-      <small>{m.targetLabel??`Target ${m.target}%`}</small><p>{m.note}</p>{m.decision&&tone!=='ok'&&tone!=='none'&&<p className="metric-decision">{m.decision}</p>}<span className="metric-link">View records <span className="metric-link-arrow" aria-hidden="true">&rarr;</span></span>
+      <small>{m.targetLabel??`Target ${m.target}%`}</small><p>{m.note}</p><span className="metric-link">View records <span className="metric-link-arrow" aria-hidden="true">&rarr;</span></span>
     </button>;
   })}</div>;
 }

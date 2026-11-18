@@ -96,9 +96,6 @@ main>.topnav{top:-34px}
 @media(max-width:560px){main>.page-header-inline>div{flex-wrap:wrap;gap:4px 10px}main>.page-header-inline h1{white-space:normal}main>.page-header-inline .subtitle{white-space:normal;border-left:0;padding-left:0;margin-left:0;font-size:13px}}
 
 /* Level 1 alerts, KPI decisions, focus (cross-filter) and decision brief */
-.metric-decision{margin:10px 0 0!important;padding-top:10px;border-top:1px dashed #e5e7eb;font-size:13px!important;line-height:1.5;color:#374151!important;text-align:left}
-.metric-decision b{color:#991b2b;font-weight:600}
-.metric-decision span{display:block;margin-top:4px;color:#6b7280;font-size:12px}
 .overview-bar.is-focused{background:#fff1f2;box-shadow:inset 3px 0 0 #991b2b}
 .overview-bar.is-dimmed{opacity:.5}
 .overview-bar.is-dimmed:hover,.overview-bar.is-dimmed:focus-visible{opacity:1}
@@ -136,7 +133,6 @@ main>.topnav{top:-34px}
   .brief-panel{width:auto;box-shadow:none;padding:0;border-radius:0}
   .brief-section{break-inside:avoid}
 }
-.overview-refined .metric p.metric-decision{flex:none;min-height:0;margin:8px 0 12px!important}
 
 /* One-page dashboard: alert strip, three charts, details divider */
 .alert-strip{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;margin:0 0 16px;padding:12px 16px;border:1px solid #f3c4cc;border-left:4px solid #991b2b;border-radius:10px;background:#fff7f8}
@@ -170,7 +166,6 @@ main>.topnav{top:-34px}
   main>.page-header-inline{margin:0 0 6px!important;padding-bottom:6px!important}
   .metric-link,#overview .text-action{display:none!important}
   #overview [data-motion],#overview [data-motion] *{opacity:1!important;transform:none!important;animation:none!important;transition:none!important}
-  #overview .metric-decision span{display:none}
 }
 @media print{html,body,#root,.app,.page-content{background:#fff!important}}
 
