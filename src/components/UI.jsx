@@ -34,10 +34,10 @@ export function Chart({series,selected,onSelect,min=70,max=100,target}) {
   const index=hover;
   return <><div className="interactive-chart" onMouseLeave={()=>{setHover(null);setCursor(null);}} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget))setHover(null)}}>
     {index!=null&&cursor&&<FloatingTooltip key={index} x={cursor.x} y={cursor.y}><strong>{terms[index]}</strong>{series.map(s=><span key={s.label}>{s.label}: <b>{percent(s.values[index])}</b></span>)}</FloatingTooltip>}
-    <svg className="chart" viewBox="0 0 720 240" role="group" aria-label="Interactive term trend chart">
+    <svg className="chart" viewBox="-22 0 764 240" role="group" aria-label="Interactive term trend chart">
+      <rect x={x(selected)-12} y="20" width="24" height="180" rx="6" fill="#fff1f2"/>
       {[min,(min+max)/2,max].map(v=><g key={v}><line x1="50" x2="680" y1={y(v)} y2={y(v)} stroke="#e5e7eb"/><text x="36" y={y(v)+4} textAnchor="end">{v}%</text></g>)}
       {target!=null&&<g><line x1="50" x2="680" y1={y(target)} y2={y(target)} stroke="#9ca3af" strokeDasharray="5 5"/><text x="680" y={y(target)-8} textAnchor="end">Target {target}%</text></g>}
-      <rect x={x(selected)-12} y="20" width="24" height="180" rx="6" fill="#fff1f2"/>
       {index!=null&&<line x1={x(index)} x2={x(index)} y1="20" y2="200" stroke="#bd7b8c" strokeDasharray="3 4"/>}
       {series.map((s,k)=><g key={s.label}><polyline pathLength="1000" fill="none" stroke={colors[k%4]} strokeWidth="3" strokeDasharray={k===1?'7 4':k===2?'2 4':k===3?'9 3 2 3':undefined} points={s.values.map((v,i)=>v==null?null:`${x(i)},${y(v)}`).filter(Boolean).join(' ')}/>{s.values.map((v,i)=>v==null?null:<circle key={i} cx={x(i)} cy={y(v)} r={index===i?6:4} fill="white" stroke={colors[k%4]} strokeWidth={index===i?3:2}/>)}</g>)}
       {terms.map((t,i)=><text key={t} x={x(i)} y="228" textAnchor="middle">{t}</text>)}

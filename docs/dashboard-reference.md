@@ -78,6 +78,8 @@ Opened from the filter bar. Built from the current Academic year, Semester, Batc
 
 ## 7. Printing
 
+Enlarge: each of the three Overview charts (Course performance, Student retention, SETE effectiveness) has an enlarge button that opens the same content in a larger modal (Escape, the close button or a click outside closes it). It shows the same data, filters and term selection; nothing is recomputed. The modal is not printed.
+
 Overview text is kept minimal. On KPI cards, the management action is shown only for Watch and At risk indicators (it is always listed in section 2 and in the Decision brief). Chart legends, formula footnotes and instructional captions are intentionally not shown in the UI.
 
 Branding: the product is named DeciSETE (logo `public/decisete-logo.png`; favicon and apple-touch icon are resized copies of it). The page heading "BSIT Program Dashboard" names the program reported on. The browser title is "DeciSETE | Program Dashboard" and the Decision brief eyebrow reads "DECISETE · DECISION BRIEF".
