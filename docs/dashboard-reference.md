@@ -101,7 +101,7 @@ Opened from the filter bar. Built from the current Academic year, Semester, Batc
 
 Overview text is kept minimal. KPI cards do not show the management action (it is listed in section 2 and in the Decision brief). Chart legends, formula footnotes and instructional captions are intentionally not shown in the UI.
 
-Branding: the product is named DeciSETE (logo `public/decisete-logo.png`; favicon and apple-touch icon are resized copies of it). The page heading "BSIT Program Dashboard" names the program reported on. The browser title is "DeciSETE | Program Dashboard" and the Decision brief eyebrow reads "DECISETE · DECISION BRIEF".
+Branding: the product is named DeciSETE (logo `public/decisete-logo.png`; the favicons are the mark only, with a transparent background and no white plate; the apple-touch icon is a resized copy of the logo). The page heading "BSIT Program Dashboard" names the program reported on. The browser title is "DeciSETE | Program Dashboard" and the Decision brief eyebrow reads "DECISETE · DECISION BRIEF".
 
 "Print dashboard" prints the Overview block on one colored long bond page (13 x 8.5 in, landscape): header with scope, alert strip, five KPI cards, the three-chart row and the attention list (shrunk to fit one page). Detail sections and the filter bar are hidden in print. The Decision brief prints separately as a portrait 8.5 x 13 in document.
 
