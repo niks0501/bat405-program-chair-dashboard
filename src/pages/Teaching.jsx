@@ -3,7 +3,6 @@ import { Card, Chart, Table, Status } from '../components/UI.jsx';
 import { dataset, percent, terms } from '../data.js';
 
 export default function Teaching({ data, onTerm, onSelect, dept }) {
-  const [mode, setMode] = useState('score');
   const [selectedCode, setSelectedCode] = useState(null);
   const snapshots=Array.from({length:6},(_,i)=>dataset(String(2023+Math.floor(i/2)),String(i%2+1),'all',dept));
   const full=snapshots[data.term];
@@ -12,16 +11,15 @@ export default function Teaching({ data, onTerm, onSelect, dept }) {
   const selected=rows.find(r=>r.code===selectedCode)||rows[0];
   const low=full.sections.filter(r=>r.valid/r.eligible*100<70);
   const published=full.sections.filter(r=>r.valid>=10);
-  const scoreMode=mode==='score';
   const prior=snapshots[data.term-1];
   return <div className="teaching-page courses-page">
     <div className="courses-intro"><div><span className="section-kicker">TEACHING EVALUATION</span><h2>Read the feedback. Understand the context.</h2><p>Explore SETE results alongside participation, with section-level context.</p></div><span className="courses-benchmark">{dept==='all'?'All departments':dept} <b>SETE</b></span></div>
-    {participation<70&&<div className="teaching-participation-warning"><span aria-hidden="true">!</span><div><strong>Participation is below the 70% target.</strong><p>Read the score with caution. The responses may not represent every eligible student's experience.</p></div><button onClick={()=>setMode('response')}>View participation <span aria-hidden="true">↗</span></button></div>}
+    {participation<70&&<div className="teaching-participation-warning"><span aria-hidden="true">!</span><div><strong>Participation is below the 70% target.</strong><p>Read the score with caution. The responses may not represent every eligible student's experience.</p></div><button onClick={()=>onSelect('response')}>View participation <span aria-hidden="true">↗</span></button></div>}
     <div className="teaching-analysis-grid">
-      <Card title={scoreMode?'Teaching score over time':'Participation over time'} subtitle={`Six-term view · ${dept==='all'?'all departments':dept}`} action={<div className="teaching-mode" aria-label="Evaluation chart view">{[['score','Score'],['response','Participation']].map(([key,label])=><button key={key} className={mode===key?'selected':''} aria-pressed={mode===key} onClick={()=>setMode(key)}>{label}</button>)}</div>}>
-        <div className="teaching-chart-headline"><div><strong>{percent(scoreMode?full.teaching:participation)}</strong><span>{scoreMode?'Response-weighted SETE score':'Completed eligible evaluations'}</span></div><Status value={scoreMode?full.teaching:participation} target={scoreMode?80:70}/></div>
-        <Chart series={[{label:scoreMode?'Weighted SETE score':'Response rate',values:snapshots.map(d=>scoreMode?d.teaching:d.valid/d.evaluations*100)}]} selected={data.term} onSelect={onTerm} min={scoreMode?70:50} max={scoreMode?90:100} target={scoreMode?80:70}/>
-        <p className="course-panel-note">Select a term to update the dashboard. The Department filter applies to these results. The Batch filter does not, and the Status filter only changes the sections table.</p>
+      <Card title="Response-weighted SETE score" subtitle={`Six-term view · ${dept==='all'?'all departments':dept}`}>
+        <div className="teaching-chart-headline"><div><strong>{percent(full.teaching)}</strong><span>{full.valid} valid responses · {percent(participation)} participation</span></div><Status value={full.teaching} target={80}/></div>
+        <Chart series={[{label:'Weighted SETE score',values:snapshots.map(d=>d.teaching)}]} selected={data.term} onSelect={onTerm} min={70} max={90} target={80}/>
+        <p className="course-panel-note">Select a term to update the dashboard. Not a sole measure of teaching effectiveness. The Department filter applies to these results. The Batch filter does not, and the Status filter only changes the sections table.</p>
       </Card>
       <aside className="teaching-inspector" aria-label="Selected section details" aria-live="polite"><span className="section-kicker">SECTION SPOTLIGHT</span>{selected?<><h3>{selected.code}</h3><span className="teaching-term">{terms[data.term]}</span><div className="teaching-section-score"><strong>{selected.valid<10?'Suppressed':percent(selected.score)}</strong><span>section SETE score</span></div><Status value={selected.valid<10?null:selected.score} target={80}/><div className="teaching-response-detail"><div><span>Participation</span><b>{percent(selected.valid/selected.eligible*100)}</b></div><div className="continuation-track"><span style={{width:`${selected.valid/selected.eligible*100}%`}}/></div><p>{selected.valid} valid responses / {selected.eligible} eligible evaluations</p></div><div className="teaching-section-note"><strong>{selected.valid<10?'Score withheld':selected.valid/selected.eligible*100<70?'Limited participation':'Read with context'}</strong><p>{selected.valid<10?'Fewer than 10 valid responses. The section score is not displayed.':selected.valid/selected.eligible*100<70?'Participation is below 70%. Consider who may not have responded before interpreting the score.':'Consider response rates and other evidence when interpreting student-reported experience.'}</p></div><button className="inspector-action" onClick={()=>onSelect('teaching')}>Open evaluation records <span aria-hidden="true">↗</span></button></>:<div className="course-empty">No sections match the current status. Try All statuses.</div>}</aside>
     </div>
