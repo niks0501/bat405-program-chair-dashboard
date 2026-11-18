@@ -66,21 +66,21 @@ Grade submission by department: expected sets are split by the department's shar
 
 ### Chart colors
 
-Charts use a neutral palette so red keeps its meaning as a warning. Tokens live in `src/refinements.css` (`--chart-*`); the line series colors are in `Chart` in `src/components/UI.jsx`.
+Blue is data, green/amber/red is status against target, gray is reference. The brand crimson stays in the navigation, buttons and badges and is not used for chart data. Tokens live in `src/refinements.css` (`--chart-*`); line series colors are in `Chart` in `src/components/UI.jsx`.
 
 | Token | Hex | Use |
 |---|---|---|
-| `--chart-1` Graphite | `#374151` | Primary series, bar fills that meet target, KPI sparklines, legend dots, focus accent |
-| `--chart-2` Slate | `#64748b` | Second series |
-| `--chart-3` Steel mist | `#94a3b8` | Third series |
-| `--chart-4` Stone | `#cbd5e1` | Fourth series. Use for fills only, not text |
-| `--chart-grid` | `#e5e7eb` | Gridlines |
-| `--chart-target` | `#9ca3af` | Dashed target line |
-| `--chart-band` | `#f3f4f6` | Selected term band and focused or selected bar row |
-| `--chart-ref` | `#6b7280` | Hover reference line and chart focus outline |
-| `--chart-alert` Crimson | `#991b2b` | Only bars below target (course pass rate under 85%). Never a normal series color |
+| `--chart-1` Blue | `#2b6cb0` | Main series, KPI sparklines, legend dots, focus accent |
+| `--chart-2` Light blue | `#7fa8d4` | Second series |
+| `--chart-3` Pale blue | `#a9c4e2` | Third series |
+| `--chart-4` Slate blue | `#5b7392` | Fourth series |
+| `--chart-ok` Green | `#2f855a` | At or above target |
+| `--chart-watch` Amber | `#d69e2e` | Below target by up to 5 points |
+| `--chart-risk` Red | `#b1263b` | More than 5 points below target |
+| `--chart-grid` / `--chart-target` | `#e5e7eb` / `#9ca3af` | Gridlines / dashed target line |
+| `--chart-band` | `#eef4fb` | Selected term band, focused or selected bar row |
 
-Multiple series are also told apart by dash style, not by color alone. The brand red remains in the navigation, buttons and status badges.
+Status colors use the same thresholds as the Status badges (on track >= target, watch within 5 points, at risk beyond). They apply to: course pass-rate bars (target 85%), the retention continuation bar (90%) and the KPI card progress bars (each KPI's own target). On line charts the line stays blue, and points below target change shape as well as color (circle on target, diamond for watch, triangle for at risk), so status never depends on color alone. Several series are also separated by dash style.
 
 The scope chips in the Teaching, Retention and Records sections show what the filters currently cover (for example "Computer Science · SETE", or "Batch 2024 · All departments" on Records).
 
