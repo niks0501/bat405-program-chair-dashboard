@@ -118,7 +118,7 @@ jobs:
         env:
           # The unique deployment URL is behind Vercel Deployment Protection and
           # answers with a login page. The production domain is public.
-          PRODUCTION_URL: https://bat405-program-chair-dashboard.vercel.app
+          PRODUCTION_URL: https://decisete.vercel.app
         shell: bash
         run: |
           asset="$(grep -o 'assets/index-[^"]*\.js' .vercel/output/static/index.html | head -1)"
