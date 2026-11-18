@@ -61,9 +61,9 @@ The dashboard has three charts. Each appears twice: as a compact version in the 
 
 | Chart | Computation |
 |---|---|
-| Course outcomes (bars, Course outcomes section; Overview shows the lowest 6) | Pass rate per course = passed / attempts x 100, sorted lowest first. Marker at 85%. On the Overview, clicking a bar sets the course focus (cross-filter) |
+| Course outcomes (bars, Course outcomes section; Overview shows all courses, lowest first, filling the card height) | Pass rate per course = passed / attempts x 100, sorted lowest first. Marker at 85%. On the Overview, clicking a bar sets the course focus (cross-filter) |
 | Retention (line, Retention section) | Default: one program-wide line. Per term: sum(enrolled) / sum(eligible) over batches matching the Batch and Department filters. The "Compare batches" toggle replaces it with one line per batch. Y axis starts at 80% (a truncated axis, acceptable for a line chart). Target line at 90% |
-| SETE score (line, Teaching evaluation section) | Per term: response-weighted score (KPI 4). Y axis 70-90%. Target line at 80%. The Overview versions of the retention and SETE lines are the program-wide series only (no Compare batches toggle, no term buttons); clicking a point still changes the term. Participation is shown beside the score and in the sections table, not as a second chart |
+| SETE score (line, Teaching evaluation section) | Per term: response-weighted score (KPI 4). Y axis 70-90%. Target line at 80%. The Overview versions of the retention and SETE lines are the program-wide series only (no Compare batches toggle, no term buttons); clicking a point still changes the term. Each Overview chart card has an Enlarge button that opens the chart in a floating modal (Escape, the close button or a click outside closes it): the course bars add full course names and the gap to target, and the two lines show the full chart with legend and term buttons. Participation is shown beside the score and in the sections table, not as a second chart |
 
 KPI cards show the value, change vs the prior term, target and supporting counts only; they have no sparkline or progress bar. The Overview chart row is not a second row of KPI cards: each chart card repeats a headline value already shown in the five KPI cards.
 
