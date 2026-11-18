@@ -57,15 +57,15 @@ Grade submission by department: expected sets are split by the department's shar
 
 ## 5. Charts
 
-The dashboard has three charts, one each in Course outcomes, Retention and Teaching evaluation. The Overview has none.
+The dashboard has three charts. Each appears twice: as a compact version in the one-page Overview (so the one-page dashboard contains all three visualizations) and as the full version in its detail section (Course outcomes, Retention, Teaching evaluation). Both versions use the same data and the same filters.
 
 | Chart | Computation |
 |---|---|
-| Course outcomes (bars, Course outcomes section) | Pass rate per course = passed / attempts x 100, sorted lowest first. Marker at 85% |
+| Course outcomes (bars, Course outcomes section; Overview shows the lowest 6) | Pass rate per course = passed / attempts x 100, sorted lowest first. Marker at 85%. On the Overview, clicking a bar sets the course focus (cross-filter) |
 | Retention (line, Retention section) | Default: one program-wide line. Per term: sum(enrolled) / sum(eligible) over batches matching the Batch and Department filters. The "Compare batches" toggle replaces it with one line per batch. Y axis starts at 80% (a truncated axis, acceptable for a line chart). Target line at 90% |
-| SETE score (line, Teaching evaluation section) | Per term: response-weighted score (KPI 4). Y axis 70-90%. Target line at 80%. Participation is shown beside the score and in the sections table, not as a second chart |
+| SETE score (line, Teaching evaluation section) | Per term: response-weighted score (KPI 4). Y axis 70-90%. Target line at 80%. The Overview versions of the retention and SETE lines are the program-wide series only (no Compare batches toggle, no term buttons); clicking a point still changes the term. Participation is shown beside the score and in the sections table, not as a second chart |
 
-KPI cards show the value, change vs the prior term, target and supporting counts only; they have no sparkline or progress bar.
+KPI cards show the value, change vs the prior term, target and supporting counts only; they have no sparkline or progress bar. The Overview chart row is not a second row of KPI cards: each chart card repeats a headline value already shown in the five KPI cards.
 
 ### Chart colors
 
@@ -103,7 +103,7 @@ Overview text is kept minimal. KPI cards do not show the management action (it i
 
 Branding: the product is named DeciSETE (logo `public/decisete-logo.png`; favicon and apple-touch icon are resized copies of it). The page heading "BSIT Program Dashboard" names the program reported on. The browser title is "DeciSETE | Program Dashboard" and the Decision brief eyebrow reads "DECISETE · DECISION BRIEF".
 
-"Print dashboard" prints the Overview block on one colored long bond page (13 x 8.5 in, landscape): header with scope, alert strip, five KPI cards and the attention list. Detail sections and the filter bar are hidden in print. The Decision brief prints separately as a portrait 8.5 x 13 in document.
+"Print dashboard" prints the Overview block on one colored long bond page (13 x 8.5 in, landscape): header with scope, alert strip, five KPI cards, the three-chart row and the attention list (shrunk to fit one page). Detail sections and the filter bar are hidden in print. The Decision brief prints separately as a portrait 8.5 x 13 in document.
 
 ## 8. Privacy and access
 
