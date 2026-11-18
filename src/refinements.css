@@ -209,17 +209,45 @@ main>.topnav{top:-34px}
 .overview-chart-card .chart{display:block;width:100%;height:auto;max-height:none;margin:0;padding:0}
 .mini-headline{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
 .mini-headline strong{font-size:26px;font-weight:650;letter-spacing:-.5px;color:#374151}
-.mini-bars{display:flex;flex-direction:column;gap:2px}
+.mini-bars{display:flex;flex-direction:column;gap:2px;flex:1}
+.mini-bars>.mini-bar{flex:1 1 0;min-height:30px}
 .mini-bar{display:grid;grid-template-columns:64px minmax(30px,1fr) 52px;gap:10px;align-items:center;width:100%;padding:6px 6px;border:0;border-radius:6px;background:transparent;font:inherit;cursor:pointer;text-align:left}
 .mini-bar:hover,.mini-bar:focus-visible{background:var(--chart-band)}
 .mini-bar.is-focused{background:var(--chart-band);box-shadow:inset 3px 0 0 var(--chart-1)}
 .mini-bar b{font-size:13px;color:#374151}
+.mini-name{display:flex;flex-direction:column;min-width:0}
+.mini-bar em{font-style:normal;font-size:13px}
+.mini-bar em.gap-below{color:#b1263b}.mini-bar em.gap-above{color:#2f855a}
 .mini-bar strong{font-size:13px;text-align:right;font-variant-numeric:tabular-nums;color:#374151}
 .mini-track{position:relative;height:8px;border-radius:20px;background:#f3f4f6}
 .mini-track>span{display:block;height:100%;border-radius:20px}
 .mini-track>span.is-met{background:var(--chart-ok)}.mini-track>span.is-watch{background:var(--chart-watch)}.mini-track>span.is-risk{background:var(--chart-risk)}
 .mini-track>i{position:absolute;left:85%;top:-3px;width:1px;height:14px;background:var(--chart-target)}
-.mini-note{margin:auto 0 0;padding-top:8px;font-size:12px;color:#6b7280}
+.mini-note{margin:12px 0 0;font-size:13px;color:#6b7280}
+.mini-headline>span:not(.status){flex:1;font-size:12px;color:#6b7280;line-height:1.4}
+.expand-btn{display:inline-grid;place-items:center;width:32px;height:32px;padding:0;border-radius:8px;color:#6b7280;border:1px solid #e5e7eb;background:#fff;cursor:pointer}
+.expand-btn svg{width:16px;height:16px}
+.expand-btn:hover{color:#991b2b;background:#fff1f2;border-color:#e797a4}
+.overview-chart-card .card-heading{align-items:flex-start;gap:8px}
+.overview-chart-card .card-actions{flex:none}
+.chart-modal-overlay{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:24px 16px;background:#1f1216b3;overflow-y:auto}
+.chart-modal{width:min(1040px,100%);max-height:calc(100dvh - 48px);overflow-y:auto;background:#fff;border-radius:12px;padding:24px 32px 28px;box-shadow:0 20px 60px #0006;color:#1f2937}
+.chart-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
+.chart-modal-head h2{font-size:22px;margin:0}
+.chart-modal-head p{margin:6px 0 0;color:#6b7280;font-size:14px}
+.chart-modal-close{width:36px;height:36px;padding:0;font-size:22px;line-height:1;border-radius:8px;flex:none}
+.chart-modal .mini-headline strong{font-size:34px}
+.chart-modal .mini-headline>span:not(.status){font-size:14px}
+.chart-modal .chart{width:100%;height:auto;max-height:none}
+.chart-modal .chart-legend,.chart-modal .term-buttons{justify-content:flex-start}
+.chart-modal .mini-bars.is-big .mini-bar{grid-template-columns:minmax(150px,230px) minmax(60px,1fr) 70px 80px;padding:10px 8px;gap:16px}
+.chart-modal .mini-bar b{font-size:15px}.chart-modal .mini-bar small{font-size:13px;color:#6b7280;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chart-modal .mini-bar strong{font-size:16px}
+.chart-modal .mini-track{height:10px}
+@media(max-width:760px){.chart-modal{padding:18px 14px 22px}.chart-modal .mini-bars.is-big .mini-bar{grid-template-columns:minmax(80px,120px) minmax(30px,1fr) 56px;gap:10px}.chart-modal .mini-bar em{display:none}}
+@media print{.chart-modal-overlay,.expand-btn{display:none!important}}
 @media(max-width:1100px){.overview-refined .overview-charts{grid-template-columns:1fr}}
 @media print{#overview{zoom:.6!important}#overview .overview-chart-card .chart{max-width:64%;margin:0 auto}#overview .review-column-headings{display:none}#overview .review-item{padding-block:6px!important;min-height:0!important}#overview .overview-review-card .card-heading{margin-bottom:6px}#overview .overview-chart-card{padding:12px}#overview .mini-bar{padding:3px 6px}#overview .overview-charts{grid-template-columns:repeat(3,minmax(0,1fr))!important}#overview .mini-note{display:none}}
 @media print{#overview .overview-review-card{break-inside:avoid}#overview .review-scroll-region,#overview .review-queue{min-height:0!important;height:auto!important;max-height:none!important;overflow:visible!important}#overview .overview-review-card{padding-bottom:10px}}
+.chart-modal .mini-bars.is-big .mini-bar{flex:none;min-height:56px}
+.chart-modal .mini-name{gap:2px}
