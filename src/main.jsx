@@ -7,6 +7,7 @@ import './courses.css';
 import './retention.css';
 import './teaching.css';
 import './records.css';
+import './risk.css';
 import './motion.css';
 import './theme.css';
 import './refinements.css';

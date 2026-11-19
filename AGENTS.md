@@ -16,7 +16,8 @@ npm run build     # production build, must pass before committing
 
 - `src/App.jsx`: filters, focus (cross-filter) state, single-page sections, decision brief wiring.
 - `src/data.js`: sample records, `dataset()` calculations, `kpiGuide` (objective, target, data, management action, review period).
-- `src/pages/`: Overview (the one-page dashboard), Courses, Retention, Teaching, Records.
+- `src/pages/`: Overview (the one-page dashboard), Courses, Retention, Risk (at-risk students), Teaching, Records.
+- `src/risk.js`: static at-risk model parameters, scoring and the synthetic roster.
 - `src/components/`: top nav + scroll-top (`Sidebar.jsx`), `DecisionBrief.jsx`, charts/cards (`UI.jsx`), dropdown, tooltip.
 - `src/refinements.css`: latest layout, print and component overrides. Other CSS files are loaded in the order listed in `src/main.jsx`.
 - `docs/dashboard-reference.md`: how every number is computed. See below.
