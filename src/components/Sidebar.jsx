@@ -27,7 +27,7 @@ export default function Sidebar({ page }) {
     </a>
     <nav id="sidebar-navigation" aria-label="Main navigation">
       {navigation.map(([id, label]) => <a key={id} href={'#' + id} onClick={e => { e.preventDefault(); document.getElementById(id)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); history.replaceState(null, '', '#' + id); }} className={page === id ? 'active' : ''} aria-current={page === id ? 'page' : undefined}>
-        <Icon name={id}/><span className="nav-text">{label}</span>
+        <span className="nav-text">{label}</span>
       </a>)}
     </nav>
   </header>;

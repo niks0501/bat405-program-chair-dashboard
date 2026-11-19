@@ -8,7 +8,7 @@ Source of truth in code: `src/data.js` (records, formulas, `kpiGuide`), `src/pag
 
 - **Primary user:** Program Chair (tactical dashboard: department/program performance over medium-term periods).
 - **Purpose:** monitor program outcomes against targets, spot what is off target, and decide what to follow up. Every KPI is tied to an objective, a target, a data source and a management action.
-- **Layout:** the Overview block is the one-page dashboard (alert strip, five KPI cards, "Needs your attention" list; it has no charts). Courses, Retention, Teaching and Records are detail sections below it, reached from the top navigation or by clicking a card/bar.
+- **Layout:** the Overview block is the one-page dashboard (order: "Program status" heading, alert strip, the "Review first" list, one ruled row of the five KPIs, then the three chart cards). Courses, Retention, Teaching and Records are detail sections below it, reached from the top navigation or by clicking a card/bar.
 
 ## 2. KPIs
 
@@ -41,9 +41,11 @@ For a KPI with target `T` and value `V`:
 
 Additional warning: **SETE response under 70%** means SETE scores are indicative only. Raise participation first. A Teaching banner repeats this when participation is below 70%.
 
-The alert strip counts KPIs with `V < T` and names the largest gap. Percentage-point changes compare the same KPI across adjacent terms.
+The alert strip reads "N of 5 indicators below target" (KPIs with `V < T`, same count as the "on track" pill: 5 minus on-track), then adds the number of courses under the 85% pass target and the number of students flagged by the risk model when they apply. These are separate counts: the "Review first" list can show more rows than the KPI count because it also lists the flagged-student row and the course row. Percentage-point changes compare the same KPI across adjacent terms.
 
 ## 4. Filters and scope
+
+On screens 760px wide or narrower the filter panel is collapsed behind a "Filters" button (with a count of changed filters); the active filter chips stay visible.
 
 | Filter | Applies to |
 |---|---|
@@ -99,7 +101,7 @@ Section `#risk` (`src/pages/Risk.jsx`, model and sample roster in `src/risk.js`)
 - Scope: Batch and Department filters and the batch focus apply. Academic year, Semester and Status do not; scores always refer to the current term (25-26, 2nd semester). The roster covers continuing students per batch (same counts as Retention, 452 in total).
 - Panels: flagged students by batch (select to focus a batch), main factor counts (select to filter the list), and the prioritized student list with search, risk level filter, sort and "show more".
 - Support plan: rows can be added to a plan (stored in sessionStorage for the tab). "Export support plan" downloads the plan as CSV, or the current list when the plan is empty.
-- Overview: "Needs your attention" lists the flagged-student count first when it applies (and the Status filter is All or At risk). It is not a KPI card.
+- Overview: "Review first" (previously "Needs your attention") lists the flagged-student count first when it applies (and the Status filter is All or At risk). It is not a KPI card.
 - Decision brief: adds a key finding, a decision implication and a limitation about the flags.
 - The sample roster is generated deterministically in `src/risk.js` (seeded). It is synthetic. Student IDs are anonymous sample IDs, not real student numbers.
 
@@ -117,7 +119,7 @@ Overview text is kept minimal. KPI cards do not show the management action (it i
 
 Branding: the product is named DeciSETE (logo `public/decisete-logo.png`; the favicons are the mark only, with a transparent background and no white plate; the apple-touch icon is a resized copy of the logo). The page heading "BSIT Program Dashboard" names the program reported on. The browser title is "DeciSETE | Program Dashboard" and the Decision brief eyebrow reads "DECISETE · DECISION BRIEF".
 
-"Print dashboard" prints the Overview block on one colored long bond page (13 x 8.5 in, landscape): header with scope, alert strip, five KPI cards, the three-chart row and the attention list (shrunk to fit one page). Detail sections and the filter bar are hidden in print. The Decision brief prints separately as a portrait 8.5 x 13 in document.
+"Print dashboard" prints the Overview block on one colored long bond page (13 x 8.5 in, landscape): header with scope, alert strip, the attention list, the five-KPI row and the three-chart row (shrunk to fit one page). Detail sections and the filter bar are hidden in print. The Decision brief prints separately as a portrait 8.5 x 13 in document.
 
 ## 8. Privacy and access
 
@@ -135,3 +137,11 @@ Branding: the product is named DeciSETE (logo `public/decisete-logo.png`; the fa
 - The official SETE instrument, conversion and aggregation rules, and institutional benchmarks are not verified.
 - One term of change is not enough to establish a reliable trend.
 - Risk flags come from a model trained on synthetic data with labels from an assumed formula, so they are illustrative and not validated on real students.
+
+## Visual conventions (de-AI pass)
+
+- Type: IBM Plex Sans (Google Fonts, falls back to Arial), tabular figures everywhere. CSS sizes use one scale: 12, 14, 16, 20, 24, 32 and 40 px.
+- Colour: one brand maroon for chrome and actions; a single status ramp (green on track, amber watch, red at risk). Chart lines are neutral ink, not a second brand colour; the Target label sits in the right margin so it never overlaps the data line.
+- No accent bars: cards and alerts use full borders or tints, not one-sided stripes. Hover is a background tint, not a lift. The only scroll-triggered motion is the retention line draw.
+- Reduced motion: animations stop; colour, border and opacity transitions stay so state changes remain visible.
+- Section eyebrow labels were removed; headings carry the section.

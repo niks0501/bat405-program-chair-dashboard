@@ -53,7 +53,7 @@ tbody tr{transition:background-color var(--motion-fast) ease}
 .workspace>.hover-sidebar nav a,.workspace>.hover-sidebar:not(:hover):not(:focus-within) nav a{width:220px}
 }
 @media(prefers-reduced-motion:reduce){
-*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+*,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition-property:background-color,border-color,color,opacity!important}
 .overview-page .metric:hover,.overview-refined .metric:hover{transform:none}
 .inspector-action:hover>span,.text-action:hover>span,.review-item>button:hover>span,.notes-closing button:hover>span{transform:none}
 }
@@ -73,13 +73,8 @@ tbody tr{transition:background-color var(--motion-fast) ease}
 @keyframes retention-draw{from{stroke-dasharray:1000;stroke-dashoffset:1000}to{stroke-dasharray:1000;stroke-dashoffset:0}}
 @keyframes chart-dot-reveal{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:no-preference){
-.overview-refined [data-motion="pending"]{opacity:0}
-.overview-refined [data-motion="visible"]{animation:analytics-reveal 300ms var(--motion-ease) both}
-.overview-course-card[data-motion="visible"] .overview-bar{animation:analytics-reveal 240ms var(--motion-ease) both;animation-delay:var(--row-delay,0ms)}
-.overview-course-card[data-motion="visible"] .overview-bar-track>span{transform-origin:left center;animation:course-fill 600ms var(--motion-ease) both;animation-delay:var(--row-delay,0ms)}
 .overview-retention-card[data-motion="visible"] .chart polyline{animation:retention-draw 900ms var(--motion-ease) 100ms both}
 .overview-retention-card[data-motion="visible"] .chart circle{animation:chart-dot-reveal 250ms ease 650ms both}
-.overview-review-card[data-motion="visible"] .review-item{animation:analytics-reveal 280ms var(--motion-ease) both;animation-delay:var(--row-delay,0ms)}
 }
 @media(hover:hover) and (pointer:fine){
 .overview-course-card .overview-bar:hover .performance-rate b{color:#991b2b}
@@ -97,12 +92,12 @@ tbody tr{transition:background-color var(--motion-fast) ease}
 /* Exact values appear on hover or keyboard focus. */
 .overview-refined .overview-course-card .overview-bar{position:relative;overflow:visible}
 .course-hover-tip{position:absolute;left:8px;bottom:calc(100% + 5px);z-index:20;display:flex;flex-direction:column;gap:6px;width:max-content;max-width:min(350px,calc(100% - 16px));padding:12px 14px;background:#374151;color:white;border-radius:8px;box-shadow:0 5px 18px #1f293720;text-align:left;white-space:normal;opacity:0;visibility:hidden;transform:translateY(3px);pointer-events:none;transition:opacity 140ms ease,transform 140ms ease,visibility 140ms}
-.course-hover-tip strong{font-size:13px;line-height:1.6;font-weight:600}.course-hover-tip>span{font-size:12px;line-height:1.6;color:#e5e7eb}
+.course-hover-tip strong{font-size:14px;line-height:1.6;font-weight:600}.course-hover-tip>span{font-size:12px;line-height:1.6;color:#e5e7eb}
 .overview-bar:hover .course-hover-tip,.overview-bar:focus-visible .course-hover-tip{opacity:1;visibility:visible;transform:none}
 .overview-refined .overview-course-card{overflow:visible}
 .interactive-chart{position:relative;min-width:0;width:100%}
 .chart-hover-tip{position:absolute;top:0;transform:translate(-50%,-20%);z-index:10;min-width:180px;max-width:90%;padding:11px 13px;background:#374151;color:white;border-radius:8px;box-shadow:0 5px 18px #1f293720;pointer-events:none;animation:chart-dot-reveal 120ms ease}
-.chart-hover-tip>strong{display:block;font-size:13px;font-weight:600;margin-bottom:8px}.chart-hover-tip>span{display:flex;align-items:center;gap:7px;font-size:12px;line-height:1.8;color:#e5e7eb}.chart-hover-tip i{display:block;width:6px;height:6px;border-radius:50%;flex:none}.chart-hover-tip b{font-size:13px;margin-left:auto;color:white;white-space:nowrap}
+.chart-hover-tip>strong{display:block;font-size:14px;font-weight:600;margin-bottom:8px}.chart-hover-tip>span{display:flex;align-items:center;gap:7px;font-size:12px;line-height:1.8;color:#e5e7eb}.chart-hover-tip i{display:block;width:6px;height:6px;border-radius:50%;flex:none}.chart-hover-tip b{font-size:14px;margin-left:auto;color:white;white-space:nowrap}
 .chart-hit-area{cursor:pointer}.chart-hit-area:focus-visible{outline:2px solid #bd7b8c;outline-offset:-2px}
 @media(prefers-reduced-motion:reduce){.course-hover-tip{transition:none;transform:none}.chart-hover-tip{animation:none}}
 
@@ -110,7 +105,7 @@ tbody tr{transition:background-color var(--motion-fast) ease}
 
 /* Tooltips render at the document root, outside animated chart containers. */
 .floating-detail-tooltip{position:fixed;z-index:1000;pointer-events:none;box-sizing:border-box;width:max-content;max-width:min(320px,calc(100vw - 16px));display:flex;flex-direction:column;gap:6px;background:#374151;color:white;padding:12px 14px;border-radius:8px;box-shadow:0 5px 18px #1f293720;white-space:normal;text-align:left;transform:none;animation:none}
-.floating-detail-tooltip>strong{font-size:13px;font-weight:600;line-height:1.7}
+.floating-detail-tooltip>strong{font-size:14px;font-weight:600;line-height:1.7}
 .floating-detail-tooltip>span{font-size:12px;line-height:1.7;color:#e5e7eb}
 .floating-detail-tooltip b{color:white;font-weight:600}
 
@@ -118,43 +113,43 @@ tbody tr{transition:background-color var(--motion-fast) ease}
 .overview-review-card .review-queue{padding:4px 0}
 .overview-review-card .review-item{position:relative;border-radius:7px;transition:translate 180ms var(--motion-ease),box-shadow 180ms ease,background-color 180ms ease;translate:0 0}
 @media(hover:hover) and (pointer:fine){
-.overview-review-card .review-item:hover{translate:0 -3px;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+.overview-review-card .review-item:hover{translate:0 0;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
 }
-.overview-review-card .review-item:focus-within{translate:0 -3px;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+.overview-review-card .review-item:focus-within{translate:0 0;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
 @media(prefers-reduced-motion:reduce){.overview-review-card .review-item,.overview-review-card .review-item:hover,.overview-review-card .review-item:focus-within{translate:none;transition:none}}
 
 /* Course bars share the same in-place lift as priority table rows. */
 .overview-refined .overview-course-card .overview-bar{translate:0 0;transition:translate 180ms var(--motion-ease),box-shadow 180ms ease,background-color 180ms ease}
 @media(hover:hover) and (pointer:fine){
-.overview-refined .overview-course-card .overview-bar:hover{translate:0 -3px;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+.overview-refined .overview-course-card .overview-bar:hover{translate:0 0;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
 }
-.overview-refined .overview-course-card .overview-bar:focus-visible{translate:0 -3px;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+.overview-refined .overview-course-card .overview-bar:focus-visible{translate:0 0;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
 @media(prefers-reduced-motion:reduce){.overview-refined .overview-course-card .overview-bar,.overview-refined .overview-course-card .overview-bar:hover,.overview-refined .overview-course-card .overview-bar:focus-visible{translate:none;transition:none}}
 
 /* KPI hover feedback without resizing or tooltips. */
 .overview-refined .metric{transition:transform 180ms var(--motion-ease),border-color 180ms ease,box-shadow 180ms ease}
 .metric-link-arrow{display:inline-block;transition:transform 180ms var(--motion-ease)}
 @media(hover:hover) and (pointer:fine){
-.overview-refined .metric:hover{transform:translateY(-3px);border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
+.overview-refined .metric:hover{transform:none;border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
 .overview-refined .metric:hover .metric-link-arrow{transform:translateX(4px)}
 }
-.overview-refined .metric:focus-visible{transform:translateY(-3px);border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
+.overview-refined .metric:focus-visible{transform:none;border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
 .overview-refined .metric:focus-visible .metric-link-arrow{transform:translateX(4px)}
 @media(prefers-reduced-motion:reduce){.overview-refined .metric,.metric-link-arrow{transition:none}.overview-refined .metric:hover,.overview-refined .metric:focus-visible,.overview-refined .metric:hover .metric-link-arrow,.overview-refined .metric:focus-visible .metric-link-arrow{transform:none}}
 
 /* Course Outcomes comparison rows match the Overview course hover. */
 .course-outcomes-page .course-chart-row{position:relative;translate:0 0;transition:translate 180ms var(--motion-ease),box-shadow 180ms ease,background-color 180ms ease,border-color 180ms ease}
 @media(hover:hover) and (pointer:fine){
-.course-outcomes-page .course-chart-row:hover{translate:0 -3px;background:#fff;border-color:transparent;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+.course-outcomes-page .course-chart-row:hover{translate:0 0;background:#fff;border-color:transparent;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
 }
-.course-outcomes-page .course-chart-row:focus-visible{translate:0 -3px;background:#fff;border-color:transparent;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+.course-outcomes-page .course-chart-row:focus-visible{translate:0 0;background:#fff;border-color:transparent;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
 @media(prefers-reduced-motion:reduce){.course-outcomes-page .course-chart-row,.course-outcomes-page .course-chart-row:hover,.course-outcomes-page .course-chart-row:focus-visible{translate:none;transition:none}}
 
 /* Course records use the same quiet row lift as the comparison chart. */
 .course-outcomes-page .table-wrap{padding:4px 0}
 .course-outcomes-page tbody tr{position:relative;translate:0 0;transition:translate 180ms var(--motion-ease),box-shadow 180ms ease,background-color 180ms ease}
 @media(hover:hover) and (pointer:fine){
-.course-outcomes-page tbody tr:hover{translate:0 -3px;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
+.course-outcomes-page tbody tr:hover{translate:0 0;background:#fff;box-shadow:0 6px 18px #1f293710,inset 0 0 0 1px #eadde3;z-index:2}
 }
 @media(prefers-reduced-motion:reduce){.course-outcomes-page tbody tr,.course-outcomes-page tbody tr:hover{translate:none;transition:none}}
 
@@ -162,9 +157,9 @@ tbody tr{transition:background-color var(--motion-fast) ease}
 .records-page .records-categories>button{translate:0 0;transition:translate 180ms var(--motion-ease),border-color 180ms ease,box-shadow 180ms ease,background-color 180ms ease}
 .records-page .records-categories .category-arrow{display:inline-block;transition:transform 180ms var(--motion-ease),color 180ms ease}
 @media(hover:hover) and (pointer:fine){
-.records-page .records-categories>button:hover{translate:0 -3px;background:#fff;border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
+.records-page .records-categories>button:hover{translate:0 0;background:#fff;border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
 .records-page .records-categories>button.is-active:hover{background:#fff5f7;border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
 .records-page .records-categories>button:hover .category-arrow{transform:translate(2px,-2px);color:#991b2b}
 }
-.records-page .records-categories>button:focus-visible{translate:0 -3px;border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
+.records-page .records-categories>button:focus-visible{translate:0 0;border-color:#991b2b;box-shadow:0 8px 20px #991b2b12}
 @media(prefers-reduced-motion:reduce){.records-page .records-categories>button,.records-page .records-categories .category-arrow{transition:none}.records-page .records-categories>button:hover,.records-page .records-categories>button:focus-visible{translate:none}.records-page .records-categories>button:hover .category-arrow{transform:none}}
