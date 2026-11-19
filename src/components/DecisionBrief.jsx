@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { dataset, percent, terms, kpiGuide } from '../data.js';
+import { riskView, riskLine, factors } from '../risk.js';
 
 const ordinal = s => (s === '1' ? '1st' : '2nd');
 const gapText = (v, t) => (v == null ? 'No data' : `${Math.abs(v - t).toFixed(1)} pts ${v >= t ? 'above' : 'below'}`);
@@ -20,11 +21,13 @@ export function buildBrief(filters) {
   const lowBatches = d.cohorts.filter(r => r.enrolled / r.eligible * 100 < 90).sort((a, b) => a.enrolled / a.eligible - b.enrolled / b.eligible);
   const suppressed = d.sections.filter(s => s.valid < 10).length;
 
+  const risk = riskLine(riskView({ cohort, dept }));
   const findings = [`${onTrack.length} of ${rows.length} indicators meet their targets.`];
   if (off[0]) findings.push(`The largest gap is ${off[0].label} at ${percent(off[0].value)}, ${gapText(off[0].value, off[0].target)} its ${off[0].target}% target.`);
   if (lowCourses.length) findings.push(`${lowCourses.length} of ${d.rows.length} courses are below the 85% pass-rate target, lowest: ${lowCourses.slice(0, 3).map(r => `${r.code} (${percent(r.passed / r.attempts * 100)})`).join(', ')}.`);
   if (lowBatches.length) findings.push(`${lowBatches.length} of ${d.cohorts.length} batches are below the 90% retention target, lowest: ${lowBatches.slice(0, 3).map(r => `Batch ${r.cohort} (${percent(r.enrolled / r.eligible * 100)})`).join(', ')}.`);
   if (!off.length) findings.push('No indicator is below target in this scope.');
+  if (risk) findings.push(`The risk model flags ${risk.flagged} of ${risk.total} continuing students (${risk.high} high risk)${risk.topFactor ? `; the most common main factor is ${factors[risk.topFactor.key].phrase}` : ''}${risk.topBatch ? `, and Batch ${risk.topBatch.batch} has the most flagged students` : ''}.`);
 
   const interpretation = rows.map(m => {
     const move = m.change == null ? 'no prior-term comparison is available' : Math.abs(m.change) < 0.05 ? 'unchanged from the prior term' : `${m.change > 0 ? 'up' : 'down'} ${Math.abs(m.change).toFixed(1)} pts from the prior term`;
@@ -37,6 +40,7 @@ export function buildBrief(filters) {
     if (m.key === 'retention' && lowBatches.length) extra = ` Start with ${lowBatches.slice(0, 2).map(r => 'Batch ' + r.cohort).join(' and ')}.`;
     return `${m.label} (${m.period.toLowerCase()}): ${kpiGuide[m.key].decision}${extra}`;
   });
+  if (risk && risk.flagged) actions.push(`At-risk students (every semester): Have advisers review the ${risk.high} high-risk students first, then the other ${risk.flagged - risk.high} flagged students${risk.topFactor ? `, and plan support around ${factors[risk.topFactor.key].phrase}` : ''}. Use the At-risk students section to build the support plan.`);
   if (!actions.length) actions.push('No follow-up is required. Keep monitoring at the usual review periods.');
 
   const limits = [
@@ -45,6 +49,7 @@ export function buildBrief(filters) {
     'The SETE formula, instrument and benchmarks need institutional verification before official use.',
     'Figures come from the aggregate records in this dashboard. No student or instructor identities are included.',
   ];
+  if (risk) limits.push('Risk flags come from a statistical model trained on synthetic data. They show who may need support, not why, and each case needs adviser review.');
   if (suppressed) limits.splice(2, 0, `${suppressed} section${suppressed === 1 ? '' : 's'} with fewer than 10 valid responses ${suppressed === 1 ? 'is' : 'are'} suppressed.`);
   if (!d.cohorts.length) limits.splice(2, 0, 'No batch has an eligible continuing population in this term, so retention cannot be computed.');
 

@@ -5,7 +5,8 @@ A frontend-only React + Vite dashboard for the BAT 405 academic project at Batan
 ## Features
 
 - One-page Overview: alert strip, five KPI cards, a compact row of the three charts (course pass rate, retention, SETE; each can be enlarged into a modal) and a review list, printable on long bond paper; full charts live in the Course outcomes, Retention and Teaching sections
-- Detail sections below it: Course Outcomes, Retention, Teaching Evaluation and Records, reached from the top navigation
+- Detail sections below it: Course Outcomes, Retention, At-risk students, Teaching Evaluation and Records, reached from the top navigation
+- At-risk students: applies the static Part IV risk model (logistic regression) to a synthetic roster, flags who needs support first, shows the main factors, and builds an exportable support plan
 - Department, batch, term and status filters, click-to-focus cross-filtering and a one-page Decision brief
 - Sticky top navigation with a back-to-top button, responsive pages, keyboard controls and reduced-motion support
 - Browser-tab filter persistence
@@ -31,7 +32,8 @@ Open the local URL printed by Vite.
 
 ## Source structure
 
-- `src/pages/`: the Overview dashboard and four detail sections
+- `src/pages/`: the Overview dashboard and five detail sections
+- `src/risk.js`: the fitted risk model parameters, scoring and synthetic sample roster
 - `src/components/`: top navigation, decision brief, dropdowns, charts, tables and tooltips
 - `src/data.js`: synthetic sample records and calculations
 - `src/*.css`: shared theme, motion and page layouts

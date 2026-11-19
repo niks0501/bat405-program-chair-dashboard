@@ -89,11 +89,25 @@ The scope chips in the Teaching, Retention and Records sections show what the fi
 
 Clicking a point or term button on a line chart changes the selected academic year and semester for the whole page.
 
+## 5a. At-risk students (risk model)
+
+Section `#risk` (`src/pages/Risk.jsx`, model and sample roster in `src/risk.js`). It shows how the Part IV at-risk model supports the Program Chair's decisions. The model is static: it was trained once (run 2026-11-19, logistic regression on synthetic data) and the dashboard only applies it.
+
+- Scoring: for each student, missing inputs are replaced by the training median, standardized with the training mean and scale, and passed through the fitted logistic regression (intercept and coefficients copied from the trained pipeline in `MODEL`). Features: year level, previous GWA, failed or INC subjects, units enrolled, repeated subjects. Score = estimated chance of falling behind.
+- Flag thresholds: 20% or higher is flagged (the model's alert threshold); 50% or higher is High risk, 20-49% is Elevated.
+- Main factors per student: the factors that push the score up most (coefficient x standardized value), up to three, among previous GWA, failed or INC subjects, repeated subjects and units enrolled. Each factor maps to a suggested support action.
+- Scope: Batch and Department filters and the batch focus apply. Academic year, Semester and Status do not; scores always refer to the current term (25-26, 2nd semester). The roster covers continuing students per batch (same counts as Retention, 452 in total).
+- Panels: flagged students by batch (select to focus a batch), main factor counts (select to filter the list), and the prioritized student list with search, risk level filter, sort and "show more".
+- Support plan: rows can be added to a plan (stored in sessionStorage for the tab). "Export support plan" downloads the plan as CSV, or the current list when the plan is empty.
+- Overview: "Needs your attention" lists the flagged-student count first when it applies (and the Status filter is All or At risk). It is not a KPI card.
+- Decision brief: adds a key finding, a decision implication and a limitation about the flags.
+- The sample roster is generated deterministically in `src/risk.js` (seeded). It is synthetic. Student IDs are anonymous sample IDs, not real student numbers.
+
 ## 6. Decision brief
 
 Opened from the filter bar. Built from the current Academic year, Semester, Batch and Department (the Status filter is ignored so the brief covers all KPIs). Sections: Purpose, Scope, Key findings, Evidence, Interpretation, Decision implications, Limitations.
-- Key findings: indicators on track, the largest gap, courses below 85% (lowest three), batches below 90% (lowest three).
-- Decision implications: one action per off-target KPI taken from section 2, plus the specific courses/batches to start with.
+- Key findings: indicators on track, the largest gap, courses below 85% (lowest three), batches below 90% (lowest three), and the number of students flagged by the risk model (section 5a).
+- Decision implications: one action per off-target KPI taken from section 2, plus the specific courses/batches to start with, and an at-risk students action when students are flagged.
 - Limitations include participation, suppressed sections, missing batch data, and that the SETE formula and benchmarks need institutional verification.
 - Print or save as PDF, or copy as text.
 
@@ -107,9 +121,9 @@ Branding: the product is named DeciSETE (logo `public/decisete-logo.png`; the fa
 
 ## 8. Privacy and access
 
-- Results are aggregated by course section. No student or instructor identities appear.
+- Results are aggregated by course section. No instructor identities appear. The at-risk list shows anonymous synthetic sample IDs only; a real deployment would need data-privacy approval and role-based access to student-level risk scores.
 - SETE scores for sections with fewer than 10 valid responses are suppressed ("Suppressed") and count as no data.
-- CSV exports contain only the displayed aggregates, following the active category, filters, search and sort.
+- CSV exports contain only the displayed records, following the active category, filters, search and sort. The support plan export contains anonymous sample IDs.
 - Do not use these indicators for automatic instructor rankings or personnel decisions.
 - A production system should add role-based access: Program Chair sees program-level results, instructors see only their own sections, the Dean sees the college roll-up.
 - The app has no backend, login or database. Filters persist only in the current browser tab (sessionStorage).
@@ -120,3 +134,4 @@ Branding: the product is named DeciSETE (logo `public/decisete-logo.png`; the fa
 - Some early terms have no eligible continuing population for newer batches, so retention shows no data there. Batch-to-year assignment is simplified.
 - The official SETE instrument, conversion and aggregation rules, and institutional benchmarks are not verified.
 - One term of change is not enough to establish a reliable trend.
+- Risk flags come from a model trained on synthetic data with labels from an assumed formula, so they are illustrative and not validated on real students.
