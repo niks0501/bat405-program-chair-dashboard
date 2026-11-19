@@ -22,16 +22,16 @@ export function Chart({series,selected,onSelect,min=70,max=100,target,compact=fa
   const [hover,setHover]=useState(null);
   const [cursor,setCursor]=useState(null);
   const end=compact?360:680,step=(end-50)/5,x=i=>50+i*step,y=v=>200-(v-min)/(max-min)*170;
-  const colors=['#2b6cb0','#7fa8d4','#a9c4e2','#5b7392'];
+  const colors=['#1f2937','#6b7280','#9ca3af','#4b5563'];
   const mark=(v)=>target==null||v>=target?'ok':v>=target-5?'watch':'risk';
   const statusColor={ok:null,watch:'#d69e2e',risk:'#b1263b'};
   const index=hover;
   return <><div className="interactive-chart" onMouseLeave={()=>{setHover(null);setCursor(null);}} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget))setHover(null)}}>
     {index!=null&&cursor&&<FloatingTooltip key={index} x={cursor.x} y={cursor.y}><strong>{terms[index]}</strong>{series.map(s=><span key={s.label}>{s.label}: <b>{percent(s.values[index])}</b></span>)}</FloatingTooltip>}
-    <svg className="chart" viewBox={`-22 0 ${end+84} ${compact?262:240}`} role="group" aria-label="Interactive term trend chart">
-      <rect x={x(selected)-12} y="20" width="24" height="180" rx="6" fill="#eef4fb"/>
+    <svg className="chart" viewBox={`-22 0 ${end+108} ${compact?262:240}`} role="group" aria-label="Interactive term trend chart">
+      <rect x={x(selected)-12} y="20" width="24" height="180" rx="6" fill="#eceef1"/>
       {[min,(min+max)/2,max].map(v=><g key={v}><line x1="50" x2={end} y1={y(v)} y2={y(v)} stroke="#e5e7eb"/><text x="36" y={y(v)+4} textAnchor="end">{v}%</text></g>)}
-      {target!=null&&<g><line x1="50" x2={end} y1={y(target)} y2={y(target)} stroke="#9ca3af" strokeDasharray="5 5"/><text x={end} y={y(target)-8} textAnchor="end">Target {target}%</text></g>}
+      {target!=null&&<g><line x1="50" x2={end} y1={y(target)} y2={y(target)} stroke="#9ca3af" strokeDasharray="5 5"/><text x={end+6} y={y(target)+4} textAnchor="start">Target {target}%</text></g>}
       {index!=null&&<line x1={x(index)} x2={x(index)} y1="20" y2="200" stroke="#6b7280" strokeDasharray="3 4"/>}
       {series.map((s,k)=><g key={s.label}><polyline pathLength="1000" fill="none" stroke={colors[k%4]} strokeWidth="3" strokeDasharray={k===1?'7 4':k===2?'2 4':k===3?'9 3 2 3':undefined} points={s.values.map((v,i)=>v==null?null:`${x(i)},${y(v)}`).filter(Boolean).join(' ')}/>{s.values.map((v,i)=>{if(v==null)return null;const st=mark(v),c=statusColor[st]||colors[k%4],r=index===i?6:4,sw=index===i?3:2,cx=x(i),cy=y(v);
         if(st==='watch')return <polygon key={i} points={`${cx},${cy-r-1.5} ${cx+r+1.5},${cy} ${cx},${cy+r+1.5} ${cx-r-1.5},${cy}`} fill="white" stroke={c} strokeWidth={sw}/>;

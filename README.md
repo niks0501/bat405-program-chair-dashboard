@@ -39,7 +39,7 @@ Open the local URL printed by Vite.
 - `src/*.css`: shared theme, motion and page layouts
 - `docs/dashboard-reference.md`: formulas, targets, thresholds, filters, charts and privacy notes (kept in sync with the code, see `AGENTS.md`)
 
-React renders charts using SVG. There are no external data APIs. An optional Google Fonts stylesheet falls back to system fonts when unavailable.
+React renders charts using SVG. There are no external data APIs. An optional Google Fonts stylesheet (IBM Plex Sans) falls back to system fonts when unavailable.
 
 ## Data limitations
 

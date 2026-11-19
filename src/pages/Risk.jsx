@@ -51,7 +51,7 @@ export default function Risk({ cohort, dept, focus, setFocus }) {
   const scopeLabel = `${cohort === 'all' ? 'All batches' : 'Batch ' + cohort} · ${dept === 'all' ? 'All departments' : dept}`;
 
   return <div className="risk-page courses-page">
-    <div className="courses-intro"><div><span className="section-kicker">AT-RISK STUDENTS</span><h2>Know who needs support first.</h2><p>The risk model scores every continuing student and flags those who may fall behind, so support can start before grades are final.</p></div><div className="intro-chips"><span className="courses-benchmark">Scored for <b>{scoredTerm}</b></span><span className="courses-benchmark">Flag at <b>{pct(MODEL.threshold)}+</b></span></div></div>
+    <div className="courses-intro"><div><h2>Know who needs support first.</h2><p>The risk model scores every continuing student and flags those who may fall behind, so support can start before grades are final.</p></div><div className="intro-chips"><span className="courses-benchmark">Scored for <b>{scoredTerm}</b></span><span className="courses-benchmark">Flag at <b>{pct(MODEL.threshold)}+</b></span></div></div>
 
     <div className="risk-analysis-grid">
       <Card title="Where support is needed" subtitle="Flagged students by batch · select a batch to focus the list" action={<span className="course-record-count">{view.flagged.length} flagged of {view.scope.length}</span>}>
@@ -65,7 +65,6 @@ export default function Risk({ cohort, dept, focus, setFocus }) {
       </Card>
 
       <aside className="risk-drivers" aria-label="Factors behind the flags">
-        <span className="section-kicker">WHY STUDENTS ARE FLAGGED</span>
         <h3>Main factor per student</h3>
         <p className="risk-drivers-lead">Select a factor to list the students it affects.</p>
         <div className="risk-driver-list">{view.byFactor.map(f => <button key={f.key} type="button" className={'risk-driver' + (factor === f.key ? ' is-focused' : '')} aria-pressed={factor === f.key} onClick={() => setFactor(x => x === f.key ? null : f.key)}>
