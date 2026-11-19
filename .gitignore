@@ -23,3 +23,8 @@ Thumbs.db
 .idea/
 .vercel
 .env*
+
+# Impeccable local state
+.claude/settings.local.json
+.impeccable/config.local.json
+.impeccable/audit/
